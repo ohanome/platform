@@ -10,9 +10,11 @@ version=$(php -v | grep "^PHP")
 echo "Linting against PHP version"
 echo $version
 
+failed=0
+
 for directory in 'modules' 'themes' 'profiles'
 do
-  for file in `cd web/$directory/custom && find .`
+  for file in `find web/$directory/custom`
   do
       EXTENSION="${file##*.}"
 
@@ -23,7 +25,12 @@ do
           if [ "$RESULTS" != "No syntax errors detected in $file" ]
           then
               echo $RESULTS
+              failed=1
           fi
       fi
   done
 done
+
+if [[ $failed != 0 ]]; then
+  exit 1;
+fi
