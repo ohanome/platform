@@ -1,0 +1,59 @@
+<?php
+namespace Deployer;
+
+require 'deployer-drupal9.php';
+
+// Project name
+set('application', 'ohano');
+
+// Project repository
+set('repository', 'git@github.com:ohanome/platform.git');
+
+// Hosts
+host('alpha')
+  ->hostname('ohano.me') #!
+  ->port(22) #!
+  ->stage('alpha')
+  ->set('deploy_path', '') #!
+  ->set('branch', 'alpha')
+  ->user('') #!
+  ->set('http_user', '') #!
+  //->set('bin/php', '/opt/plesk/php/8.1/bin/php')
+  ->identityFile('~/.ssh/id_rsa')
+  ->forwardAgent(true)
+  ->multiplexing(true)
+  ->addSshOption('UserKnownHostsFile', '/dev/null')
+  ->addSshOption('StrictHostKeyChecking', 'no')
+;
+
+host('beta')
+  ->hostname('ohano.me') #!
+  ->port(22) #!
+  ->stage('beta')
+  ->set('deploy_path', '') #!
+  ->set('branch', 'beta')
+  ->user('') #!
+  ->set('http_user', '') #!
+  //->set('bin/php', '/opt/plesk/php/8.1/bin/php')
+  ->identityFile('~/.ssh/id_rsa')
+  ->forwardAgent(true)
+  ->multiplexing(true)
+  ->addSshOption('UserKnownHostsFile', '/dev/null')
+  ->addSshOption('StrictHostKeyChecking', 'no')
+;
+
+host('main')
+  ->hostname('ohano.me') #!
+  ->port(22) #!
+  ->stage('main')
+  ->set('deploy_path', '') #!
+  ->set('branch', 'main')
+  ->user('') #!
+  ->set('http_user', '') #!
+  //->set('bin/php', '/opt/plesk/php/8.1/bin/php')
+  ->identityFile('~/.ssh/id_rsa')
+  ->forwardAgent(true)
+  ->multiplexing(true)
+  ->addSshOption('UserKnownHostsFile', '/dev/null')
+  ->addSshOption('StrictHostKeyChecking', 'no')
+;

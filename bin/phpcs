@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ ! -f "vendor/bin/phpcs" ]]; then
+  echo "PHP code sniffer could not be found. Make sure you have installed squizlabs/php_codesniffer."
+  exit 1
+fi
+
+if [[ ! -d "vendor/drupal/coder" ]]; then
+  echo "Drupal coding standard could not be found. Make sure you have installed drupal/coder."
+  exit 1
+fi
+
+vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
+vendor/bin/phpcs --standard=Drupal web/modules/custom
+vendor/bin/phpcs --standard=DrupalPractice web/modules/custom

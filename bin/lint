@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [[ ! $(command -v php) ]]; then
+  echo "PHP binary could not be found"
+  exit 1
+fi
+
+version=$(php -v | grep "^PHP")
+
+echo "Linting against PHP version"
+echo $version
+
+for directory in 'modules' 'themes' 'profiles'
+do
+  for file in `cd web/$directory/custom && find .`
+  do
+      EXTENSION="${file##*.}"
+
+      if [ "$EXTENSION" == "php" ] || [ "$EXTENSION" == "theme" ] || [ "$EXTENSION" == "module" ] || [ "$EXTENSION" == "profile" ]
+      then
+          RESULTS=`php -l $file`
+
+          if [ "$RESULTS" != "No syntax errors detected in $file" ]
+          then
+              echo $RESULTS
+          fi
+      fi
+  done
+done
