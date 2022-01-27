@@ -13,7 +13,7 @@ Repository für die Hauptplattform. Dieses Repository soll dabei helfen, zu vers
 ## Setup
 
 - Führe `composer install` aus um alle Abhängigkeiten zu installieren
-- Kopiere die Datei `.env.example` zu `.env` und trage dort deine lokalen MySQL-Daten ein (alle Variablen die mit `LOCAL_` anfangen)
+- Kopiere die Datei `.env.example` zu `.env` und trage dort deine lokalen MySQL-Daten ein
 - Navigiere in der Konsole zu `web/themes/custom/ohano-main` und führe `npm install` aus, dies kompiliert den SCSS-Code des Hauptthemes
 - Importiere das Datenbank-Abbild das dir vorliegt oder installiere Drupal neu
 - Logge dich unter `/user/login` ein
