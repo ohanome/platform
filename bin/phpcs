@@ -11,5 +11,24 @@ if [[ ! -d "vendor/drupal/coder" ]]; then
 fi
 
 vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
-vendor/bin/phpcs --standard=Drupal web/modules/custom
-vendor/bin/phpcs --standard=DrupalPractice web/modules/custom
+
+if [[ -d web/themes/custom ]]; then
+  vendor/bin/phpcs --standard=Drupal web/themes/custom
+  vendor/bin/phpcs --standard=DrupalPractice web/themes/custom
+else
+  echo "No custom themes found."
+fi
+
+if [[ -d web/modules/custom ]]; then
+  vendor/bin/phpcs --standard=Drupal web/modules/custom
+  vendor/bin/phpcs --standard=DrupalPractice web/modules/custom
+else
+  echo "No custom modules found."
+fi
+
+if [[ -d web/profiles/custom ]]; then
+  vendor/bin/phpcs --standard=Drupal web/profiles/custom
+  vendor/bin/phpcs --standard=DrupalPractice web/profiles/custom
+else
+  echo "No custom profiles found."
+fi
