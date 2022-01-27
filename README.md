@@ -62,7 +62,7 @@ Das Deployment wird mittels Deployer gehandhabt. Hierzu reicht der Befehl
 $ vendor/bin/dep deploy <env>
 ```
 
-Als <env> wird dann entweder `alpha`, `beta` oder `main` gewählt.
+Als `env` wird dann entweder `alpha`, `beta` oder `main` gewählt.
 
 Vor dem Deployment musst du allerdings noch die passenden Daten in der Datei `deploy.php` angeben, das machst du am einfachsten indem du die Datei [deploy.php.dist](./deploy.php.dist) kopierst und die mit `#!` markierten Stellen ausfüllst.
 
