@@ -46,7 +46,7 @@ set('clear_paths', [
 ]);
 
 task('deploy:update_code', function () {
-  run('git archive --remote {{repository}} --format tar {{branch}} | (cd {{release_path}} && tar xf -)');
+  run('git clone {{repository}} --depth=1 -b {{branch}} {{release_path}} && rm -rf {{release_path}}/.git');
 });
 
 /**
