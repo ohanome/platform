@@ -1,7 +1,7 @@
 <?php
 namespace Deployer;
 
-require 'vendor/deployer/deployer/recipe/drupal8.php';
+require 'recipe/drupal8.php';
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', false);
