@@ -38,9 +38,9 @@ Wenn du Teammitglied bist, gelten ein paar Regeln für das Bearbeiten des Codes:
 - `feature/*` - Feature-Branches welche für jeden Issue mit Tag `todo` angelegt werden.
 - `fix/*` - Diese Branches werden für Issues angelegt die das Tag `fixme` haben.
 
-Branches werden (abseits von `main`, `beta` und `alpha`) immer nach dem Issue benannt. Issues bekommen neben der Kategorisierung wie `todo` oder `fixme` noch ein Feature-Tag welches beschreibt, welches Feature betroffen ist, beispielsweise `user-profile`. Ein Issue mit dem Namen "Profilbild kann nicht hochgeladen werden" würde dann zum Branchnamen `fix/{ISSUE_ID}-user-profile--profile-image` werden. Gleiches gilt auch für Feature-Branches.
+Branches werden (abseits von `main`, `beta` und `alpha`) immer nach dem Issue benannt. Issues bekommen neben der Kategorisierung wie `todo` oder `fixme` noch ein Feature-Tag welches beschreibt, welches Feature betroffen ist, beispielsweise `user-profile`. Ein Issue mit dem Namen "Profilbild kann nicht hochgeladen werden" würde dann zum Branchnamen `fix/user-profile--profile-image` werden. Gleiches gilt auch für Feature-Branches.
 
-Wenn ein Feature gänzlich neu ist, wird der Branch nur `feature/{ISSUE_ID}-{FEATURE_NAME}` heißen.
+Wenn ein Feature gänzlich neu ist, wird der Branch nur `feature/{FEATURE_NAME}` heißen.
 
 Unser Workflow sieht wie folgt aus:
 
