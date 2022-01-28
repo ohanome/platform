@@ -4,6 +4,8 @@ config:
   webroot: ./web
 services:
   appserver:
+    type: php:8.1
+    via: apache:2.4
     xdebug: true
     overrides:
       environment:
