@@ -1,0 +1,8 @@
+name: ohano Starter
+type: profile
+core_version_requirement: ^9 || ^10
+
+distribution:
+  name: ohano
+  install:
+    theme: ohano_starter_theme
