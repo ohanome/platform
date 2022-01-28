@@ -6,6 +6,7 @@ services:
   appserver:
     type: php:8.1
     via: apache:2.4
+    composer_version: 2-latest
     xdebug: true
     overrides:
       environment:
