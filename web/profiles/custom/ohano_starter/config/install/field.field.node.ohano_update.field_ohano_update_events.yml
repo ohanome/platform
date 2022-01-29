@@ -1,0 +1,20 @@
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ohano_update_events
+    - node.type.ohano_update
+  module:
+    - text
+id: node.ohano_update.field_ohano_update_events
+field_name: field_ohano_update_events
+entity_type: node
+bundle: ohano_update
+label: Events
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

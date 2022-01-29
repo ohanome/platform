@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [[ ! -f "vendor/bin/phpcs" ]]; then
   echo "PHP code sniffer could not be found. Make sure you have installed squizlabs/php_codesniffer."
   exit 1
@@ -10,7 +12,7 @@ if [[ ! -d "vendor/drupal/coder" ]]; then
   exit 1
 fi
 
-vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
+vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer,vendor/slevomat/coding-standard,vendor/sirbrillig/phpcs-variable-analysis
 
 if [[ -d web/themes/custom ]]; then
   vendor/bin/phpcs --standard=Drupal web/themes/custom

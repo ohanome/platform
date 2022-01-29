@@ -1,0 +1,11 @@
+langcode: de
+name: ohano
+mail: hello@ohano.me
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: de
