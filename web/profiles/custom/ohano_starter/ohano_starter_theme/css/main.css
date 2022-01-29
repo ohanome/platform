@@ -37,6 +37,7 @@ body.install-page div.dialog-off-canvas-main-canvas div.layout-container form in
   padding: 0.5rem 1rem;
   border: none;
   background: #327bd5;
+  transition: .1s ease-in-out;
 }
 
 body.install-page div.dialog-off-canvas-main-canvas div.layout-container form input[type="submit"]:hover {
@@ -86,4 +87,25 @@ body.install-page .messages {
 
 body.install-page .messages--status {
   background-color: #defdcd;
+}
+
+.progress__track {
+  background-color: #ddd;
+  background-image: none;
+  box-shadow: none;
+  border-color: transparent;
+  height: .75em;
+}
+
+.progress__bar {
+  -webkit-animation: none;
+  -moz-animation: none;
+  background-color: #327bd5;
+  background-image: none;
+  height: .75em;
+  border-color: #327bd5;
+}
+
+.button--primary {
+  text-shadow: none;
 }
