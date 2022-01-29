@@ -18,7 +18,7 @@ do
   do
       EXTENSION="${file##*.}"
 
-      if [ "$EXTENSION" == "php" ] || [ "$EXTENSION" == "theme" ] || [ "$EXTENSION" == "module" ] || [ "$EXTENSION" == "profile" ]
+      if [ "$EXTENSION" == "php" ] || [ "$EXTENSION" == "theme" ] || [ "$EXTENSION" == "module" ] || [ "$EXTENSION" == "profile" ] || [ "$EXTENSION" == "install" ]
       then
           RESULTS=`php -l $file`
 
