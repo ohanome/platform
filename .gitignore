@@ -39,6 +39,7 @@
 /web/README.md
 /.idea
 *.sql
+*.sql.gz
 !bigcitymc.com.sql
 /.editorconfig
 /.gitattributes
