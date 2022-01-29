@@ -1,0 +1,60 @@
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.field.node.ohano_update.field_ohano_update_events
+    - field.field.node.ohano_update.field_ohano_update_foreword
+    - field.field.node.ohano_update.field_ohano_update_misc
+    - field.field.node.ohano_update.field_ohano_update_platform
+    - field.field.node.ohano_update.field_ohano_update_team
+    - node.type.ohano_update
+  module:
+    - text
+    - user
+id: node.ohano_update.default
+targetEntityType: node
+bundle: ohano_update
+mode: default
+content:
+  field_ohano_update_events:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_ohano_update_foreword:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_ohano_update_misc:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_ohano_update_platform:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_ohano_update_team:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
