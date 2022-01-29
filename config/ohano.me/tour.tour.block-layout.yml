@@ -1,0 +1,48 @@
+uuid: 11a977e1-e1c4-45df-ad0c-0684381a25ec
+langcode: de
+status: true
+dependencies:
+  module:
+    - block
+_core:
+  default_config_hash: DI2aQ7IbaYrwUfiwSn-3g-ANh_t7LzQ1JkRqd1ujgFs
+id: block-layout
+label: Blocklayout-Verwaltungsbereichsseite
+module: block
+routes:
+  -
+    route_name: block.admin_display
+tips:
+  block-layout:
+    id: block-layout
+    plugin: text
+    label: Blocklayout
+    weight: 1
+    body: 'Blöcke sind Boxen mit Inhalten, die in einem Abschnitt oder einem Bereich einer Webseite dargestellt werden, der in Regionen (z. B. Fußzeile oder Seitenleiste) auf der Website angezeigt werden können.'
+  place-block:
+    id: place-block
+    plugin: text
+    label: 'Blöcke platzieren'
+    weight: 2
+    selector: .button--small
+    body: 'Jeder benutzerdefinierte oder von einem Modul bereitgestellte Block kann zu einem bestimmten Abschnitt hinzugefügt werden, indem man auf die Schaltfläche Block platzieren klickt. Durch einen Klick auf Block platzieren, kann auch ein neuer Block erstellt werden.'
+  block-region:
+    id: block-region
+    plugin: text
+    label: Blockregion
+    weight: 3
+    selector: .block-region-select
+    body: 'Weisen Sie die Region eines Blocks zu oder ändern Sie diese, indem Sie hier klicken. Es erscheint eine Dropdown-Liste mit allen Regionen. Ein Block kann in mehreren Regionen platziert werden.'
+  configure-block:
+    id: configure-block
+    plugin: text
+    label: 'Block konfigurieren'
+    weight: 4
+    selector: .dropbutton-widget
+    body: 'Wenn Sie auf „Konfigurieren" klicken, können Sie den Inhalt des Blocks bearbeiten, Sichtbarkeitseinstellungen vornehmen und sogar die Position des Blocks im aktiven Theme ändern.'
+  custom-block-library:
+    id: custom-block-library
+    plugin: text
+    label: 'Bibliothek benutzerdefinierter Blöcke'
+    weight: 5
+    body: 'Die Seite Blockverwaltung hat am oberen Rand noch weitere Reiter,die zum hinzufpgen, von benutzerdefnierten Blöcken verwendet werden. Der Name der Registerkarte lautet „Bibliothek für benutzerdefinierte Blöcke". Diese Registerkarte enthält schließlich einen Link zum Hinzufügen benutzerdefinierter Blöcke.'

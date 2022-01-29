@@ -1,0 +1,21 @@
+uuid: beb3f990-dd25-4607-be56-cd5ea78be6c3
+langcode: de
+status: true
+dependencies:
+  enforced:
+    module:
+      - webform
+_core:
+  default_config_hash: YNrKbYrWWjeubUUM8AsQ19KnX7cU1elACR14CZJHmdg
+id: days
+label: Tage
+category: 'Date and time'
+likert: false
+options: |
+  Sonntag: Sonntag
+  Montag: Montag
+  Dienstag: Dienstag
+  Mittwoch: Mittwoch
+  Donnerstag: Donnerstag
+  Freitag: Freitag
+  Samstag: Samstag

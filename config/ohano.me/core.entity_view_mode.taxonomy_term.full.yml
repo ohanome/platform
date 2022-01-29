@@ -1,0 +1,12 @@
+uuid: 6447aec4-30db-439b-ab28-17019b2a9c2a
+langcode: de
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: '-PPKjsNQPvoIDjOuUAvlLocYD976MNjb9Zpgyz5_BWE'
+id: taxonomy_term.full
+label: 'Seite der Taxonomiebegriffe'
+targetEntityType: taxonomy_term
+cache: true

@@ -1,0 +1,30 @@
+uuid: 07900300-8d98-40e3-9d8c-2da18bdb5de3
+langcode: de
+status: true
+dependencies:
+  config:
+    - block_content.type.reusable_block
+    - field.field.block_content.reusable_block.body
+  module:
+    - gutenberg
+  enforced:
+    module:
+      - gutenberg
+_core:
+  default_config_hash: 9vBjDDeqVW65qQtARcVASG3ZEzi00zT4hQEL35gZdUs
+id: block_content.reusable_block.default
+targetEntityType: block_content
+bundle: reusable_block
+mode: default
+content:
+  body:
+    type: gutenberg_text
+    label: hidden
+    settings:
+      format: gutenberg
+      content_only: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

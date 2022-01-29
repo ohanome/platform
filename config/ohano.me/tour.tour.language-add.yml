@@ -1,0 +1,34 @@
+uuid: ecf83765-9a76-4179-b0bc-efd6c25f894a
+langcode: de
+status: true
+dependencies:
+  module:
+    - language
+_core:
+  default_config_hash: vcDd9H0uIlyOQGoVAJuD3ADMnQeRR_X3B-ojyb8Cbnc
+id: language-add
+label: 'Sprachen hinzufügen'
+module: language
+routes:
+  -
+    route_name: language.add
+tips:
+  language-add-overview:
+    id: language-add-overview
+    plugin: text
+    label: 'Sprachen hinzufügen'
+    weight: 1
+    body: '<p>Diese Seite bietet die Möglichkeit verbreitete Sprachen zur Website hinzuzufügen.</p><p>Falls die gewünschte Sprache nicht verfügbar ist, kann eine benutzerdefinierte Sprache hinzugefügt werden.</p>'
+  language-add-choose:
+    id: language-add-choose
+    plugin: text
+    label: 'Sprache auswählen'
+    weight: 2
+    selector: '#edit-predefined-langcode'
+    body: '<p>Eine Sprache aus der Liste oder „Benutzerdefinierte Sprache...“ am Ende der selben auswählen.</p><p>Wenn die Sprache ausgewählt wurde, den „Sprache hinzufügen“-Button klicken.</p><p>Beim Hinzufügen einer benutzerdefinierten Sprache, wird ein zusätzliches Formular angezeigt. In diesem kann der Name, das Sprachkürzel sowie die Leserichtung der Sprache angeben werden.</p>'
+  language-add-continue:
+    id: language-add-continue
+    plugin: text
+    label: 'Übersetzungen wiederverwenden'
+    weight: 3
+    body: '<p>Jetzt, da Sie einen Überblick über die Funktion „Sprachen hinzufügen“ haben, können Sie fortfahren mit:<ul><li>Eine Sprache hinzufügen</li><li>Eine benutzerdefinierte Sprache hinzufügen</li><li><a href="[site:url]admin/config/regional/language">Eingerichtete Sprachen anzeigen</a></li></ul></p>'
