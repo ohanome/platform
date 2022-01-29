@@ -15,12 +15,12 @@ Repository für die Hauptplattform. Dieses Repository soll dabei helfen, zu vers
 - Führe `composer install` aus um alle Abhängigkeiten zu installieren
 - Kopiere die Datei `.env.example` zu `.env` und trage dort deine lokalen MySQL-Daten ein
 - Navigiere in der Konsole zu `web/themes/custom/ohano-main` und führe `npm install` aus, dies kompiliert den SCSS-Code des Hauptthemes
-- Importiere das Datenbank-Abbild das dir vorliegt oder installiere Drupal neu
+- Importiere das Datenbank-Abbild, das dir vorliegt (mehr dazu unter [Mitwirkung](#mitwirkung))
 - Logge dich unter `/user/login` ein
 
 ## Mitwirkung
 
-Du kannst jederzeit an diesem Projekt als Contributor mitarbeiten, allerdings ist das Deployment und die Planung der Features dem Developer-Team von ohano vorbehalten. Um Teil des Teams zu werden, komme einfach auf unseren [Discord](https://discord.gg/JQTFQy9RvC) und wende dich an das Team um mehr über den Bewerbungsprozess zu erfahren.
+Du kannst jederzeit an diesem Projekt als Contributor mitarbeiten (hierfür kannst du das bereitgestellte Datenbank-Abbild unter [/db/base.sql.gz](./db/base.sql.gz) nutzen, Username und Passwort ist jeweils `ohano`), allerdings ist das Deployment und die Planung der Features dem Developer-Team von ohano vorbehalten. Um Teil des Teams zu werden, komme einfach auf unseren [Discord](https://discord.gg/JQTFQy9RvC) und wende dich an das Team um mehr über den Bewerbungsprozess zu erfahren.
 
 Nur als Teammitglied bekommst du die oben erwähnte ausdrückliche Erlaubnis und das Admin-Passwort sowie Zugangsdatem zum Server auf den das ganze deployed wird.
 
