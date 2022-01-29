@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
-h1.page-title, h2 {
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap'); h1.page-title,
+h2 {
   font-family: 'Comfortaa', sans-serif;
   color: black;
 }
@@ -16,8 +16,7 @@ body.install-page div.dialog-off-canvas-main-canvas div.layout-container {
 }
 
 body.install-page div.dialog-off-canvas-main-canvas div.layout-container form select,
-body.install-page div.dialog-off-canvas-main-canvas div.layout-container form input:not([type="checkbox"])
-{
+body.install-page div.dialog-off-canvas-main-canvas div.layout-container form input:not([type="checkbox"]) {
   background-color: #fff;
   background-image: none;
   padding: 0.5rem 1rem;
@@ -88,4 +87,3 @@ body.install-page .messages {
 body.install-page .messages--status {
   background-color: #defdcd;
 }
-
