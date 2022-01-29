@@ -1,0 +1,8 @@
+langcode: de
+status: true
+dependencies: {  }
+id: benoetigte_cookies
+label: 'Benötigte Cookies'
+description: 'Diese Cookies werden verwendet um ein einwandfreies Nutzererlebnis sicherzustellen.'
+checkbox_default_state: required
+weight: -9
