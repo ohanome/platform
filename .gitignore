@@ -54,6 +54,3 @@
 !.gitkeep
 
 deploy.php
-
-/config/ohano.me/*
-!/config/ohano.me/.gitkeep
