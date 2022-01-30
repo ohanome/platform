@@ -1,0 +1,7 @@
+name: Account
+description: Account management providing user registration and login logic
+package: ohano
+type: module
+core_version_requirement: ^9 || ^10
+dependencies:
+  - ohano_core/ohano_core
