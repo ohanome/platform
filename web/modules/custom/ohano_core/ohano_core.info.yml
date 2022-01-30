@@ -1,0 +1,5 @@
+name: Core
+description: Core functionality used by multiple ohano modules
+package: ohano
+type: module
+core_version_requirement: ^9 || ^10
