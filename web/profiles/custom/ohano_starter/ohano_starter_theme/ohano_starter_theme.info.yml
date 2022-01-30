@@ -1,8 +1,0 @@
-name: ohano Starter Theme
-description: 'Installation theme for the ohano Starter installation profile'
-type: theme
-core_version_requirement: ^9 || ^10
-base theme: seven
-
-libraries:
-  - ohano_starter_theme/global-styles

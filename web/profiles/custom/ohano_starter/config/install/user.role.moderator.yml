@@ -1,8 +1,0 @@
-langcode: de
-status: true
-dependencies: {  }
-id: moderator
-label: Moderator
-weight: -7
-is_admin: null
-permissions: {  }
