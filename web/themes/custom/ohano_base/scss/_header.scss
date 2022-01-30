@@ -1,0 +1,24 @@
+header.navbar {
+  border-radius: 0;
+  position: fixed;
+  background: rgba(255,255,255,0.75);
+  z-index: 99;
+  backdrop-filter: blur(1rem);
+  border: none;
+  box-shadow: 0 0 20px -10px #555;
+
+  .navbar-header {
+    .region {
+      a.logo {
+        img {
+          width: 33px;
+        }
+      }
+
+      a.name {
+        font-family: "Comfortaa", sans-serif;
+        color: black;
+      }
+    }
+  }
+}
