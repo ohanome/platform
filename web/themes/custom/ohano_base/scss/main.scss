@@ -1,1 +1,20 @@
 @import "font_setup";
+
+@import "font";
+
+@import "header";
+@import "sidebar";
+
+body {
+  margin-top: 0;
+
+  .container,
+  .navbar.container {
+    max-width: 100vw;
+    width: 100vw;
+  }
+
+  .container.main-container {
+    padding-top: 9rem;
+  }
+}
