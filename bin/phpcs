@@ -27,10 +27,3 @@ if [[ -d web/modules/custom ]]; then
 else
   echo "No custom modules found."
 fi
-
-if [[ -d web/profiles/custom ]]; then
-  vendor/bin/phpcs --standard=Drupal web/profiles/custom
-  vendor/bin/phpcs --standard=DrupalPractice web/profiles/custom
-else
-  echo "No custom profiles found."
-fi
