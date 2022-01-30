@@ -1,0 +1,14 @@
+global-styling:
+  version: 1.0.0
+  css:
+    theme:
+      css/main.css: {}
+  js:
+    js/main.js: {}
+    js/fontawesome.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - bootstrap/theme
+
