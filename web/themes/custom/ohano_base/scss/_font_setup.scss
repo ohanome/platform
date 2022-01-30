@@ -17,19 +17,13 @@
 }
 
 @font-face {
-  font-family: 'Dongle';
-  font-weight: normal;
-  src: url("../fonts/Dongle-Regular.ttf") format("truetype");
+  font-family: 'Nunito';
+  font-style: normal;
+  src: url("../fonts/Nunito[wght].ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Dongle';
-  font-weight: 300;
-  src: url("../fonts/Dongle-Light.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: 'Dongle';
-  font-weight: bold;
-  src: url("../fonts/Dongle-Bold.ttf") format("truetype");
+  font-family: 'Nunito';
+  font-style: italic;
+  src: url("../fonts/Nunito-Italic[wght].ttf") format("truetype");
 }
