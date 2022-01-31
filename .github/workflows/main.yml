@@ -1,4 +1,4 @@
-name: PHP Linting
+name: Main Pipeline
 
 on:
   push:
@@ -26,18 +26,21 @@ jobs:
       - name: Lint all custom files containing php code
         run: bin/lint
   build:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Builds the app by installing all dependencies
         run: composer install
   check:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Check all custom parts against the Drupal coding standard
         run: bin/phpcs
   run-unit-tests:
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
