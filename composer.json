@@ -107,9 +107,12 @@
         ]
     },
     "require-dev": {
+        "behat/mink-goutte-driver": "^2.0",
         "deployer/dist": "^6.8",
         "drupal/coder": "^8.3",
         "drush/drush": "^11.0",
-        "phpunit/phpunit": "^9.5"
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpunit/phpunit": "^9.5",
+        "symfony/phpunit-bridge": "^6.0"
     }
 }
