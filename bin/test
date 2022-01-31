@@ -29,8 +29,8 @@ cleanup() {
 }
 
 if [[ ! -f ".testing.env" ]]; then
-  echo "File .testing.env missing. Copy .testing.example.env and fill in the variables."
-  exit 1
+  echo "File .testing.env missing. Coping .testing.example.env for you."
+  cp .testing.example.env .testing.env
 fi
 
 source .testing.env
