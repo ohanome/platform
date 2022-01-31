@@ -1,0 +1,45 @@
+name: PHP Linting
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+      - alpha
+      - feature/*
+      - fix/*
+  pull_request:
+    branches:
+      - main
+      - beta
+      - alpha
+      - feature/*
+      - fix/*
+
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint all custom files containing php code
+        run: bin/lint
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Builds the app by installing all dependencies
+        run: composer install
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check all custom parts against the Drupal coding standard
+        run: bin/phpcs
+  run-unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Runs all unit tests
+        run: bin/test -u
