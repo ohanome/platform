@@ -10,7 +10,7 @@ if [[ "$1" == "--unit" || "$1" == "-u" ]]; then
 fi
 
 if [[ "$1" == "--functional" || "$1" == "-f" ]]; then
-  UNIT="yes"
+  FUNCTIONAL="yes"
 fi
 
 if [[ "$UNIT" == "no" && "$FUNCTIONAL" == "no" ]]; then
