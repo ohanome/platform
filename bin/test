@@ -5,6 +5,8 @@ set -e
 UNIT="no"
 FUNCTIONAL="no"
 
+modules="ohano_core ohano_account"
+
 if [[ "$1" == "--unit" || "$1" == "-u" ]]; then
   UNIT="yes"
 fi
@@ -39,8 +41,15 @@ if [[ ! -f "vendor/bin/phpunit" ]]; then
 fi
 
 if [[ $UNIT == "yes" ]]; then
-  echo "Running unit tests"
-  php vendor/bin/phpunit --configuration web/modules/custom/bigcity/phpunit.xml web/modules/custom/bigcity/tests/src/Unit
+  for module in $modules
+  do
+    if [[ -d "web/modules/custom/$module/tests/src/Unit" ]]; then
+      echo "Running unit tests in module $module"
+      php vendor/bin/phpunit --configuration phpunit.xml web/modules/custom/$module/tests/src/Unit
+    else
+      echo "No tests found in web/modules/custom/$module/tests/src/Unit"
+    fi
+  done
 fi
 
 if [[ "$FUNCTIONAL" == "yes" ]]; then
@@ -64,7 +73,16 @@ if [[ "$FUNCTIONAL" == "yes" ]]; then
   php vendor/bin/drush site-install --yes --db-url="$dburl"
   php vendor/bin/drush runserver http://127.0.0.1:8080 &
   sleep 5
-  php vendor/bin/phpunit --configuration web/modules/custom/bigcity/phpunit.xml web/modules/custom/bigcity/tests/src/Functional || cleanup
+
+  for module in $modules
+  do
+    if [[ -d "web/modules/custom/$module/tests/src/Functional" ]]; then
+      echo "Running functional tests in module $module"
+      php vendor/bin/phpunit --configuration phpunit.xml web/modules/custom/$module/tests/src/Functional || cleanup
+    else
+      echo "No tests found in web/modules/custom/$module/tests/src/Functional"
+    fi
+  done
 
   cleanup
 fi
