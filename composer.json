@@ -109,6 +109,7 @@
     "require-dev": {
         "deployer/dist": "^6.8",
         "drupal/coder": "^8.3",
-        "drush/drush": "^11.0"
+        "drush/drush": "^11.0",
+        "phpunit/phpunit": "^9.5"
     }
 }
