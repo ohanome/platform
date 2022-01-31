@@ -38,11 +38,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Check all custom parts against the Drupal coding standard
-        run: bin/phpcs
+        run: composer install && bin/phpcs
   run-unit-tests:
     needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Runs all unit tests
-        run: bin/test -u
+        run: composer install && bin/test -u
