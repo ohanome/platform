@@ -8,7 +8,6 @@ dependencies:
     - taxonomy.vocabulary.tags
   module:
     - comment
-    - contextual
     - eu_cookie_compliance
     - file
     - node
@@ -26,7 +25,6 @@ is_admin: false
 permissions:
   - 'access administration pages'
   - 'access content overview'
-  - 'access contextual links'
   - 'access files overview'
   - 'access toolbar'
   - 'access tour'

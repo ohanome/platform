@@ -14,7 +14,6 @@ module:
   comment: 0
   config: 0
   contact: 0
-  contextual: 0
   datetime: 0
   dblog: 0
   dynamic_page_cache: 0
@@ -36,6 +35,8 @@ module:
   menu_link_content: 0
   menu_ui: 0
   node: 0
+  ohano_account: 0
+  ohano_core: 0
   options: 0
   page_cache: 0
   path: 0
@@ -62,7 +63,11 @@ module:
 theme:
   bartik: 0
   seven: 0
-  bootstrap: 0
   claro: 0
   gin: 0
+  stable: 0
+  classy: 0
+  bootstrap5: 0
+  bootstrap: 0
+  ohano_base: 0
 profile: standard
