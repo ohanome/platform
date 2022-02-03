@@ -1,4 +1,6 @@
-header.navbar {
+@import "includes/colors";
+
+header .navbar {
   border-radius: 0;
   position: fixed;
   background: rgba(255,255,255,0.75);
@@ -6,18 +8,29 @@ header.navbar {
   backdrop-filter: blur(1rem);
   border: none;
   box-shadow: 0 0 20px -10px #555;
+  width: 100vw;
 
-  .navbar-header {
-    .region {
-      a.logo {
+  .nav-link {
+    color: black;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  .block-system-branding-block {
+    .navbar-brand {
+      margin-left: 1rem;
+
+      a.site-logo {
         img {
-          width: 33px;
+          width: 32px;
+          height: 32px;
         }
       }
-
-      a.name {
+      a.site-title {
         font-family: "Comfortaa", sans-serif;
-        color: black;
+        text-transform: lowercase;
       }
     }
   }

@@ -10,5 +10,6 @@ global-styling:
     - core/jquery
     - core/drupal
     - core/drupalSettings
-    - bootstrap/theme
+    - bootstrap5/bootstrap5-js-latest
+    - bootstrap5/global-styling
 

@@ -14,3 +14,12 @@ aside {
     }
   }
 }
+
+.region-sidebar-first,
+.region-sidebar-second {
+  padding: 1rem;
+  border-radius: .5rem;
+  box-shadow: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
