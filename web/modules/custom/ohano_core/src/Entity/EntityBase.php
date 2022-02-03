@@ -16,6 +16,38 @@ abstract class EntityBase extends ContentEntityBase implements EntityInterface {
   /**
    * {@inheritdoc}
    */
+  public static function install(): void {
+    $type_manager = \Drupal::entityTypeManager();
+    $type_manager->clearCachedDefinitions();
+    $entity_type = $type_manager->getDefinition(static::entityTypeId());
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function uninstall(): void {
+    // Delete all remaining entities before deleting the entity type.
+    static::deleteAll();
+
+    $type_manager = \Drupal::entityTypeManager();
+    $type_manager->clearCachedDefinitions();
+    $entity_type = $type_manager->getDefinition(static::entityTypeId());
+    \Drupal::entityDefinitionUpdateManager()->uninstallEntityType($entity_type);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function deleteAll(): void {
+    foreach (\Drupal::entityQuery(static::entityTypeId())->execute() as $entityId) {
+      \Drupal::entityTypeManager()->getStorage(static::entityTypeId())->load($entityId)->delete();
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = [];
     OhanoCore::createEntityDefaultFields($fields);
