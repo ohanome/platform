@@ -1,0 +1,37 @@
+# Registration
+ohano_account.registration:
+  path: '/account/register'
+  defaults:
+    _form: Drupal\ohano_account\Form\RegistrationForm
+    _title: 'Register'
+  requirements:
+    _permission: 'access content'
+ohano_account.registration.alt1:
+  # Override Drupal core register path
+  path: '/user/register'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToRegisterPage
+  requirements:
+    _permission: 'access content'
+ohano_account.registration.alt2:
+  path: '/register'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToRegisterPage
+  requirements:
+    _permission: 'access content'
+ohano_account.registration.alt3:
+  # Provide alternative german path
+  path: '/registrieren'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToRegisterPage
+  requirements:
+    _permission: 'access content'
+
+# Verification
+ohano_account.verification:
+  path: '/account/verify'
+  defaults:
+    _form: Drupal\ohano_account\Form\VerificationForm
+    _title: 'Verification'
+  requirements:
+    _permission: 'access content'
