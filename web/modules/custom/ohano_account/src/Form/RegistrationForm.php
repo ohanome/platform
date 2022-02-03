@@ -1,0 +1,102 @@
+<?php
+
+namespace Drupal\ohano_account\Form;
+
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\ohano_account\Event\UserRegisterEvent;
+use Drupal\ohano_account\Validator\EmailValidator;
+
+class RegistrationForm extends FormBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
+    return 'ohano_account__registration';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form = [];
+
+    $form['info'] = [
+      '#type' => 'markup',
+      '#markup' => $this->t('This is the first of three steps you need to do. After you registered an account by submitting this form, you will be asked to verify your email address to activate your account. After that you also need to verify that you\'re over 18 years old by submitting a short video of yourself holding your ID card where we can clearly see your face, the photo and your birthday.'),
+    ];
+
+    $form['username'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Username'),
+      '#description' => $this->t('Choose a username between 6 and 24 characters. Your username may only contain latin letters as well as numbers and underscores (_) and full stops (.).'),
+      '#required' => TRUE,
+    ];
+
+    $form['email'] = [
+      '#type' => 'email',
+      '#title' => $this->t('Email address'),
+      '#description' => $this->t('The email address we can contact you on.'),
+      '#required' => TRUE,
+    ];
+
+    $form['password'] = [
+      '#type' => 'password',
+      '#title' => $this->t('Password'),
+      '#description' => $this->t('Choose a strong password. We recommend using uppercase as well as lowercase letters, numbers and special chars. We also recommend using a password generator and a password manager.'),
+      '#required' => TRUE,
+    ];
+
+    $form['password_repeat'] = [
+      '#type' => 'password',
+      '#title' => $this->t('Repeat password'),
+      '#description' => $this->t('Repeat your chosen password.'),
+      '#required' => TRUE,
+    ];
+
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Register')
+    ];
+
+    return $form;
+  }
+
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    if ($form_state->getValue('password') != $form_state->getValue('password_repeat')) {
+      $form_state->setErrorByName('password', $this->t('The passwords don\'t match.'));
+    }
+
+    $existingUser = \Drupal::entityQuery('user')
+      ->condition('name', $form_state->getValue('username'))
+      ->execute();
+    if (!empty($existingUser)) {
+      $form_state->setErrorByName('username', $this->t('We\'re sorry but this username is already taken.'));
+    }
+
+    /** @var \Drupal\ohano_account\Validator\EmailValidator $emailValidator */
+    $emailValidator = \Drupal::service('ohano_account.validator.email');
+    $emailValidity = $emailValidator->validateEmail($form_state->getValue('email'));
+
+    switch ($emailValidity) {
+      case EmailValidator::IN_USE:
+        $form_state->setErrorByName('email', $this->t("We're sorry but this email address is already in use."));
+        break;
+
+      case EmailValidator::NOT_EMAIL:
+        $form_state->setErrorByName('email', $this->t("Oops, this doesn't look like a valid email address."));
+        break;
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $event = new UserRegisterEvent([]);
+    $eventDispatcher = \Drupal::service('event_dispatcher');
+    $eventDispatcher->dispatch($event, UserRegisterEvent::EVENT_NAME);
+  }
+
+}
