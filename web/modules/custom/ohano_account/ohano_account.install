@@ -1,0 +1,19 @@
+<?php
+
+use Drupal\ohano_account\Entity\Account;
+use Drupal\ohano_account\Entity\AccountActivation;
+
+function ohano_account_install() {
+  Account::install();
+  AccountActivation::install();
+}
+
+function ohano_account_uninstall() {
+  Account::uninstall();
+  AccountActivation::uninstall();
+}
+
+function ohano_account_update_9003() {
+  Account::install();
+  AccountActivation::install();
+}
