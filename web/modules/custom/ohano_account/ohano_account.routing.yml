@@ -35,3 +35,12 @@ ohano_account.verification:
     _title: 'Verification'
   requirements:
     _permission: 'access content'
+
+# Activation
+ohano_account.activate:
+  path: '/account/activate/{code}'
+  defaults:
+    _form: Drupal\ohano_account\Controller\ActivationController::activateAccount
+    _title: 'Account activation'
+  requirements:
+    _permission: 'access content'
