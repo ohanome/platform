@@ -2,10 +2,13 @@
 
 namespace Drupal\ohano_account\Form;
 
+use Drupal;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ohano_account\Blocklist;
 use Drupal\ohano_account\Event\UserRegisterEvent;
 use Drupal\ohano_account\Validator\EmailValidator;
+use Drupal\user\Entity\User;
 
 class RegistrationForm extends FormBase {
 
@@ -118,9 +121,29 @@ class RegistrationForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $event = new UserRegisterEvent([]);
+    $username = $form_state->getValue('username');
+    $email = $form_state->getValue('email');
+    $password = $form_state->getValue('password');
+
+    /** @var \Drupal\user\Entity\User $user */
+    $user = User::create();
+    $user->setUsername($username);
+    $user->setEmail($email);
+    $user->setPassword($password);
+    $user->enforceIsNew();
+
+    try {
+      $user->save();
+    } catch (Drupal\Core\Entity\EntityStorageException $e) {
+      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      Drupal::logger('ohano_account')->critical($e->getMessage());
+      return;
+    }
+
+    $event = new UserRegisterEvent($user);
     $eventDispatcher = \Drupal::service('event_dispatcher');
     $eventDispatcher->dispatch($event, UserRegisterEvent::EVENT_NAME);
+    Drupal::messenger()->addMessage('Welcome to ohano! We have sent an email with instructions on how to activate your account.');
   }
 
 }
