@@ -108,6 +108,10 @@ class RegistrationForm extends FormBase {
         $form_state->setErrorByName('email', $this->t("Oops, this doesn't look like a valid email address."));
         break;
     }
+
+    if (in_array(strtolower($form_state->getValue('username')), Blocklist::USERNAME)) {
+      $form_state->setErrorByName('username', $this->t('The username you have chosen violates our username guidelines. Please choose another one.'));
+    }
   }
 
   /**
