@@ -1,0 +1,5 @@
+services:
+  ohano_account.eventsubscriber.account:
+    class: Drupal\ohano_mail\EventSubscriber\AccountActivationSubscriber
+    tags:
+      - { name: 'event_subscriber' }

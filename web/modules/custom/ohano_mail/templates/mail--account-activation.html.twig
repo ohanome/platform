@@ -1,0 +1,13 @@
+{% extends 'mail.html.twig' %}
+
+{% block body %}
+  {% trans({'@name': username, '@link': link}) %}
+    Hello @name,
+
+    to complete this step of your account registration, you need to verify your email address by clicking on the link below. You cannot log in until you successfully activated your account.
+
+    <a href="@link">@link</a>
+
+    If this link doesn't work, try to copy the link into your browser. If this still doesn't work, please contact our support: <a href="mailto:help@ohano.me">help@ohano.me</a>
+  {% endtrans %}
+{% endblock body %}
