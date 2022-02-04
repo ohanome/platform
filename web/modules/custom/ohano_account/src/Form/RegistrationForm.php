@@ -55,6 +55,20 @@ class RegistrationForm extends FormBase {
       '#required' => TRUE,
     ];
 
+    $form['other_text1'] = [
+      '#type' => 'textfield',
+      '#attributes' => [
+        'style' => ['display: none;']
+      ],
+    ];
+
+    $form['other_text2'] = [
+      '#type' => 'textfield',
+      '#attributes' => [
+        'class' => ['visually-hidden']
+      ],
+    ];
+
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Register')
@@ -64,6 +78,11 @@ class RegistrationForm extends FormBase {
   }
 
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    if (!empty($form_state->getValue('other_text1')) && !empty($form_state->getValue('other_text2'))) {
+      $form_state->setErrorByName('submit', $this->t('Registration failed.'));
+      return;
+    }
+
     if ($form_state->getValue('password') != $form_state->getValue('password_repeat')) {
       $form_state->setErrorByName('password', $this->t('The passwords don\'t match.'));
     }
