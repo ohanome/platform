@@ -2,6 +2,7 @@
 
 namespace Drupal\ohano_account\EventSubscriber;
 
+use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Event\UserRegisterEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -14,7 +15,13 @@ class UserRegisterSubscriber implements EventSubscriberInterface {
   }
 
   public function onUserRegister(UserRegisterEvent $event) {
-    \Drupal::messenger()->addMessage($event::EVENT_NAME . ' fired!');
+    $user = $event->user;
+
+    // Create account.
+    Account::create()
+      ->setUser($user)
+      ->setBits(0)
+      ->save();
   }
 
 }

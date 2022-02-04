@@ -7,3 +7,7 @@ services:
     class: Drupal\ohano_account\EventSubscriber\UserRegisterSubscriber
     tags:
       - { name: 'event_subscriber' }
+  ohano_account.eventsubscriber.account:
+    class: Drupal\ohano_account\EventSubscriber\AccountSubscriber
+    tags:
+      - { name: 'event_subscriber' }

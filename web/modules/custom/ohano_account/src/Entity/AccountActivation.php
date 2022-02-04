@@ -5,6 +5,7 @@ namespace Drupal\ohano_account\Entity;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\ohano_account\Event\AccountActivationEvent;
 use Drupal\ohano_core\Entity\EntityBase;
 
 /**
@@ -38,6 +39,30 @@ class AccountActivation extends EntityBase {
 
   public static function entityTypeId(): string {
     return self::ENTITY_ID;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function save($new = FALSE): int {
+    $event = new AccountActivationEvent($this);
+    $eventDispatcher = \Drupal::service('event_dispatcher');
+    if ($new) {
+      $eventDispatcher->dispatch($event, AccountActivationEvent::CREATE);
+    } else {
+      $eventDispatcher->dispatch($event, AccountActivationEvent::UPDATE);
+    }
+    return parent::save();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function delete() {
+    $event = new AccountActivationEvent($this);
+    $eventDispatcher = \Drupal::service('event_dispatcher');
+    $eventDispatcher->dispatch($event, AccountActivationEvent::DELETE);
+    parent::delete();
   }
 
   /**
@@ -196,6 +221,23 @@ class AccountActivation extends EntityBase {
       'activated_on' => $this->getActivatedOn(),
       'code' => $this->getCode(),
     ];
+  }
+
+  /**
+   * Sets the entity as activated.
+   *
+   * @return \Drupal\ohano_account\Entity\AccountActivation
+   *   The active instance of this class.
+   */
+  public function activate(): AccountActivation {
+    $this->setIsValid(TRUE)
+      ->setActivatedOn(new DrupalDateTime());
+
+    $event = new AccountActivationEvent($this);
+    $eventDispatcher = \Drupal::service('event_dispatcher');
+    $eventDispatcher->dispatch($event, AccountActivationEvent::ACTIVATE);
+
+    return $this;
   }
 
 }
