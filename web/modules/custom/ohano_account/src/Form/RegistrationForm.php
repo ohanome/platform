@@ -30,8 +30,9 @@ class RegistrationForm extends FormBase {
     $form['username'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Username'),
-      '#description' => $this->t('Choose a username between 6 and 24 characters. Your username may only contain latin letters as well as numbers and underscores (_) and full stops (.).'),
+      '#description' => $this->t('Choose a username between 4 and 24 characters. Your username may only contain latin letters as well as numbers and underscores (_).'),
       '#required' => TRUE,
+      '#pattern' => '^[\w]{4,24}$',
     ];
 
     $form['email'] = [
