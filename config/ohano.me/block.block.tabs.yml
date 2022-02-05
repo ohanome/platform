@@ -1,0 +1,20 @@
+uuid: 83139303-456f-4375-ba00-4cfdb31b4cba
+langcode: de
+status: true
+dependencies:
+  theme:
+    - ohano_base
+id: tabs
+theme: ohano_base
+region: content
+weight: -2
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

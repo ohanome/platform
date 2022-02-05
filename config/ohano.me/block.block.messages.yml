@@ -1,0 +1,20 @@
+uuid: 2490445d-a95c-4d41-b211-6e06f63e152b
+langcode: de
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ohano_base
+id: messages
+theme: ohano_base
+region: content
+weight: -4
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Messages
+  label_display: '0'
+  provider: system
+visibility: {  }

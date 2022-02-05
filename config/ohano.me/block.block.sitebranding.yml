@@ -1,0 +1,23 @@
+uuid: 9b1e6c9d-a961-4e1d-88f6-8d7ddb498aad
+langcode: de
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ohano_base
+id: sitebranding
+theme: ohano_base
+region: nav_branding
+weight: -1
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

@@ -1,0 +1,25 @@
+uuid: a43e6664-6c0f-4fff-ac2c-f4a52d4ef8e4
+langcode: de
+status: true
+dependencies:
+  config:
+    - system.menu.tools
+  module:
+    - system
+  theme:
+    - ohano_base
+id: tools
+theme: ohano_base
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:tools'
+settings:
+  id: 'system_menu_block:tools'
+  label: Tools
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }
