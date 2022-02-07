@@ -11,12 +11,7 @@ class OhanoMailer extends PHPMailer {
   public function __construct(OhanoMail $mail, $exceptions = NULL) {
     $this->templateName = $mail->value;
 
-    parent::__construct($exceptions);
-
-    // Setup SMTP.
-    $this->isSMTP();
     $this->Host = $_ENV['SMTP_HOST'];
-    $this->SMTPAuth = TRUE;
     $this->Username = $_ENV['SMTP_USERNAME'];
     $this->From = $_ENV['SMTP_ADDRESS'];
     $this->Sender = $_ENV['SMTP_ADDRESS'];
@@ -24,6 +19,14 @@ class OhanoMailer extends PHPMailer {
     $this->Password = $_ENV['SMTP_PASSWORD'];
     $this->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $this->Port = 25;
+
+    parent::__construct($exceptions);
+
+    if (\Drupal::request()->getHttpHost() != 'ohano.lndo.site') {
+      // Setup SMTP.
+      $this->isSMTP();
+      $this->SMTPAuth = TRUE;
+    }
   }
 
   public function renderBody(array $data): OhanoMailer {
