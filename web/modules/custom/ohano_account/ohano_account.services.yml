@@ -3,11 +3,3 @@ services:
     class: Drupal\ohano_account\Filter\Email\GoogleMailFilter
   ohano_account.validator.email:
     class: Drupal\ohano_account\Validator\EmailValidator
-  ohano_account.eventsubscriber.user_register:
-    class: Drupal\ohano_account\EventSubscriber\UserRegisterSubscriber
-    tags:
-      - { name: 'event_subscriber' }
-  ohano_account.eventsubscriber.account:
-    class: Drupal\ohano_account\EventSubscriber\AccountSubscriber
-    tags:
-      - { name: 'event_subscriber' }
