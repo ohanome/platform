@@ -16,14 +16,12 @@ vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer,
 
 if [[ -d web/themes/custom ]]; then
   vendor/bin/phpcs --standard=Drupal web/themes/custom --ignore=*/node_modules/*,*.css,fontawesome.js
-  vendor/bin/phpcs --standard=DrupalPractice web/themes/custom --ignore=*/node_modules/*,*.css,fontawesome.js
 else
   echo "No custom themes found."
 fi
 
 if [[ -d web/modules/custom ]]; then
   vendor/bin/phpcs --standard=Drupal web/modules/custom
-  vendor/bin/phpcs --standard=DrupalPractice web/modules/custom
 else
   echo "No custom modules found."
 fi
