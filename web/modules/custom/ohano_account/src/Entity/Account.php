@@ -5,7 +5,6 @@ namespace Drupal\ohano_account\Entity;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\ohano_account\Event\AccountEvent;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\ohano_core\Entity\EntityInterface;
 
@@ -34,30 +33,6 @@ class Account extends EntityBase implements EntityInterface{
 
   public static function entityTypeId(): string {
     return self::ENTITY_ID;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function save($new = FALSE): int {
-    $event = new AccountEvent($this);
-    $eventDispatcher = \Drupal::service('event_dispatcher');
-    if ($new) {
-      $eventDispatcher->dispatch($event, AccountEvent::CREATE);
-    } else {
-      $eventDispatcher->dispatch($event, AccountEvent::UPDATE);
-    }
-    return parent::save();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function delete() {
-    $event = new AccountEvent($this);
-    $eventDispatcher = \Drupal::service('event_dispatcher');
-    $eventDispatcher->dispatch($event, AccountEvent::DELETE);
-    parent::delete();
   }
 
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
