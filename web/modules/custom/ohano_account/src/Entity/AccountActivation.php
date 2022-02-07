@@ -26,9 +26,6 @@ use Drupal\ohano_core\Entity\EntityBase;
  *     "is_valid" = "is_valid",
  *     "activated_on" = "activated_on",
  *     "code" = "code",
- *   },
- *   handlers = {
- *     "storage_schema" = "Drupal\ohano_account\Storage\Schema\UserActivationStorageSchema",
  *   }
  * )
  */
