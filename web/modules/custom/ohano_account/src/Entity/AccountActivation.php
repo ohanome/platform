@@ -69,7 +69,7 @@ class AccountActivation extends EntityBase {
    *   The username.
    */
   public function getUsername(): string {
-    return $this->get('user')->value;
+    return $this->get('username')->value;
   }
 
   /**
