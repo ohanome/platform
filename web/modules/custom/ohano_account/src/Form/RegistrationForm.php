@@ -3,12 +3,17 @@
 namespace Drupal\ohano_account\Form;
 
 use Drupal;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ohano_account\Blocklist;
-use Drupal\ohano_account\Event\UserRegisterEvent;
+use Drupal\ohano_account\Entity\Account;
+use Drupal\ohano_account\Entity\AccountActivation;
 use Drupal\ohano_account\Validator\EmailValidator;
+use Drupal\ohano_mail\OhanoMail;
+use Drupal\ohano_mail\OhanoMailer;
 use Drupal\user\Entity\User;
+use PHPMailer\PHPMailer\Exception;
 
 class RegistrationForm extends FormBase {
 
@@ -140,9 +145,66 @@ class RegistrationForm extends FormBase {
       return;
     }
 
-    $event = new UserRegisterEvent($user);
-    $eventDispatcher = \Drupal::service('event_dispatcher');
-    $eventDispatcher->dispatch($event, UserRegisterEvent::EVENT_NAME);
+    try {
+      Account::create()
+        ->setUser($user)
+        ->setBits(0)
+        ->save();
+    } catch (Drupal\Core\Entity\EntityStorageException $e) {
+      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      Drupal::logger('ohano_account')->critical($e->getMessage());
+      return;
+    }
+
+    $datetime = new DrupalDateTime("01-01-1970");
+
+    $accountActivation = AccountActivation::create()
+      ->setUsername($user->getAccountName())
+      ->setEmail($user->getEmail())
+      ->setCode(AccountActivation::generateRandomString(64))
+      ->setActivatedOn($datetime)
+      ->setIsValid(FALSE);
+    try {
+      $accountActivation->save();
+    } catch (Drupal\Core\Entity\EntityStorageException $e) {
+      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      Drupal::logger('ohano_account')->critical($e->getMessage());
+      return;
+    }
+
+    $username = $accountActivation->getUsername();
+    $code = $accountActivation->getCode();
+    $host = \Drupal::request()->getHttpHost();
+    $link = "https://$host/account/activate/$code";
+
+    $mailer = new OhanoMailer(OhanoMail::AccountActivation);
+    $mailer->renderBody([
+      'username' => $username,
+      'link' => $link
+    ]);
+    $mailer->Subject = $this->t('Activate your account at ohano');
+
+    try {
+      $mailer->addAddress($accountActivation->getEmail(), $username);
+    } catch (Exception $e) {
+      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      Drupal::logger('ohano_account')->critical($e->getMessage());
+      return;
+    }
+
+    try {
+      $mailer->send();
+    } catch (Exception $e) {
+      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      Drupal::logger('ohano_account')->critical($e->getMessage());
+      return;
+    }
+
+    if (!empty($mailer->ErrorInfo)) {
+      \Drupal::messenger()->addError($mailer->ErrorInfo);
+      return;
+    }
+
     Drupal::messenger()->addMessage('Welcome to ohano! We have sent an email with instructions on how to activate your account.');
   }
 
