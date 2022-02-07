@@ -12,11 +12,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class ActivationController extends ControllerBase {
 
   public function activateAccount(string $code) {
-    $activation = \Drupal::entityQuery('account_activation')
-      ->condition('code', $code)
-      ->execute();
+    try {
+      $activation = AccountActivation::findByCode($code);
+    } catch (\Exception $e) {
+      \Drupal::messenger()->addError($this->t('Something went wrong while activating your account.'));
+      \Drupal::logger('ohano_account')->critical($e->getMessage());
+      return new RedirectResponse('/');
+    }
 
-    $activation = AccountActivation::load(array_values($activation)[0]);
     if ($code == $activation->getCode() && $activation->getActivatedOn() < 1000) {
       $username = $activation->getUsername();
       $email = $activation->getEmail();
