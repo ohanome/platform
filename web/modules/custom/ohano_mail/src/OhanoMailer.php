@@ -10,6 +10,7 @@ class OhanoMailer extends PHPMailer {
 
   public function __construct(OhanoMail $mail, $exceptions = NULL) {
     $this->templateName = $mail->value;
+    $this->isHTML(TRUE);
 
     $this->Host = $_ENV['SMTP_HOST'];
     $this->Username = $_ENV['SMTP_USERNAME'];
