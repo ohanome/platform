@@ -37,6 +37,7 @@ module:
   node: 0
   ohano_account: 0
   ohano_core: 0
+  ohano_mail: 0
   options: 0
   page_cache: 0
   path: 0
@@ -68,6 +69,5 @@ theme:
   stable: 0
   classy: 0
   bootstrap5: 0
-  bootstrap: 0
   ohano_base: 0
 profile: standard
