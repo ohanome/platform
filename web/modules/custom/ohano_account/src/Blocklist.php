@@ -2,6 +2,11 @@
 
 namespace Drupal\ohano_account;
 
+/**
+ * Class which holds all invalid strings a user could use.
+ *
+ * @package Drupal\ohano_account
+ */
 class Blocklist {
 
   const USERNAME = [

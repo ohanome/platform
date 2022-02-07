@@ -4,11 +4,29 @@ namespace Drupal\ohano_mail;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
+/**
+ * Mailer class extending the PHPMailer.
+ *
+ * @package Drupal\ohano_mail
+ */
 class OhanoMailer extends PHPMailer {
 
+  /**
+   * The name of the template that needs to be rendered.
+   *
+   * @var string
+   */
   private string $templateName;
 
-  public function __construct(OhanoMail $mail, $exceptions = NULL) {
+  /**
+   * Class constructor.
+   *
+   * @param \Drupal\ohano_mail\OhanoMail $mail
+   *   The mail that needs to be sent.
+   * @param bool $exceptions
+   *   Whether to throw external exceptions.
+   */
+  public function __construct(OhanoMail $mail, bool $exceptions = NULL) {
     $this->templateName = $mail->value;
     $this->isHTML(TRUE);
 
@@ -30,6 +48,15 @@ class OhanoMailer extends PHPMailer {
     }
   }
 
+  /**
+   * Renders the template with the given data.
+   *
+   * @param array $data
+   *   The data to use during rendering.
+   *
+   * @return \Drupal\ohano_mail\OhanoMailer
+   *   The active instance of this class.
+   */
   public function renderBody(array $data): OhanoMailer {
     $twig = \Drupal::service('twig');
     /** @var \Drupal\Core\Extension\ModuleExtensionList $moduleList */

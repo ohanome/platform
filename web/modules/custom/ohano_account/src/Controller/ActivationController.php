@@ -9,12 +9,29 @@ use Drupal\ohano_account\Entity\AccountActivation;
 use Drupal\user\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+/**
+ * Controller class for the activation process.
+ *
+ * @package Drupal\ohano_account\Controller
+ */
 class ActivationController extends ControllerBase {
 
-  public function activateAccount(string $code) {
+  /**
+   * Controls the activation based on the given code.
+   *
+   * @param string $code
+   *   The code to validate.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect to a specific page.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function activateAccount(string $code): RedirectResponse {
     try {
       $activation = AccountActivation::findByCode($code);
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       \Drupal::messenger()->addError($this->t('Something went wrong while activating your account.'));
       \Drupal::logger('ohano_account')->critical($e->getMessage());
       return new RedirectResponse('/');
@@ -38,7 +55,8 @@ class ActivationController extends ControllerBase {
       $user->activate();
       try {
         $user->save();
-      } catch (EntityStorageException $e) {
+      }
+      catch (EntityStorageException $e) {
         \Drupal::messenger()->addError($this->t('Something went wrong while activating your account.'));
         \Drupal::logger('ohano_account')->critical($e->getMessage());
         return new RedirectResponse('/');
@@ -51,7 +69,8 @@ class ActivationController extends ControllerBase {
       \Drupal::messenger()->addMessage($this->t("Your account has been activated successfully. You can now continue."));
 
       $path = '/';
-    } else {
+    }
+    else {
       \Drupal::messenger()->addError($this->t('The activation link was invalid.'));
       $path = '/account/activate';
     }

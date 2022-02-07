@@ -5,6 +5,11 @@ namespace Drupal\ohano_account\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * Class providing the verification form.
+ *
+ * @package Drupal\ohano_account
+ */
 class VerificationForm extends FormBase {
 
   /**
@@ -39,7 +44,7 @@ class VerificationForm extends FormBase {
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Submit')
+      '#value' => $this->t('Submit'),
     ];
 
     return $form;
@@ -49,7 +54,7 @@ class VerificationForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // TODO: Implement submitForm() method.
+    // @todo Implement submitForm() method.
   }
 
 }

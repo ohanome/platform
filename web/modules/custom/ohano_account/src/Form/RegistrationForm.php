@@ -2,8 +2,8 @@
 
 namespace Drupal\ohano_account\Form;
 
-use Drupal;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ohano_account\Blocklist;
@@ -15,6 +15,11 @@ use Drupal\ohano_mail\OhanoMailer;
 use Drupal\user\Entity\User;
 use PHPMailer\PHPMailer\Exception;
 
+/**
+ * Class providing the registration form.
+ *
+ * @package Drupal\ohano_account
+ */
 class RegistrationForm extends FormBase {
 
   /**
@@ -32,7 +37,7 @@ class RegistrationForm extends FormBase {
 
     $form['info'] = [
       '#type' => 'markup',
-      '#markup' => $this->t('This is the first of three steps you need to do. After you registered an account by submitting this form, you will be asked to verify your email address to activate your account. After that you also need to verify that you\'re over 18 years old by submitting a short video of yourself holding your ID card where we can clearly see your face, the photo and your birthday.'),
+      '#markup' => $this->t("This is the first of three steps you need to do. After you registered an account by submitting this form, you will be asked to verify your email address to activate your account. After that you also need to verify that you're over 18 years old by submitting a short video of yourself holding your ID card where we can clearly see your face, the photo and your birthday."),
     ];
 
     $form['username'] = [
@@ -67,25 +72,32 @@ class RegistrationForm extends FormBase {
     $form['other_text1'] = [
       '#type' => 'textfield',
       '#attributes' => [
-        'style' => ['display: none;']
+        'style' => [
+          'display: none;',
+        ],
       ],
     ];
 
     $form['other_text2'] = [
       '#type' => 'textfield',
       '#attributes' => [
-        'class' => ['visually-hidden']
+        'class' => [
+          'visually-hidden',
+        ],
       ],
     ];
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Register')
+      '#value' => $this->t('Register'),
     ];
 
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     if (!empty($form_state->getValue('other_text1')) && !empty($form_state->getValue('other_text2'))) {
       $form_state->setErrorByName('submit', $this->t('Registration failed.'));
@@ -93,14 +105,14 @@ class RegistrationForm extends FormBase {
     }
 
     if ($form_state->getValue('password') != $form_state->getValue('password_repeat')) {
-      $form_state->setErrorByName('password', $this->t('The passwords don\'t match.'));
+      $form_state->setErrorByName('password', $this->t("The passwords don't match."));
     }
 
     $existingUser = \Drupal::entityQuery('user')
       ->condition('name', $form_state->getValue('username'))
       ->execute();
     if (!empty($existingUser)) {
-      $form_state->setErrorByName('username', $this->t('We\'re sorry but this username is already taken.'));
+      $form_state->setErrorByName('username', $this->t("We're sorry but this username is already taken."));
     }
 
     /** @var \Drupal\ohano_account\Validator\EmailValidator $emailValidator */
@@ -139,9 +151,10 @@ class RegistrationForm extends FormBase {
 
     try {
       $user->save();
-    } catch (Drupal\Core\Entity\EntityStorageException $e) {
-      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
-      Drupal::logger('ohano_account')->critical($e->getMessage());
+    }
+    catch (EntityStorageException $e) {
+      \Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      \Drupal::logger('ohano_account')->critical($e->getMessage());
       return;
     }
 
@@ -150,9 +163,10 @@ class RegistrationForm extends FormBase {
         ->setUser($user)
         ->setBits(0)
         ->save();
-    } catch (Drupal\Core\Entity\EntityStorageException $e) {
-      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
-      Drupal::logger('ohano_account')->critical($e->getMessage());
+    }
+    catch (EntityStorageException $e) {
+      \Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      \Drupal::logger('ohano_account')->critical($e->getMessage());
       return;
     }
 
@@ -166,9 +180,10 @@ class RegistrationForm extends FormBase {
       ->setIsValid(FALSE);
     try {
       $accountActivation->save();
-    } catch (Drupal\Core\Entity\EntityStorageException $e) {
-      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
-      Drupal::logger('ohano_account')->critical($e->getMessage());
+    }
+    catch (EntityStorageException $e) {
+      \Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      \Drupal::logger('ohano_account')->critical($e->getMessage());
       return;
     }
 
@@ -180,23 +195,25 @@ class RegistrationForm extends FormBase {
     $mailer = new OhanoMailer(OhanoMail::AccountActivation);
     $mailer->renderBody([
       'username' => $username,
-      'link' => $link
+      'link' => $link,
     ]);
     $mailer->Subject = $this->t('Activate your account at ohano');
 
     try {
       $mailer->addAddress($accountActivation->getEmail(), $username);
-    } catch (Exception $e) {
-      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
-      Drupal::logger('ohano_account')->critical($e->getMessage());
+    }
+    catch (Exception $e) {
+      \Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      \Drupal::logger('ohano_account')->critical($e->getMessage());
       return;
     }
 
     try {
       $mailer->send();
-    } catch (Exception $e) {
-      Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
-      Drupal::logger('ohano_account')->critical($e->getMessage());
+    }
+    catch (Exception $e) {
+      \Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      \Drupal::logger('ohano_account')->critical($e->getMessage());
       return;
     }
 
@@ -205,7 +222,7 @@ class RegistrationForm extends FormBase {
       return;
     }
 
-    Drupal::messenger()->addMessage('Welcome to ohano! We have sent an email with instructions on how to activate your account.');
+    \Drupal::messenger()->addMessage('Welcome to ohano! We have sent an email with instructions on how to activate your account.');
   }
 
 }

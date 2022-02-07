@@ -13,27 +13,22 @@ interface EntityInterface {
    * Returns the entity type id as static variable.
    *
    * @return string
+   *   The entity type id.
    */
   public static function entityTypeId(): string;
 
   /**
    * Installs the entity type.
-   *
-   * @return void
    */
   public static function install(): void;
 
   /**
    * Uninstalls the entity type.
-   *
-   * @return void
    */
   public static function uninstall(): void;
 
   /**
    * Deletes all remaining entities of the entity type.
-   *
-   * @return void
    */
   public static function deleteAll(): void;
 

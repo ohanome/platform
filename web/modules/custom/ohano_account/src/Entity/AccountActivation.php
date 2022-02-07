@@ -6,7 +6,6 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\ohano_core\Entity\EntityBase;
-use Exception;
 
 /**
  * Defines the UserActivation entity.
@@ -34,6 +33,9 @@ class AccountActivation extends EntityBase {
 
   const ENTITY_ID = 'account_activation';
 
+  /**
+   * {@inheritdoc}
+   */
   public static function entityTypeId(): string {
     return self::ENTITY_ID;
   }
@@ -209,7 +211,12 @@ class AccountActivation extends EntityBase {
   }
 
   /**
-   * @throws Exception
+   * Finds an entity by the given code.
+   *
+   * @return \Drupal\ohano_account\Entity\AccountActivation
+   *   The found entity.
+   *
+   * @throws \Exception
    */
   public static function findByCode(string $code): AccountActivation {
     $activation = \Drupal::entityQuery('account_activation')
@@ -217,7 +224,7 @@ class AccountActivation extends EntityBase {
       ->execute();
 
     if (empty($activation)) {
-      throw new Exception("The account_activation entity for the code $code could not be found.");
+      throw new \Exception("The account_activation entity for the code $code could not be found.");
     }
 
     return AccountActivation::load(array_values($activation)[0]);
