@@ -9,6 +9,7 @@ dependencies:
     - contact
     - eu_cookie_compliance
     - filter
+    - ohano_account
     - search
     - system
 _core:
@@ -22,5 +23,6 @@ permissions:
   - 'access content'
   - 'access site-wide contact form'
   - 'display eu cookie compliance popup'
+  - 'ohano access registration form'
   - 'search content'
   - 'use text format restricted_html'

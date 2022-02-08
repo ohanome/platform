@@ -9,6 +9,7 @@ dependencies:
     - contact
     - eu_cookie_compliance
     - filter
+    - ohano_account
     - search
     - shortcut
     - system
@@ -24,6 +25,7 @@ permissions:
   - 'access shortcuts'
   - 'access site-wide contact form'
   - 'display eu cookie compliance popup'
+  - 'ohano access verification form'
   - 'post comments'
   - 'search content'
   - 'skip comment approval'

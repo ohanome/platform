@@ -5,7 +5,7 @@ ohano_account.registration:
     _form: Drupal\ohano_account\Form\RegistrationForm
     _title: 'Register'
   requirements:
-    _permission: 'access content'
+    _permission: 'ohano access registration form'
 ohano_account.registration.alt1:
   # Override Drupal core register path
   path: '/user/register'
@@ -34,7 +34,7 @@ ohano_account.verification:
     _form: Drupal\ohano_account\Form\VerificationForm
     _title: 'Verification'
   requirements:
-    _permission: 'access content'
+    _permission: 'ohano access verification form'
 
 # Activation
 ohano_account.activate:
