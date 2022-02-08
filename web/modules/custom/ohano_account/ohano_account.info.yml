@@ -1,4 +1,4 @@
-name: Account
+name: ohano Account
 description: Account management providing user registration and login logic
 package: ohano
 type: module
