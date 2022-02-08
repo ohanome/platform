@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\ohano_account\Blocklist;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Entity\AccountActivation;
+use Drupal\ohano_account\Entity\AccountVerification;
 use Drupal\ohano_account\Validator\EmailValidator;
 use Drupal\ohano_mail\OhanoMail;
 use Drupal\ohano_mail\OhanoMailer;
@@ -180,6 +181,17 @@ class RegistrationForm extends FormBase {
       ->setIsValid(FALSE);
     try {
       $accountActivation->save();
+    }
+    catch (EntityStorageException $e) {
+      \Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
+      \Drupal::logger('ohano_account')->critical($e->getMessage());
+      return;
+    }
+
+    $accountVerification = AccountVerification::create()
+      ->setUser($user);
+    try {
+      $accountVerification->save();
     }
     catch (EntityStorageException $e) {
       \Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
