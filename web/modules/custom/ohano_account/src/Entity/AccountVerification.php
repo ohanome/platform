@@ -100,130 +100,130 @@ class AccountVerification extends EntityBase {
   /**
    * Gets the vide.
    *
-   * @return \Drupal\file\Entity\File
+   * @return \Drupal\file\Entity\File|null
    *   The vide.
    */
-  public function getVideo(): File {
+  public function getVideo(): ?File {
     return $this->get('video')->referencedEntities()[0];
   }
 
   /**
    * Gets the first name.
    *
-   * @return string
+   * @return string|null
    *   The first name.
    */
-  public function getFirstname(): string {
+  public function getFirstname(): ?string {
     return $this->get('firstname')->value;
   }
 
   /**
    * Gets the last name.
    *
-   * @return string
+   * @return string|null
    *   The last name.
    */
-  public function getLastname(): string {
+  public function getLastname(): ?string {
     return $this->get('lastname')->value;
   }
 
   /**
    * Gets the birthday.
    *
-   * @return \Drupal\Core\Datetime\DrupalDateTime
+   * @return \Drupal\Core\Datetime\DrupalDateTime|null
    *   The birthday.
    */
-  public function getBirthday(): DrupalDateTime {
+  public function getBirthday(): ?DrupalDateTime {
     return DrupalDateTime::createFromFormat('U', $this->get('birthday')->value);
   }
 
   /**
    * Gets the nationality.
    *
-   * @return string
+   * @return string|null
    *   The nationality.
    */
-  public function getNationality(): string {
+  public function getNationality(): ?string {
     return $this->get('nationality')->value;
   }
 
   /**
    * Gets the place of birth.
    *
-   * @return string
+   * @return string|null
    *   The place of birth.
    */
-  public function getPlaceOfBirth(): string {
+  public function getPlaceOfBirth(): ?string {
     return $this->get('place_of_birth')->value;
   }
 
   /**
    * Gets the identity card number.
    *
-   * @return string
+   * @return string|null
    *   The identity card number.
    */
-  public function getIdentityCardNumber(): string {
+  public function getIdentityCardNumber(): ?string {
     return $this->get('identitiy_card_number')->value;
   }
 
   /**
    * Gets the street.
    *
-   * @return string
+   * @return string|null
    *   The street.
    */
-  public function getStreet(): string {
+  public function getStreet(): ?string {
     return $this->get('street')->value;
   }
 
   /**
    * Gets the housenumber.
    *
-   * @return string
+   * @return string|null
    *   The housenumber.
    */
-  public function getHousenumber(): string {
+  public function getHousenumber(): ?string {
     return $this->get('housenumber')->value;
   }
 
   /**
    * Gets the zip.
    *
-   * @return string
+   * @return string|null
    *   The zip.
    */
-  public function getZip(): string {
+  public function getZip(): ?string {
     return $this->get('zip')->value;
   }
 
   /**
    * Gets the city.
    *
-   * @return string
+   * @return string|null
    *   The city.
    */
-  public function getCity(): string {
+  public function getCity(): ?string {
     return $this->get('city')->value;
   }
 
   /**
    * Gets if the user is already verifiedt.
    *
-   * @return bool
+   * @return bool|null
    *   TRUE if the user is verified.
    */
-  public function isVerified(): bool {
+  public function isVerified(): ?bool {
     return (bool) $this->get('verified')->value;
   }
 
   /**
    * Gets the last comment.
    *
-   * @return string
+   * @return string|null
    *   The last comment.
    */
-  public function getLastComment(): string {
+  public function getLastComment(): ?string {
     return $this->get('last_comment')->value;
   }
 
