@@ -1,0 +1,4 @@
+admin-theme:
+  css:
+    theme:
+      css/admin.css: {}

@@ -1,0 +1,7 @@
+/**
+Only used to manipulate styling of the admin theme
+ */
+.toolbar .toolbar-bar .toolbar-icon-ohano-admin:before {
+  -webkit-mask-image: url("/modules/custom/ohano_core/layout/logo.svg") !important;
+  mask-image: url("/modules/custom/ohano_core/layout/logo.svg") !important;
+}

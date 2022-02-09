@@ -1,0 +1,6 @@
+ohano.admin:
+  title: ohano
+  description: 'Manage ohano related administrations'
+  route_name: ohano_core.admin
+  parent: system.admin
+  weight: -100

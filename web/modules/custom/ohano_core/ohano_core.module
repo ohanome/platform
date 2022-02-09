@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function ohano_core_preprocess_html(&$variables) {
+  $variables['page']['#attached']['library'][] = 'ohano_core/admin-theme';
+}

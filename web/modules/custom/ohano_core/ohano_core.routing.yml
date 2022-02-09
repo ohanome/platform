@@ -1,0 +1,7 @@
+ohano_core.admin:
+  path: '/admin/ohano'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'ohano'
+  requirements:
+    _permission: 'ohano access ohano administration'
