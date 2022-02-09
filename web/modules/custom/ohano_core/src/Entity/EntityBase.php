@@ -2,6 +2,7 @@
 
 namespace Drupal\ohano_core\Entity;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ohano_core\OhanoCore;
@@ -129,7 +130,9 @@ abstract class EntityBase extends ContentEntityBase implements EntityInterface {
       'id' => $this->id(),
       'uuid' => $this->uuid(),
       'created' => $this->getCreated(),
+      'created_formatted' => DrupalDateTime::createFromTimestamp($this->getCreated())->format(DATE_ATOM),
       'updated' => $this->getUpdated(),
+      'updated_formatted' => DrupalDateTime::createFromTimestamp($this->getUpdated())->format(DATE_ATOM),
     ];
   }
 
