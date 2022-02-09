@@ -164,7 +164,7 @@ class AccountVerification extends EntityBase {
    *   The identity card number.
    */
   public function getIdentityCardNumber(): ?string {
-    return $this->get('identitiy_card_number')->value;
+    return $this->get('identity_card_number')->value;
   }
 
   /**
