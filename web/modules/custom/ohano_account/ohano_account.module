@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function ohano_account_theme($existing, $type, $theme, $path) {
+  return [
+    'account_verification_list' => [
+      'variables' => [
+        'verifications' => NULL,
+      ],
+      'template' => 'account-verification-list',
+    ],
+  ];
+}

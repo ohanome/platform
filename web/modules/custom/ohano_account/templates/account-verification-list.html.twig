@@ -1,0 +1,24 @@
+<table class="views-table views-view-table cols-7 responsive-enabled sticky-enabled sticky-table">
+  <thead>
+  <tr>
+    <th>{{ "ID"|trans }}</th>
+    <th>{{ "Created"|trans }}</th>
+    <th>{{ "User"|trans }}</th>
+    <th>{{ "Last comment"|trans }}</th>
+    <th>{{ "Action(s)"|trans }}</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% if verifications %}
+    {% for verification in verifications %}
+      <tr>
+        <td>{% if verification.id %}{{ verification.id }}{% endif %}</td>
+        <td>{% if verification.created_formatted %}{{ verification.created_formatted }}{% endif %}</td>
+        <td>{% if verification.user %}<a href="/user/{{ verification.user.id }}">{{ verification.user.name.0.value }}</a>{% endif %}</td>
+        <td>{% if verification.last_comment %}{{ verification.last_comment }}{% endif %}</td>
+        <td><a href="/admin/ohano/account/verification/details/{{ verification.id }}">{{ "Edit"|trans }}</a></td>
+      </tr>
+    {% endfor %}
+  {% endif %}
+  </tbody>
+</table>

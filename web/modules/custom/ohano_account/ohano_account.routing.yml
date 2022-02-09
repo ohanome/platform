@@ -56,7 +56,7 @@ ohano_account.admin.account:
 ohano_account.admin.account.verification:
   path: '/admin/ohano/account/verification'
   defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _controller: Drupal\ohano_account\Controller\Admin\VerificationController::index
     _title: 'Verification'
   requirements:
     _permission: 'ohano access verification overview'
