@@ -44,3 +44,19 @@ ohano_account.activate:
     _title: 'Account activation'
   requirements:
     _permission: 'access content'
+
+# Admin links
+ohano_account.admin.account:
+  path: '/admin/ohano/account'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Account'
+  requirements:
+    _permission: 'ohano access account administration'
+ohano_account.admin.account.verification:
+  path: '/admin/ohano/account/verification'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Verification'
+  requirements:
+    _permission: 'ohano access verification overview'

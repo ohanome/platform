@@ -1,0 +1,10 @@
+ohano_account.admin.account:
+  title: Account
+  description: 'Manage ohano related administrations'
+  route_name: ohano_account.admin.account
+  parent: ohano.admin
+ohano_account.admin.account.verification:
+  title: Verification
+  description: 'Administer and review verification requests'
+  route_name: ohano_account.admin.account.verification
+  parent: ohano_account.admin.account
