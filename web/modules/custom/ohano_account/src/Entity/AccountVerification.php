@@ -104,7 +104,7 @@ class AccountVerification extends EntityBase {
    *   The vide.
    */
   public function getVideo(): ?File {
-    return $this->get('video')->referencedEntities()[0];
+    return $this->get('video')->referencedEntities() ? $this->get('video')->referencedEntities()[0] : NULL;
   }
 
   /**
@@ -134,7 +134,7 @@ class AccountVerification extends EntityBase {
    *   The birthday.
    */
   public function getBirthday(): ?DrupalDateTime {
-    return DrupalDateTime::createFromFormat('U', $this->get('birthday')->value);
+    return $this->get('birthday')->value ? DrupalDateTime::createFromFormat('U', $this->get('birthday')->value) : $this->get('birthday')->value;
   }
 
   /**
