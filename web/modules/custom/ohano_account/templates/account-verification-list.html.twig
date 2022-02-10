@@ -16,7 +16,7 @@
         <td>{% if verification.created_formatted %}{{ verification.created_formatted }}{% endif %}</td>
         <td>{% if verification.user %}<a href="/user/{{ verification.user.id }}">{{ verification.user.name.0.value }}</a>{% endif %}</td>
         <td>{% if verification.last_comment %}{{ verification.last_comment }}{% endif %}</td>
-        <td><a href="/admin/ohano/account/verification/details/{{ verification.id }}">{{ "Edit"|trans }}</a></td>
+        <td><a href="/admin/ohano/account/verification/{{ verification.id }}">{{ "Edit"|trans }}</a></td>
       </tr>
     {% endfor %}
   {% endif %}

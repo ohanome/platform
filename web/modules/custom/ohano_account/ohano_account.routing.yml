@@ -60,3 +60,10 @@ ohano_account.admin.account.verification:
     _title: 'Verification'
   requirements:
     _permission: 'ohano access verification overview'
+ohano_account.admin.account.verification.detail:
+  path: '/admin/ohano/account/verification/{id}'
+  defaults:
+    _form: Drupal\ohano_account\Form\Admin\VerificationForm
+    _title: 'Review Verification'
+  requirements:
+    _permission: 'ohano administer verification requests'
