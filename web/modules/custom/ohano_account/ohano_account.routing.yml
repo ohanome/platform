@@ -44,17 +44,23 @@ ohano_account.logout.alt1:
 
 # Login
 ohano_account.login:
-  path: '/login'
-  defaults:
-    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLoginPage
-  requirements:
-    _permission: 'access content'
-ohano_account.login.alt1:
   # Route with default account prefix
   path: '/account/login'
   defaults:
     _form: Drupal\ohano_account\Form\LoginForm
     _title: 'Login'
+  requirements:
+    _permission: 'access content'
+ohano_account.login.alt1:
+  path: '/login'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLoginPage
+  requirements:
+    _permission: 'access content'
+ohano_account.login.alt2:
+  path: '/user/login'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLoginPage
   requirements:
     _permission: 'access content'
 
