@@ -13,7 +13,7 @@ third_party_settings:
     module_link: true
 preset_accent_color: blue
 preset_focus_color: gin
-enable_darkmode: false
+enable_darkmode: true
 classic_toolbar: horizontal
 icon_default: true
 icon_path: ''
