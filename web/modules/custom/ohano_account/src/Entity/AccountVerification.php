@@ -405,7 +405,7 @@ class AccountVerification extends EntityBase {
    *   The active instance of this class.
    */
   public function setIsVerified(bool $isVerified): AccountVerification {
-    $this->set('verified', (int) $isVerified);
+    $this->set('verified', $isVerified);
     return $this;
   }
 

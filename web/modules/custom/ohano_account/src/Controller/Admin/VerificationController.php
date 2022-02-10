@@ -12,8 +12,8 @@ class VerificationController extends ControllerBase {
       ->getStorage('account_verification')
       ->getQuery()
 //      ->condition('verified', 'null')
-      ->sort('created', 'ASC')
-      ->sort('verified', 'DESC')
+      ->sort('created', 'DESC')
+      ->sort('verified')
       ->execute();
     $verificationIds = array_values($verificationIds);
     /** @var \Drupal\ohano_account\Entity\AccountVerification[] $verifications */
