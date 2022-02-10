@@ -4,7 +4,6 @@ namespace Drupal\ohano_account\Form\Admin;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageException;
-use Drupal\Core\File\FileUrlGenerator;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -14,15 +13,26 @@ use Drupal\ohano_mail\OhanoMailer;
 use PHPMailer\PHPMailer\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+/**
+ * Administration form for verification requests.
+ *
+ * @package Drupal\ohano_account\Form\Admin
+ */
 class VerificationForm extends FormBase {
 
-  public function getFormId() {
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
     return 'ohano_account_admin_verification';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state, int $id = NULL) {
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state, int $id = NULL): array {
     if (empty($id)) {
-      $this->messenger()->addError($this->t('Verification id is empty.'))
+      $this->messenger()->addError($this->t('Verification id is empty.'));
       (new RedirectResponse(Url::fromRoute('ohano_account.admin.account.verification')->toString()))->send();
     }
 
@@ -56,13 +66,13 @@ class VerificationForm extends FormBase {
 
     $video = $verification->getVideo();
     if ($video) {
-      /** @var FileUrlGenerator $url */
+      /** @var \Drupal\Core\File\FileUrlGenerator $url */
       $generator = \Drupal::service('file_url_generator');
       $url = $generator->generateAbsoluteString($video->getFileUri());
       $form['video'] = [
         '#type' => 'markup',
         '#title' => $this->t("Video"),
-        '#markup' => $this->t("Video file") . ': <a href="' . $url . '" target="_blank">' . $url . '</a><br />'
+        '#markup' => $this->t('Video file: <a href="@url" target="_blank">@url</a><br />', ['url' => $url]),
       ];
     }
     else {
@@ -154,6 +164,9 @@ class VerificationForm extends FormBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $verificationId = $form_state->getValue('verification_id');
     $verification = AccountVerification::load($verificationId);
@@ -197,7 +210,8 @@ class VerificationForm extends FormBase {
 
     try {
       $verification->save();
-    } catch (EntityStorageException $e) {
+    }
+    catch (EntityStorageException $e) {
       $this->messenger()->addError($this->t('The verification request could not be saved.'));
       $this->logger('ohano_account')->critical($e->getMessage());
     }

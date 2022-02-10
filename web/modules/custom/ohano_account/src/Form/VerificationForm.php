@@ -2,7 +2,7 @@
 
 namespace Drupal\ohano_account\Form;
 
-use Drupal;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
@@ -22,13 +22,19 @@ class VerificationForm extends FormBase {
     return 'ohano_account__verification';
   }
 
+  /**
+   * Builds the file field which is used at multiple places.
+   *
+   * @return array
+   *   The built file field.
+   */
   private function getFileField(): array {
     return [
       '#type' => 'managed_file',
       '#title' => $this->t('Video file'),
       '#description' => $this->t('Additionally to the above mentioned restrictions there are also technical requirements and limit: The video must be under 5MB and you must upload is as .mp4 file.'),
       '#upload_location' => 'public://verification/' . md5(\Drupal::currentUser()
-          ->getAccountName()),
+        ->getAccountName()),
       '#upload_validators' => [
         'file_validate_extensions' => [
           'mp4',
@@ -119,9 +125,10 @@ class VerificationForm extends FormBase {
           $verification->save();
 
           $this->messenger()->addMessage($this->t("Your verification will be reviewed shortly."));
-        } catch (Drupal\Core\Entity\EntityStorageException $e) {
-          Drupal::messenger()->addError('Verification failed due to technical errors.');
-          Drupal::logger('ohano_account')->critical($e->getMessage());
+        }
+        catch (EntityStorageException $e) {
+          \Drupal::messenger()->addError('Verification failed due to technical errors.');
+          \Drupal::logger('ohano_account')->critical($e->getMessage());
           return;
         }
       }
