@@ -27,6 +27,38 @@ ohano_account.registration.alt3:
   requirements:
     _permission: 'access content'
 
+# Logout
+ohano_account.logout:
+  path: '/logout'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLogoutPage
+  requirements:
+    _permission: 'access content'
+ohano_account.logout.alt1:
+  # Route with default account prefix
+  path: '/account/logout'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLogoutPage
+  requirements:
+    _permission: 'access content'
+
+# Login
+ohano_account.login:
+  path: '/login'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLoginPage
+  requirements:
+    _permission: 'access content'
+ohano_account.login.alt1:
+  # Route with default account prefix
+  path: '/account/login'
+  defaults:
+    _form: Drupal\ohano_account\Form\LoginForm
+    _title: 'Login'
+  requirements:
+    _permission: 'access content'
+
+
 # Verification
 ohano_account.verification:
   path: '/account/verify'
