@@ -1,0 +1,10 @@
+uuid: 85fdb59a-e1d9-40d3-9f63-16941f41900f
+langcode: de
+status: true
+dependencies:
+  module:
+    - ohano_account
+id: account.token
+label: Token
+targetEntityType: account
+cache: true

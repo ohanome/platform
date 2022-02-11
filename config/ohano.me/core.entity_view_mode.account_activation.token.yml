@@ -1,0 +1,10 @@
+uuid: ee441f51-1474-463c-8a37-dc97ef173000
+langcode: de
+status: true
+dependencies:
+  module:
+    - ohano_account
+id: account_activation.token
+label: Token
+targetEntityType: account_activation
+cache: true
