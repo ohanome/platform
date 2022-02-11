@@ -14,6 +14,7 @@ module:
   comment: 0
   config: 0
   contact: 0
+  ctools: 0
   datetime: 0
   dblog: 0
   dynamic_page_cache: 0
@@ -32,6 +33,8 @@ module:
   link: 0
   locale: 0
   mailsystem: 0
+  media: 0
+  media_library: 0
   menu_link_content: 0
   menu_ui: 0
   node: 0
@@ -52,12 +55,14 @@ module:
   system: 0
   taxonomy: 0
   text: 0
+  token: 0
   toolbar: 0
   tour: 0
   update: 0
   user: 0
   views_ui: 0
   webform: 0
+  pathauto: 1
   views: 10
   standard: 1000
   eu_cookie_compliance: 1001

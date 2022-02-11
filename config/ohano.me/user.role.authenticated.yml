@@ -9,6 +9,7 @@ dependencies:
     - contact
     - eu_cookie_compliance
     - filter
+    - media
     - ohano_account
     - search
     - shortcut
@@ -30,3 +31,4 @@ permissions:
   - 'search content'
   - 'skip comment approval'
   - 'use text format basic_html'
+  - 'view media'

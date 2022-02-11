@@ -29,6 +29,7 @@
         "drupal/gin_login": "^1.0",
         "drupal/gutenberg": "^2.4",
         "drupal/mailsystem": "^4.3",
+        "drupal/pathauto": "^1.8",
         "drupal/restui": "^1.20",
         "drupal/smtp": "^1.0",
         "drupal/webform": "^6.1",
