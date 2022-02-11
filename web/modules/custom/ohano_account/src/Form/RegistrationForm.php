@@ -10,6 +10,7 @@ use Drupal\ohano_account\Blocklist;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Entity\AccountActivation;
 use Drupal\ohano_account\Entity\AccountVerification;
+use Drupal\ohano_account\Form\Config\RegistrationConfigForm;
 use Drupal\ohano_account\Validator\EmailValidator;
 use Drupal\ohano_mail\OhanoMail;
 use Drupal\ohano_mail\OhanoMailer;
@@ -34,6 +35,11 @@ class RegistrationForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    if ($this->configFactory()->get(RegistrationConfigForm::CONFIG_NAME)->get('open') != 1) {
+      $this->messenger()->addError($this->t("We're sorry but registration is currently closed."));
+      return [];
+    }
+
     $form = [];
 
     $form['info'] = [
