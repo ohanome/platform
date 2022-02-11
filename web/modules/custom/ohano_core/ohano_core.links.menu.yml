@@ -4,3 +4,8 @@ ohano.admin:
   route_name: ohano_core.admin
   parent: system.admin
   weight: -100
+ohano.config:
+  title: ohano
+  route_name: ohano_core.config
+  parent: system.admin_config
+  weight: -100
