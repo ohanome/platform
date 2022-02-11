@@ -105,3 +105,19 @@ ohano_account.admin.account.verification.detail:
     _title: 'Review Verification'
   requirements:
     _permission: 'ohano administer verification requests'
+
+# Configuration
+ohano_account.config:
+  path: '/admin/config/ohano/account'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Account'
+  requirements:
+    _permission: 'ohano access account configuration'
+ohano_account.config.registration:
+  path: '/admin/config/ohano/account/registration'
+  defaults:
+    _form: Drupal\ohano_account\Form\Config\RegistrationConfigForm
+    _title: 'Registration'
+  requirements:
+    _permission: 'ohano account configure registration'

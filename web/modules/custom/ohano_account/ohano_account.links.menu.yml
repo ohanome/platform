@@ -8,3 +8,13 @@ ohano_account.admin.account.verification:
   description: 'Administer and review verification requests'
   route_name: ohano_account.admin.account.verification
   parent: ohano_account.admin.account
+ohano_account.config:
+  title: Account
+  description: 'Configure the behavior of the ohano account module'
+  route_name: ohano_account.config
+  parent: ohano.config
+ohano_account.config.registration:
+  title: Registration
+  description: 'Configure the user registration'
+  route_name: ohano_account.config.registration
+  parent: ohano_account.config
