@@ -1,0 +1,8 @@
+uuid: 38fc5396-fff8-41a0-acfa-2f0236f23fac
+langcode: de
+status: true
+dependencies: {  }
+name: 'Gaming Plattformen'
+vid: gaming_platforms
+description: ''
+weight: 0

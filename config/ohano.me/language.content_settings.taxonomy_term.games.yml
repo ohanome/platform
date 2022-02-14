@@ -1,0 +1,11 @@
+uuid: ca540aaf-c2ae-4ec6-bc4c-af95b29dba7c
+langcode: de
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.games
+id: taxonomy_term.games
+target_entity_type_id: taxonomy_term
+target_bundle: games
+default_langcode: site_default
+language_alterable: false
