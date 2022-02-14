@@ -1,0 +1,8 @@
+uuid: 389fb261-88a2-4b57-8903-fd52b1392123
+langcode: de
+status: true
+dependencies: {  }
+name: Programmiersprachen
+vid: programming_languages
+description: ''
+weight: 0
