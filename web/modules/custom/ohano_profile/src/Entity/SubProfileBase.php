@@ -4,7 +4,9 @@ namespace Drupal\ohano_profile\Entity;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\ohano_core\Entity\EntityBase;
+use phpDocumentor\Reflection\Types\Static_;
 
 abstract class SubProfileBase extends EntityBase {
 
@@ -45,5 +47,27 @@ abstract class SubProfileBase extends EntityBase {
   public function setProfile(UserProfile $profile): SubProfileBase {
     $this->set('profile', $profile);
     return $this;
+  }
+
+  /**
+   * @param \Drupal\Core\Session\AccountInterface $user
+   *
+   * @return \Drupal\ohano_profile\Entity\SubProfileBase|null
+   */
+  public static function loadByUser(AccountInterface $user): ?SubProfileBase {
+    $userProfile = UserProfile::loadByUser($user);
+    return empty($userProfileId) ? NULL : static::loadByProfile($userProfile);
+  }
+
+  /**
+   * @param \Drupal\ohano_profile\Entity\UserProfile $userProfile
+   *
+   * @return \Drupal\ohano_profile\Entity\SubProfileBase|null
+   */
+  public static function loadByProfile(UserProfile $userProfile): ?SubProfileBase {
+    $profileId = \Drupal::entityQuery(static::ENTITY_ID)
+      ->condition('profile', $userProfile->id())
+      ->execute();
+    return empty($profileId) ? NULL : static::load(array_values($profileId)[0]);
   }
 }

@@ -2,6 +2,7 @@
 
 namespace Drupal\ohano_profile\Entity;
 
+use Drupal\Core\Session\AccountInterface;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -139,6 +140,23 @@ class UserProfile extends EntityBase {
         'account' => $this->getAccount(),
         'excluded_from_search' => $this->isExcludedFromSearch()
       ];
+  }
+
+  /**
+   * @param \Drupal\Core\Session\AccountInterface $user
+   *
+   * @return \Drupal\ohano_profile\Entity\UserProfile|null
+   */
+  public static function loadByUser(AccountInterface $user): ?UserProfile {
+    $account = Account::getByUser($user);
+    if (empty($account)) {
+      return NULL;
+    }
+
+    $userProfileId = \Drupal::entityQuery(UserProfile::ENTITY_ID)
+      ->condition('account', $account->id())
+      ->execute();
+    return empty($userProfileId) ? NULL : UserProfile::load(array_values($userProfileId)[0]);
   }
 
 }

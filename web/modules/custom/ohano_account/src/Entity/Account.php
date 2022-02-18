@@ -126,4 +126,21 @@ class Account extends EntityBase implements EntityInterface {
     return $this->setBits($this->getBits() - $bits);
   }
 
+  /**
+   * Gets an account entity for the given user.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $user
+   *   The user to fetch the account entity from.
+   *
+   * @return \Drupal\ohano_account\Entity\Account|null
+   *   The account entity.
+   */
+  public static function getByUser(AccountInterface $user): ?Account {
+    $accountId = \Drupal::entityQuery('account')
+      ->condition('user', $user->id())
+      ->execute();
+
+    return Account::loadMultiple($accountId)[0];
+  }
+
 }
