@@ -8,6 +8,11 @@ ohano_account.admin.account.verification:
   description: 'Administer and review verification requests'
   route_name: ohano_account.admin.account.verification
   parent: ohano_account.admin.account
+ohano_account.admin.account.cleanup:
+  title: Cleanup
+  description: 'Cleanup messy account related entities'
+  route_name: ohano_account.admin.account.cleanup
+  parent: ohano_account.admin.account
 ohano_account.config:
   title: Account
   description: 'Configure the behavior of the ohano account module'

@@ -8,3 +8,6 @@ ohano access verification overview:
 ohano administer verification requests:
   title: 'Administer verification requests'
   restrict access: true
+ohano account cleanup:
+  title: 'Cleanup messy account related entities'
+  restrict access: true

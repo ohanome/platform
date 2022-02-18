@@ -105,6 +105,13 @@ ohano_account.admin.account.verification.detail:
     _title: 'Review Verification'
   requirements:
     _permission: 'ohano administer verification requests'
+ohano_account.admin.account.cleanup:
+  path: '/admin/ohano/account/cleanup'
+  defaults:
+    _form: Drupal\ohano_account\Form\Admin\CleanupForm
+    _title: 'Cleanup messy account entities'
+  requirements:
+    _permission: 'ohano account cleanup'
 
 # Configuration
 ohano_account.config:
