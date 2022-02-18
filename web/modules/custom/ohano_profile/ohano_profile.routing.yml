@@ -1,0 +1,14 @@
+ohano_profile.create_profile_base:
+  path: '/profile/create-base'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::createProfileBase
+    _title: ''
+  requirements:
+    _permission: 'access content'
+ohano_profile.edit:
+  path: '/profile/edit'
+  defaults:
+    _form: Drupal\ohano_profile\Form\ProfileForm
+    _title: 'Edit profile'
+  requirements:
+    _permission: 'access content'
