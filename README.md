@@ -8,7 +8,8 @@ Repository für die Hauptplattform. Dieses Repository soll dabei helfen, zu vers
 3. [Branches](#branches)
 4. [Deployment](#deployment)
 5. [Theme](#theme)
-6. [License (en)](#license)
+6. [Errors](#errors)
+7. [License (en)](#license)
 
 ## Setup
 
@@ -80,6 +81,14 @@ npm run scss-watch
 ausführen, diese Befehl "horcht" auf Änderungen im SCSS-Code und kompiliert beim Speichern der Datei.
 
 Beide Befehle musst du im Ordner `web/themes/custom/ohano-[THEME]` ausführen.
+
+## Errors
+
+| Code  | Modul         | Beschreibung                                                                                                                                                                 |
+|-------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| P0404 | ohano_profile | Entity UserProfile existiert nicht für Benutzer                                                                                                                              |
+| P1404 | ohano_profile | Entity BaseProfile existiert nicht für Benutzer - Auch wenn es ein Unterprofil ist, ist dies ein Sonderfall, da das Profil in jedem Fall erstellt wird und existieren sollte |
+| P2404 | ohano_profile | Entity SubProfile existiert nicht für Benutzer - Es gibt keinen Fehlercode für jedes einzelne Unterprofil, sondern nur einen                                                 |
 
 ## License
 
