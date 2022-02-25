@@ -6,9 +6,31 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\ohano_core\Entity\EntityBase;
+use Drupal\taxonomy\Entity\Term;
 use phpDocumentor\Reflection\Types\Static_;
 
-abstract class SubProfileBase extends EntityBase {
+abstract class SubProfileBase extends EntityBase implements SubProfileInterface {
+
+  protected function setTermValues(string $fieldName, array $termValues = NULL) {
+    $valuesToSave = [];
+    if (!empty($termValues)) {
+      foreach ($termValues as $termValue) {
+        if ($termValue instanceof Term) {
+          $valuesToSave[] = [
+            'target_id' => $termValue->id(),
+          ];
+        }
+        else if (isset($termValue['target_id']) && !empty(Term::load($termValue['target_id']))) {
+          $valuesToSave[] = $termValue;
+        }
+      }
+    }
+    else {
+      $valuesToSave = $termValues;
+    }
+
+    $this->set($fieldName, $valuesToSave);
+  }
 
   /**
    * {@inheritdoc}
