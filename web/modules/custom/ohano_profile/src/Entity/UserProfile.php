@@ -127,7 +127,7 @@ class UserProfile extends EntityBase {
    *   The active instance of this class.
    */
   public function setIsExcludedFromSearch(bool $excludedFromSearch): UserProfile {
-    $this->set('excluded_from_search', (int) $excludedFromSearch);
+    $this->set('exclude_from_search', (int) $excludedFromSearch);
     return $this;
   }
 
@@ -138,7 +138,7 @@ class UserProfile extends EntityBase {
     return parent::render() + [
         'status' => $this->getStatus(),
         'account' => $this->getAccount(),
-        'excluded_from_search' => $this->isExcludedFromSearch()
+        'exclude_from_search' => $this->isExcludedFromSearch()
       ];
   }
 
