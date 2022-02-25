@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\ohano_profile\Option\EducationDegree;
 use Drupal\ohano_profile\Option\EmploymentStatus;
+use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the JobProfile entity.
@@ -116,7 +117,7 @@ class JobProfile extends SubProfileBase {
   /**
    * Sets the employment status.
    *
-   * @param \Drupal\ohano_profile\Option\EmploymentStatus $employmentStatus
+   * @param \Drupal\ohano_profile\Option\EmploymentStatus|null $employmentStatus
    *   The employment status to set.
    *
    * @return \Drupal\ohano_profile\Entity\JobProfile
@@ -124,15 +125,15 @@ class JobProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setEmploymentStatus(EmploymentStatus $employmentStatus): JobProfile {
-    $this->set('employment_status', $employmentStatus->value);
+  public function setEmploymentStatus(EmploymentStatus $employmentStatus = NULL): JobProfile {
+    $this->set('employment_status', $employmentStatus?->value);
     return $this;
   }
 
   /**
    * Sets the education degree.
    *
-   * @param \Drupal\ohano_profile\Option\EducationDegree $educationDegree
+   * @param \Drupal\ohano_profile\Option\EducationDegree|null $educationDegree
    *   The education degree to set.
    *
    * @return \Drupal\ohano_profile\Entity\JobProfile
@@ -140,21 +141,21 @@ class JobProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setEducationDegree(EducationDegree $educationDegree): JobProfile {
-    $this->set('education_degree', $educationDegree->value);
+  public function setEducationDegree(EducationDegree $educationDegree = NULL): JobProfile {
+    $this->set('education_degree', $educationDegree?->value);
     return $this;
   }
 
   /**
    * Sets the employer.
    *
-   * @param string $employer
+   * @param string|null $employer
    *   The employer to set.
    *
    * @return \Drupal\ohano_profile\Entity\JobProfile
    *   The active instance of this class.
    */
-  public function setEmployer(string $employer): JobProfile {
+  public function setEmployer(string $employer = NULL): JobProfile {
     $this->set('employer', $employer);
     return $this;
   }
@@ -162,13 +163,13 @@ class JobProfile extends SubProfileBase {
   /**
    * Sets the industry.
    *
-   * @param string $industry
+   * @param string|null $industry
    *   The industry to set.
    *
    * @return \Drupal\ohano_profile\Entity\JobProfile
    *   The active instance of this class.
    */
-  public function setIndustry(string $industry): JobProfile {
+  public function setIndustry(string $industry = NULL): JobProfile {
     $this->set('industry', $industry);
     return $this;
   }
@@ -176,7 +177,7 @@ class JobProfile extends SubProfileBase {
   /**
    * Sets the position.
    *
-   * @param string $position
+   * @param string|null $position
    *   The position to set.
    *
    * @return \Drupal\ohano_profile\Entity\JobProfile
@@ -184,7 +185,7 @@ class JobProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setPosition(string $position): JobProfile {
+  public function setPosition(string $position = NULL): JobProfile {
     $this->set('position', $position);
     return $this;
   }
