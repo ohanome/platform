@@ -12,3 +12,29 @@ ohano_profile.edit:
     _title: 'Edit profile'
   requirements:
     _permission: 'access content'
+
+ohano_profile.profile.self:
+  path: '/user'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::profile
+  requirements:
+    _permission: 'access content'
+
+ohano_profile.profile.other:
+  path: '/user/{username}'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::profile
+  requirements:
+    _permission: 'access content'
+ohano_profile.profile.alt2:
+  path: '/profile'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::redirectToProfile
+  requirements:
+    _permission: 'access content'
+ohano_profile.profile.alt3:
+  path: '/profile/{username}'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::redirectToProfile
+  requirements:
+    _permission: 'access content'
