@@ -319,4 +319,60 @@ class CodingProfile extends SubProfileBase {
     ];
   }
 
+  public static function renderForm(SubProfileBase $subProfile): array {
+    if (!$subProfile instanceof CodingProfile) {
+      throw new InvalidArgumentException('Parameter must be of type CodingProfile');
+    }
+    /** @var \Drupal\ohano_profile\Entity\CodingProfile $subProfile */
+
+    $form = [];
+
+    $form['github'] = [
+      '#type' => 'textfield',
+      '#title' => t('GitHub'),
+      '#default_value' => $subProfile->getGithub(),
+    ];
+
+    $form['gitlab'] = [
+      '#type' => 'textfield',
+      '#title' => t('GitLab'),
+      '#default_value' => $subProfile->getGitlab(),
+    ];
+
+    $form['bitbucket'] = [
+      '#type' => 'textfield',
+      '#title' => t('BitBucket'),
+      '#default_value' => $subProfile->getBitbucket(),
+    ];
+
+    $form['programming_languages'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Programming languages'),
+      '#tags' => TRUE,
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => [
+        'target_bundles' => [
+          'programming_languages',
+        ],
+      ],
+      '#default_value' => $subProfile->getProgrammingLanguages(),
+    ];
+
+    $form['systems'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Systems'),
+      '#description' => t('Frameworks, *MS (CMS, DMS, ...), etc.'),
+      '#tags' => TRUE,
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => [
+        'target_bundles' => [
+          'systems',
+        ],
+      ],
+      '#default_value' => $subProfile->getSystems(),
+    ];
+
+    return $form;
+  }
+
 }
