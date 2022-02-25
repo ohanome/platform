@@ -316,6 +316,38 @@ class GamingProfile extends SubProfileBase {
   }
 
   /**
+   * Sets the games.
+   *
+   * @param \Drupal\taxonomy\Entity\Term[]|array[]|null $games
+   *   The games to set.
+   *
+   * @return \Drupal\ohano_profile\Entity\GamingProfile
+   *   The active instance of this class.
+   *
+   * @noinspection PhpUnused
+   */
+  public function setGames(array $games = NULL): GamingProfile {
+    $this->setTermValues('games', $games);
+    return $this;
+  }
+
+  /**
+   * Sets the platforms.
+   *
+   * @param \Drupal\taxonomy\Entity\Term[]|array[]|null $platforms
+   *   The platforms to set.
+   *
+   * @return \Drupal\ohano_profile\Entity\GamingProfile
+   *   The active instance of this class.
+   *
+   * @noinspection PhpUnused
+   */
+  public function setPlatforms(array $platforms = NULL): GamingProfile {
+    $this->setTermValues('platforms', $platforms);
+    return $this;
+  }
+
+  /**
    * Adds the given game to the list of games.
    *
    * @param \Drupal\taxonomy\Entity\Term $game
