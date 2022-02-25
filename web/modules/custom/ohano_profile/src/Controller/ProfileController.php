@@ -47,4 +47,35 @@ class ProfileController extends ControllerBase {
     return $redirect;
   }
 
+  public function profile($username = NULL) {
+    if (empty($username)) {
+      $username = \Drupal::currentUser()->getAccountName();
+      return new RedirectResponse("/user/$username");
+    }
+
+    /** @var User $user */
+    $user = user_load_by_name($username);
+    if (empty($user)) {
+      return new Response('', 404);
+    }
+
+    $userProfile = UserProfile::loadByUser($user);
+    if (empty($userProfile)) {
+      return new Response('', 404);
+    }
+
+    dd($userProfile);
+  }
+
+  public function redirectToProfile($username = NULL, $uid = NULL) {
+    if ($username) {
+      return new RedirectResponse("/user/$username");
+    }
+    if ($uid) {
+      return new RedirectResponse("/user/$uid");
+    }
+
+    return new RedirectResponse("/user");
+  }
+
 }
