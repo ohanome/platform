@@ -482,4 +482,97 @@ class GamingProfile extends SubProfileBase {
       ];
   }
 
+  public static function renderForm(SubProfileBase $subProfile): array {
+    if (!$subProfile instanceof GamingProfile) {
+      throw new InvalidArgumentException('Parameter must be of type GamingProfile');
+    }
+    /** @var \Drupal\ohano_profile\Entity\GamingProfile $subProfile */
+
+    $form = [];
+
+    $form['minecraft_name'] = [
+      '#type' => 'textfield',
+      '#title' => t('Minecraft name'),
+      '#default_value' => $subProfile->getMinecraftName(),
+    ];
+
+    $form['minecraft_uuid'] = [
+      '#type' => 'textfield',
+      '#title' => t('Minecraft UUID'),
+      '#description' => t('Your Minecraft UUID will be fetched based on your username.'),
+      '#default_value' => $subProfile->getMinecraftUuid(),
+      '#attributes' => [
+        'disabled' => [
+          'disabled',
+        ],
+      ],
+    ];
+
+    $form['valorant'] = [
+      '#type' => 'textfield',
+      '#title' => t('VALORANT'),
+      '#default_value' => $subProfile->getValorant(),
+    ];
+
+    $form['league_of_legends'] = [
+      '#type' => 'textfield',
+      '#title' => t('League of Legends'),
+      '#default_value' => $subProfile->getLeagueOfLegends(),
+    ];
+
+    $form['battle_net'] = [
+      '#type' => 'textfield',
+      '#title' => t('Battle.net'),
+      '#default_value' => $subProfile->getBattleNet(),
+    ];
+
+    $form['ubisoft_connect'] = [
+      '#type' => 'textfield',
+      '#title' => t('Ubisoft Connect'),
+      '#default_value' => $subProfile->getUbisoftConnect(),
+    ];
+
+    $form['steam'] = [
+      '#type' => 'textfield',
+      '#title' => t('Steam'),
+      '#default_value' => $subProfile->getSteam(),
+    ];
+
+    $form['ea_origin'] = [
+      '#type' => 'textfield',
+      '#title' => t('EA Origin'),
+      '#default_value' => $subProfile->getEaOrigin(),
+    ];
+
+    $form['games'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Games'),
+      '#description' => t('What games do you play?'),
+      '#tags' => TRUE,
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => [
+        'target_bundles' => [
+          'games',
+        ],
+      ],
+      '#default_value' => $subProfile->getGames(),
+    ];
+
+    $form['platforms'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Gaming platforms'),
+      '#description' => t('Start typing the name of a game; separate games by a comma'),
+      '#tags' => TRUE,
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => [
+        'target_bundles' => [
+          'gaming_platforms',
+        ],
+      ],
+      '#default_value' => $subProfile->getPlatforms(),
+    ];
+
+    return $form;
+  }
+
 }
