@@ -147,4 +147,36 @@ class RelationshipProfile extends SubProfileBase {
     ];
   }
 
+  public static function renderForm(SubProfileBase $subProfile): array {
+    if (!$subProfile instanceof RelationshipProfile) {
+      throw new InvalidArgumentException('Parameter must be of type RelationshipProfile');
+    }
+    /** @var \Drupal\ohano_profile\Entity\RelationshipProfile $subProfile */
+
+    $form = [];
+
+    $form['status'] = [
+      '#type' => 'select',
+      '#title' => t('Relationship status'),
+      '#options' => [NULL => '-'] + RelationshipStatus::translatableFormOptions(),
+      '#default_value' => $subProfile->getRelationshipStatus()->value,
+    ];
+
+    $form['type'] = [
+      '#type' => 'select',
+      '#title' => t('Preferred relationship type'),
+      '#options' => [NULL => '-'] + RelationshipType::translatableFormOptions(),
+      '#default_value' => $subProfile->getRelationshipType()->value,
+    ];
+
+    $form['sexuality'] = [
+      '#type' => 'select',
+      '#title' => t('Sexuality'),
+      '#options' => [NULL => '-'] + Sexuality::translatableFormOptions(),
+      '#default_value' => $subProfile->getSexuality()->value,
+    ];
+
+    return $form;
+  }
+
 }
