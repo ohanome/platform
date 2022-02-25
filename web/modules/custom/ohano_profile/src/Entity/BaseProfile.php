@@ -235,6 +235,22 @@ class BaseProfile extends SubProfileBase {
   }
 
   /**
+   * Sets the profile banner.
+   *
+   * @param \Drupal\file\Entity\File|null $profileBanner
+   *   The profile banner to set.
+   *
+   * @return \Drupal\ohano_profile\Entity\BaseProfile
+   *   The active instance of this class.
+   *
+   * @noinspection PhpUnused
+   */
+  public function setProfileBanner(File $profileBanner = NULL): BaseProfile {
+    $this->set('profile_banner', $profileBanner);
+    return $this;
+  }
+
+  /**
    * Sets the profile text.
    *
    * @param string $profileText
