@@ -33,7 +33,8 @@
         "drupal/restui": "^1.20",
         "drupal/smtp": "^1.0",
         "drupal/webform": "^6.1",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "ext-curl": "*"
     },
     "conflict": {
         "drupal/drupal": "*"
