@@ -8,6 +8,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\file\Entity\File;
 use Drupal\ohano_profile\Option\Gender;
+use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the BaseProfile entity.
@@ -221,7 +222,7 @@ class BaseProfile extends SubProfileBase {
   /**
    * Sets the profile picture.
    *
-   * @param \Drupal\file\Entity\File $profilePicture
+   * @param \Drupal\file\Entity\File|null $profilePicture
    *   The profile picture to set.
    *
    * @return \Drupal\ohano_profile\Entity\BaseProfile
@@ -229,7 +230,7 @@ class BaseProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setProfilePicture(File $profilePicture): BaseProfile {
+  public function setProfilePicture(File $profilePicture = NULL): BaseProfile {
     $this->set('profile_picture', $profilePicture);
     return $this;
   }
