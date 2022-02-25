@@ -161,6 +161,38 @@ class CodingProfile extends SubProfileBase {
   }
 
   /**
+   * Sets the programming languages.
+   *
+   * @param \Drupal\taxonomy\Entity\Term[]|array[]|null $programmingLanguages
+   *   The programming languages to set.
+   *
+   * @return \Drupal\ohano_profile\Entity\CodingProfile
+   *   The active instance of this class.
+   *
+   * @noinspection PhpUnused
+   */
+  public function setProgrammingLanguages(array $programmingLanguages = NULL): CodingProfile {
+    $this->setTermValues('programming_languages', $programmingLanguages);
+    return $this;
+  }
+
+  /**
+   * Sets the systems.
+   *
+   * @param \Drupal\taxonomy\Entity\Term[]|array[]|null $systems
+   *   The systems to set.
+   *
+   * @return \Drupal\ohano_profile\Entity\CodingProfile
+   *   The active instance of this class.
+   *
+   * @noinspection PhpUnused
+   */
+  public function setSystems(array $systems = NULL): CodingProfile {
+    $this->setTermValues('systems', $systems);
+    return $this;
+  }
+
+  /**
    * Adds the given programming language to the list of games.
    *
    * @param \Drupal\taxonomy\Entity\Term $programmingLanguage
