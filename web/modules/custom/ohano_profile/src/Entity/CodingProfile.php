@@ -5,6 +5,7 @@ namespace Drupal\ohano_profile\Entity;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\taxonomy\Entity\Term;
+use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the CodingProfile entity.
@@ -74,27 +75,27 @@ class CodingProfile extends SubProfileBase {
   /**
    * Gets the GitHub username.
    *
-   * @return string
+   * @return string|null
    */
-  public function getGithub(): string {
+  public function getGithub(): ?string {
     return $this->get('github')->value;
   }
 
   /**
    * Gets the GitLab username.
    *
-   * @return string
+   * @return string|null
    */
-  public function getGitlab(): string {
+  public function getGitlab(): ?string {
     return $this->get('gitlab')->value;
   }
 
   /**
    * Gets the BitBucket username.
    *
-   * @return string
+   * @return string|null
    */
-  public function getBitbucket(): string {
+  public function getBitbucket(): ?string {
     return $this->get('bitbucket')->value;
   }
 
@@ -143,20 +144,20 @@ class CodingProfile extends SubProfileBase {
   /**
    * Gets the programming languages.
    *
-   * @return \Drupal\taxonomy\Entity\Term[]
+   * @return \Drupal\taxonomy\Entity\Term[]|null
    *   The programming languages.
    */
-  public function getProgrammingLanguages(): array {
+  public function getProgrammingLanguages(): ?array {
     return $this->get('programming_languages')->referencedEntities();
   }
 
   /**
    * Gets the systems.
    *
-   * @return \Drupal\taxonomy\Entity\Term[]
+   * @return \Drupal\taxonomy\Entity\Term[]|null
    *   The systems.
    */
-  public function getSystems(): array {
+  public function getSystems(): ?array {
     return $this->get('systems')->referencedEntities();
   }
 
