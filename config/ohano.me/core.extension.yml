@@ -41,6 +41,7 @@ module:
   ohano_account: 0
   ohano_core: 0
   ohano_mail: 0
+  ohano_profile: 0
   options: 0
   page_cache: 0
   path: 0

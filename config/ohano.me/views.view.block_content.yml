@@ -17,7 +17,7 @@ base_field: id
 display:
   default:
     id: default
-    display_title: Standard
+    display_title: Default
     display_plugin: default
     position: 0
     display_options:
@@ -163,7 +163,7 @@ display:
           entity_type: block_content
           entity_field: changed
           plugin_id: field
-          label: Aktualisiert
+          label: Updated
           exclude: false
           alter:
             alter_text: false
@@ -268,8 +268,8 @@ display:
           total_pages: null
           id: 0
           tags:
-            next: 'Nächste Seite ›'
-            previous: '‹ Vorherige Seite'
+            next: 'Next ›'
+            previous: '‹ Previous'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
