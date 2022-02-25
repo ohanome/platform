@@ -301,4 +301,63 @@ class SocialMediaProfile extends SubProfileBase {
     ];
   }
 
+  public static function renderForm(SubProfileBase $subProfile): array {
+    if (!$subProfile instanceof SocialMediaProfile) {
+      throw new InvalidArgumentException('Parameter must be of type SocialMediaProfile');
+    }
+    /** @var \Drupal\ohano_profile\Entity\SocialMediaProfile $subProfile */
+
+    $form = [];
+
+    $form['twitter'] = [
+      '#type' => 'textfield',
+      '#title' => 'Twitter',
+      '#default_value' => $subProfile->getTwitter(),
+    ];
+
+    $form['facebook'] = [
+      '#type' => 'textfield',
+      '#title' => 'Facebook',
+      '#default_value' => $subProfile->getFacebook(),
+    ];
+
+    $form['linkedin'] = [
+      '#type' => 'textfield',
+      '#title' => 'LinkedIn',
+      '#default_value' => $subProfile->getLinkedin(),
+    ];
+
+    $form['xing'] = [
+      '#type' => 'textfield',
+      '#title' => 'Xing',
+      '#default_value' => $subProfile->getXing(),
+    ];
+
+    $form['pinterest'] = [
+      '#type' => 'textfield',
+      '#title' => 'Pinterest',
+      '#default_value' => $subProfile->getPinterest(),
+    ];
+
+    $form['discord'] = [
+      '#type' => 'textfield',
+      '#title' => 'Discord',
+      '#default_value' => $subProfile->getDiscord(),
+    ];
+
+    $form['behance'] = [
+      '#type' => 'textfield',
+      '#title' => 'Behance',
+      '#default_value' => $subProfile->getBehance(),
+    ];
+
+    $form['dribbble'] = [
+      '#type' => 'textfield',
+      '#title' => 'Dribbble',
+      '#default_value' => $subProfile->getDribbble(),
+    ];
+
+    return $form;
+  }
+
 }
