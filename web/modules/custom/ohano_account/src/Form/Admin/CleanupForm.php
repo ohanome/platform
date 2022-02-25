@@ -40,7 +40,7 @@ class CleanupForm extends FormBase {
       '#attributes' => [
         'disabled' => 'disabled'
       ],
-      '#title' => $this->t('Found users'),
+      '#title' => $this->t('Found account entities'),
       '#value' => $countAccounts,
     ];
 
@@ -49,7 +49,7 @@ class CleanupForm extends FormBase {
       '#attributes' => [
         'disabled' => 'disabled'
       ],
-      '#title' => $this->t('Found users'),
+      '#title' => $this->t('Found activations'),
       '#value' => $countActivations,
     ];
 
@@ -58,7 +58,7 @@ class CleanupForm extends FormBase {
       '#attributes' => [
         'disabled' => 'disabled'
       ],
-      '#title' => $this->t('Found users'),
+      '#title' => $this->t('Found verifications'),
       '#value' => $countVerifications,
     ];
 
@@ -154,11 +154,11 @@ class CleanupForm extends FormBase {
       }
     }
 
-    $this->messenger()->addMessage($this->t("Deleted @count account entities", ['@count' => $deletedAccounts]));
-    $this->messenger()->addMessage($this->t("Deleted @count activation entities", ['@count' => $deletedActivations]));
-    $this->messenger()->addMessage($this->t("Deleted @count verification entities", ['@count' => $deletedVerifications]));
-    $this->messenger()->addMessage($this->t("Updated @count activation entities", ['@count' => $updatedActivations]));
-    $this->messenger()->addMessage($this->t("Created @count account entities", ['@count' => $createdAccounts]));
+    $this->messenger()->addMessage($this->t("Deleted @count account entities because the user entities could not be found.", ['@count' => $deletedAccounts]));
+    $this->messenger()->addMessage($this->t("Deleted @count activation entities for non-existing users.", ['@count' => $deletedActivations]));
+    $this->messenger()->addMessage($this->t("Deleted @count verification entities for non-existing users.", ['@count' => $deletedVerifications]));
+    $this->messenger()->addMessage($this->t("Updated @count activation entities which were successful but not invalidated.", ['@count' => $updatedActivations]));
+    $this->messenger()->addMessage($this->t("Created @count account entities for users where accounts didn't exist.", ['@count' => $createdAccounts]));
   }
 
 }
