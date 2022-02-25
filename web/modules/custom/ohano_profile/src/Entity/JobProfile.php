@@ -203,4 +203,47 @@ class JobProfile extends SubProfileBase {
     ];
   }
 
+  public static function renderForm(SubProfileBase $subProfile): array {
+    if (!$subProfile instanceof JobProfile) {
+      throw new InvalidArgumentException('Parameter must be of type JobProfile');
+    }
+    /** @var \Drupal\ohano_profile\Entity\JobProfile $subProfile */
+
+    $form = [];
+
+    $form['employment_status'] = [
+      '#type' => 'select',
+      '#title' => t('Employment status'),
+      '#options' => [NULL => '-'] + EmploymentStatus::translatableFormOptions(),
+      '#default_value' => $subProfile->getEmploymentStatus()->value,
+    ];
+
+    $form['education_degree'] = [
+      '#type' => 'select',
+      '#title' => t('Education degree'),
+      '#options' => [NULL => '-'] + EducationDegree::translatableFormOptions(),
+      '#default_value' => $subProfile->getEducationDegree()->value,
+    ];
+
+    $form['employer'] = [
+      '#type' => 'textfield',
+      '#title' => t('Employer'),
+      '#default_value' => $subProfile->getEmployer(),
+    ];
+
+    $form['industry'] = [
+      '#type' => 'textfield',
+      '#title' => t('Industry'),
+      '#default_value' => $subProfile->getIndustry(),
+    ];
+
+    $form['position'] = [
+      '#type' => 'textfield',
+      '#title' => t('Position'),
+      '#default_value' => $subProfile->getPosition(),
+    ];
+
+    return $form;
+  }
+
 }
