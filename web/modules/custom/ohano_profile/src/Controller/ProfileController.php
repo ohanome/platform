@@ -3,7 +3,12 @@
 namespace Drupal\ohano_profile\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\ohano_account\Entity\Account;
+use Drupal\ohano_profile\Entity\BaseProfile;
+use Drupal\ohano_profile\Entity\UserProfile;
+use Drupal\user\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends ControllerBase {
 
@@ -16,9 +21,30 @@ class ProfileController extends ControllerBase {
     $redirect = new RedirectResponse($destination ?? '/');
 
     $user = \Drupal::currentUser();
+    $account = Account::getByUser($user);
 
-    $account =
-    dd($user);
+    if ($profile = UserProfile::loadByUser($user)) {
+      \Drupal::logger('ohano_profile')->warning("UserProfile entity already exists.");
+    }
+    else {
+      $profile = UserProfile::create()
+        ->setAccount($account)
+        ->setStatus(TRUE)
+        ->setIsExcludedFromSearch(FALSE);
+      $profile->save();
+    }
+
+    if ($baseProfile = BaseProfile::loadByProfile($profile)) {
+      \Drupal::logger('ohano_profile')->warning("BaseProfile entity already exists.");
+    }
+    else {
+      $baseProfile = BaseProfile::create()
+        ->setUsername($user->getAccountName())
+        ->setProfile($profile);
+      $baseProfile->save();
+    }
+
+    return $redirect;
   }
 
 }
