@@ -140,7 +140,7 @@ class Account extends EntityBase implements EntityInterface {
       ->condition('user', $user->id())
       ->execute();
 
-    return Account::loadMultiple($accountId)[0];
+    return Account::load(array_values($accountId)[0]);
   }
 
 }
