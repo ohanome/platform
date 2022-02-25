@@ -344,4 +344,115 @@ class BaseProfile extends SubProfileBase {
     ];
   }
 
+  public static function renderForm(SubProfileBase $subProfile): array {
+    if (!$subProfile instanceof BaseProfile) {
+      throw new InvalidArgumentException('Parameter must be of type BaseProfile');
+    }
+    /** @var \Drupal\ohano_profile\Entity\BaseProfile $subProfile */
+
+    $form = [];
+
+    $form['username'] = [
+      '#type' => 'textfield',
+      '#title' => t('Username'),
+      '#description' => t('Your username can only be edited on your account settings page.'),
+      '#attributes' => [
+        'disabled' => [
+          'disabled',
+        ],
+      ],
+      '#value' => $subProfile->getUsername(),
+    ];
+
+    $form['real_name'] = [
+      '#type' => 'textfield',
+      '#title' => t('Name'),
+      '#default_value' => $subProfile->getRealname(),
+    ];
+
+    if (!empty($subProfile->getProfilePicture())) {
+      $form['profile_picture_preview'] = [
+        '#type' => 'markup',
+        '#markup' => '<img class="w-100" src="' . $subProfile->getProfilePicture()->createFileUrl(FALSE) . '" alt=""/><br />',
+      ];
+    }
+
+    $form['profile_picture'] = [
+      '#type' => 'managed_file',
+      '#title' => t('Profile Picture'),
+      '#upload_location' => 'public://userprofile/' . $subProfile->getUsername(),
+      '#upload_validators' => [
+        'file_validate_extensions' => [
+          'jpeg jpg png gif'
+        ],
+        'file_validate_size' => [
+          '10000000' // 10MB
+        ],
+      ],
+      '#default_value' => $subProfile->getProfilePicture() ? ['target_id' => $subProfile->getProfilePicture()->id()] : NULL,
+    ];
+
+    if (!empty($subProfile->getProfileBanner())) {
+      $form['profile_banner_preview'] = [
+        '#type' => 'markup',
+        '#markup' => '<img class="w-100" src="' . $subProfile->getProfileBanner()->createFileUrl(FALSE) . '" alt=""/><br />',
+      ];
+    }
+
+    $form['profile_banner'] = [
+      '#type' => 'managed_file',
+      '#title' => t('Profile Banner'),
+      '#upload_location' => 'public://userprofile/' . $subProfile->getUsername(),
+      '#upload_validators' => [
+        'file_validate_extensions' => [
+          'jpeg jpg png gif'
+        ],
+        'file_validate_size' => [
+          '10000000' // 10MB
+        ],
+      ],
+      '#default_value' => $subProfile->getProfileBanner() ? ['target_id' => $subProfile->getProfileBanner()->id()] : NULL,
+    ];
+
+    $form['profile_text'] = [
+      '#type' => 'textarea',
+      '#title' => t('Profile text'),
+      '#default_value' => $subProfile->getProfileText(),
+    ];
+
+    $form['birthday'] = [
+      '#type' => 'date',
+      '#title' => t('Birthday'),
+      '#min' => '-18 years',
+      '#default_value' => DrupalDateTime::createFromFormat('U', $subProfile->getBirthday())->format('Y-m-d'),
+    ];
+
+    $form['gender'] = [
+      '#type' => 'select',
+      '#title' => t('Gender'),
+      '#options' => [NULL => t('-')] + Gender::translatableFormOptions(),
+      '#default_value' => $subProfile->getGender()->value,
+    ];
+
+    $form['city'] = [
+      '#type' => 'textfield',
+      '#title' => t('City'),
+      '#default_value' => $subProfile->getCity(),
+    ];
+
+    $form['province'] = [
+      '#type' => 'textfield',
+      '#title' => t('Province'),
+      '#default_value' => $subProfile->getProvince(),
+    ];
+
+    $form['country'] = [
+      '#type' => 'textfield',
+      '#title' => t('Country'),
+      '#default_value' => $subProfile->getCountry(),
+    ];
+
+    return $form;
+  }
+
 }
