@@ -7,6 +7,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\ohano_profile\Option\RelationshipStatus;
 use Drupal\ohano_profile\Option\RelationshipType;
 use Drupal\ohano_profile\Option\Sexuality;
+use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the RelationshipProfile entity.
@@ -94,13 +95,13 @@ class RelationshipProfile extends SubProfileBase {
   /**
    * Sets the relationship status.
    *
-   * @param \Drupal\ohano_profile\Option\RelationshipStatus $relationshipStatus
+   * @param \Drupal\ohano_profile\Option\RelationshipStatus|null $relationshipStatus
    *   The relationship status to set.
    *
    * @return \Drupal\ohano_profile\Entity\RelationshipProfile
    *   The active instance of this class.
    */
-  public function setRelationshipStatus(RelationshipStatus $relationshipStatus): RelationshipProfile {
+  public function setRelationshipStatus(RelationshipStatus $relationshipStatus = NULL): RelationshipProfile {
     $this->set('relationship_status', $relationshipStatus->value);
     return $this;
   }
@@ -108,13 +109,13 @@ class RelationshipProfile extends SubProfileBase {
   /**
    * Sets the relationship type.
    *
-   * @param \Drupal\ohano_profile\Option\RelationshipType $relationshipType
+   * @param \Drupal\ohano_profile\Option\RelationshipType|null $relationshipType
    *   The relationship type to set.
    *
    * @return \Drupal\ohano_profile\Entity\RelationshipProfile
    *   The active instance of this class.
    */
-  public function setRelationshipType(RelationshipType $relationshipType): RelationshipProfile {
+  public function setRelationshipType(RelationshipType $relationshipType = NULL): RelationshipProfile {
     $this->set('relationship_type', $relationshipType->value);
     return $this;
   }
@@ -122,7 +123,7 @@ class RelationshipProfile extends SubProfileBase {
   /**
    * Sets the sexuality.
    *
-   * @param \Drupal\ohano_profile\Option\Sexuality $sexuality
+   * @param \Drupal\ohano_profile\Option\Sexuality|null $sexuality
    *   The sexuality to set.
    *
    * @return \Drupal\ohano_profile\Entity\RelationshipProfile
@@ -130,7 +131,7 @@ class RelationshipProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setSexuality(Sexuality $sexuality): RelationshipProfile {
+  public function setSexuality(Sexuality $sexuality = NULL): RelationshipProfile {
     $this->set('sexuality', $sexuality->value);
     return $this;
   }
