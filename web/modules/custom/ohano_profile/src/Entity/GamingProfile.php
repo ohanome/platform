@@ -5,6 +5,7 @@ namespace Drupal\ohano_profile\Entity;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\taxonomy\Entity\Term;
+use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the GamingProfile entity.
@@ -89,107 +90,107 @@ class GamingProfile extends SubProfileBase {
   /**
    * Gets the Minecraft name.
    *
-   * @return string
+   * @return string|null
    *   The Minecraft name.
    */
-  public function getMinecraftName(): string {
+  public function getMinecraftName(): ?string {
     return $this->get('minecraft_name')->value;
   }
 
   /**
    * Gets the Minecraft uuid.
    *
-   * @return string
+   * @return string|null
    *   The Minecraft uuid.
    */
-  public function getMinecraftUuid(): string {
+  public function getMinecraftUuid(): ?string {
     return $this->get('minecraft_uuid')->value;
   }
 
   /**
    * Gets the VALORANT name.
    *
-   * @return string
+   * @return string|null
    *   The VALORANT name.
    */
-  public function getValorant(): string {
+  public function getValorant(): ?string {
     return $this->get('valorant')->value;
   }
 
   /**
    * Gets the League of Legends name.
    *
-   * @return string
+   * @return string|null
    *   The League of Legends name.
    */
-  public function getLeagueOfLegends(): string {
+  public function getLeagueOfLegends(): ?string {
     return $this->get('league_of_legends')->value;
   }
 
   /**
    * Gets the Battle.net name.
    *
-   * @return string
+   * @return string|null
    *   The Battle.net name.
    */
-  public function getBattleNet(): string {
+  public function getBattleNet(): ?string {
     return $this->get('battle_net')->value;
   }
 
   /**
    * Gets the Ubisoft Connect name.
    *
-   * @return string
+   * @return string|null
    *   The Ubisoft Connect name.
    */
-  public function getUbisoftConnect(): string {
+  public function getUbisoftConnect(): ?string {
     return $this->get('ubisoft_connect')->value;
   }
 
   /**
    * Gets the Steam name.
    *
-   * @return string
+   * @return string|null
    *   The Steam name.
    */
-  public function getSteam(): string {
+  public function getSteam(): ?string {
     return $this->get('steam')->value;
   }
 
   /**
    * Gets the EA Origin name.
    *
-   * @return string
+   * @return string|null
    *   The EA Origin name.
    */
-  public function getEaOrigin(): string {
+  public function getEaOrigin(): ?string {
     return $this->get('ea_origin')->value;
   }
 
   /**
    * Gets the games.
    *
-   * @return \Drupal\taxonomy\Entity\Term[]
+   * @return \Drupal\taxonomy\Entity\Term[]|null
    *   The games.
    */
-  public function getGames(): array {
+  public function getGames(): ?array {
     return $this->get('games')->referencedEntities();
   }
 
   /**
    * Gets the platforms the user plays on.
    *
-   * @return \Drupal\taxonomy\Entity\Term[]
+   * @return \Drupal\taxonomy\Entity\Term[]|null
    *   The platforms.
    */
-  public function getPlatforms(): array {
+  public function getPlatforms(): ?array {
     return $this->get('platforms')->referencedEntities();
   }
 
   /**
    * Sets the Minecraft name.
    *
-   * @param string $minecraftName
+   * @param string|null $minecraftName
    *   The minecraft name to set.
    *
    * @return \Drupal\ohano_profile\Entity\GamingProfile
@@ -197,7 +198,7 @@ class GamingProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setMinecraftName(string $minecraftName): GamingProfile {
+  public function setMinecraftName(string $minecraftName = NULL): GamingProfile {
     $this->set('minecraft_name', $minecraftName);
     return $this;
   }
@@ -205,7 +206,7 @@ class GamingProfile extends SubProfileBase {
   /**
    * Sets the Minecraft uuid.
    *
-   * @param string $minecraftUuid
+   * @param string|null $minecraftUuid
    *   The minecraft uuid to set.
    *
    * @return \Drupal\ohano_profile\Entity\GamingProfile
@@ -213,7 +214,7 @@ class GamingProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setMinecraftUuid(string $minecraftUuid): GamingProfile {
+  public function setMinecraftUuid(string $minecraftUuid = NULL): GamingProfile {
     $this->set('minecraft_uuid', $minecraftUuid);
     return $this;
   }
@@ -221,7 +222,7 @@ class GamingProfile extends SubProfileBase {
   /**
    * Sets the VALORANT name.
    *
-   * @param string $valorant
+   * @param string|null $valorant
    *   The VALORANT name to set.
    *
    * @return \Drupal\ohano_profile\Entity\GamingProfile
@@ -229,7 +230,7 @@ class GamingProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setValorant(string $valorant): GamingProfile {
+  public function setValorant(string $valorant = NULL): GamingProfile {
     $this->set('valorant', $valorant);
     return $this;
   }
@@ -237,7 +238,7 @@ class GamingProfile extends SubProfileBase {
   /**
    * Sets the League of Legends name.
    *
-   * @param string $leagueOfLegends
+   * @param string|null $leagueOfLegends
    *   The League of Legends name to set.
    *
    * @return \Drupal\ohano_profile\Entity\GamingProfile
@@ -245,7 +246,7 @@ class GamingProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setLeagueOfLegends(string $leagueOfLegends): GamingProfile {
+  public function setLeagueOfLegends(string $leagueOfLegends = NULL): GamingProfile {
     $this->set('league_of_legends', $leagueOfLegends);
     return $this;
   }
@@ -253,7 +254,7 @@ class GamingProfile extends SubProfileBase {
   /**
    * Sets the Battle.net name.
    *
-   * @param string $battleNet
+   * @param string|null $battleNet
    *   The Battle.net name to set.
    *
    * @return \Drupal\ohano_profile\Entity\GamingProfile
@@ -261,7 +262,7 @@ class GamingProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setBattleNet(string $battleNet): GamingProfile {
+  public function setBattleNet(string $battleNet = NULL): GamingProfile {
     $this->set('battle_net', $battleNet);
     return $this;
   }
@@ -269,7 +270,7 @@ class GamingProfile extends SubProfileBase {
   /**
    * Sets the Ubisoft Connect name.
    *
-   * @param string $ubisoftConnect
+   * @param string|null $ubisoftConnect
    *   The Ubisoft Connect name to set.
    *
    * @return \Drupal\ohano_profile\Entity\GamingProfile
@@ -277,7 +278,7 @@ class GamingProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setUbisoftConnect(string $ubisoftConnect): GamingProfile {
+  public function setUbisoftConnect(string $ubisoftConnect = NULL): GamingProfile {
     $this->set('ubisoft_connect', $ubisoftConnect);
     return $this;
   }
@@ -285,7 +286,7 @@ class GamingProfile extends SubProfileBase {
   /**
    * Sets the Steam name.
    *
-   * @param string $steam
+   * @param string|null $steam
    *   The Steam name to set.
    *
    * @return \Drupal\ohano_profile\Entity\GamingProfile
@@ -293,7 +294,7 @@ class GamingProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setSteam(string $steam): GamingProfile {
+  public function setSteam(string $steam = NULL): GamingProfile {
     $this->set('steam', $steam);
     return $this;
   }
@@ -301,7 +302,7 @@ class GamingProfile extends SubProfileBase {
   /**
    * Sets the EA Origin name.
    *
-   * @param string $origin
+   * @param string|null $origin
    *   The EA Origin name to set.
    *
    * @return \Drupal\ohano_profile\Entity\GamingProfile
@@ -309,7 +310,7 @@ class GamingProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setEaOrigin(string $origin): GamingProfile {
+  public function setEaOrigin(string $origin = NULL): GamingProfile {
     $this->set('ea_origin', $origin);
     return $this;
   }
