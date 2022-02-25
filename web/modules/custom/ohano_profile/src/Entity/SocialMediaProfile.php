@@ -4,6 +4,7 @@ namespace Drupal\ohano_profile\Entity;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the SocialProfile entity.
@@ -160,13 +161,13 @@ class SocialMediaProfile extends SubProfileBase {
   /**
    * Sets the Twitter username.
    *
-   * @param string $twitter
+   * @param string|null $twitter
    *   The Twitter username to set.
    *
    * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
    *   The active instance of this class.
    */
-  public function setTwitter(string $twitter): SocialMediaProfile {
+  public function setTwitter(string $twitter = NULL): SocialMediaProfile {
     $this->set('twitter', $twitter);
     return $this;
   }
@@ -174,13 +175,13 @@ class SocialMediaProfile extends SubProfileBase {
   /**
    * Sets the Instagram username.
    *
-   * @param string $instagram
+   * @param string|null $instagram
    *   The Instagram username to set.
    *
    * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
    *   The active instance of this class.
    */
-  public function setInstagram(string $instagram): SocialMediaProfile {
+  public function setInstagram(string $instagram = NULL): SocialMediaProfile {
     $this->set('instagram', $instagram);
     return $this;
   }
@@ -188,13 +189,13 @@ class SocialMediaProfile extends SubProfileBase {
   /**
    * Sets the Facebook username.
    *
-   * @param string $facebook
+   * @param string|null $facebook
    *   The Facebook username to set.
    *
    * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
    *   The active instance of this class.
    */
-  public function setFacebook(string $facebook): SocialMediaProfile {
+  public function setFacebook(string $facebook = NULL): SocialMediaProfile {
     $this->set('facebook', $facebook);
     return $this;
   }
@@ -202,13 +203,13 @@ class SocialMediaProfile extends SubProfileBase {
   /**
    * Sets the LinkedIn username.
    *
-   * @param string $linkedin
+   * @param string|null $linkedin
    *   The LinkedIn username to set.
    *
    * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
    *   The active instance of this class.
    */
-  public function setLinkedin(string $linkedin): SocialMediaProfile {
+  public function setLinkedin(string $linkedin = NULL): SocialMediaProfile {
     $this->set('linkedin', $linkedin);
     return $this;
   }
@@ -216,13 +217,13 @@ class SocialMediaProfile extends SubProfileBase {
   /**
    * Sets the Xing username.
    *
-   * @param string $xing
+   * @param string|null $xing
    *   The Xing username to set.
    *
    * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
    *   The active instance of this class.
    */
-  public function setXing(string $xing): SocialMediaProfile {
+  public function setXing(string $xing = NULL): SocialMediaProfile {
     $this->set('xing', $xing);
     return $this;
   }
@@ -230,13 +231,13 @@ class SocialMediaProfile extends SubProfileBase {
   /**
    * Sets the Pinterest username.
    *
-   * @param string $pinterest
+   * @param string|null $pinterest
    *   The Pinterest username to set.
    *
    * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
    *   The active instance of this class.
    */
-  public function setPinterest(string $pinterest): SocialMediaProfile {
+  public function setPinterest(string $pinterest = NULL): SocialMediaProfile {
     $this->set('pinterest', $pinterest);
     return $this;
   }
@@ -244,13 +245,13 @@ class SocialMediaProfile extends SubProfileBase {
   /**
    * Sets the Discord username.
    *
-   * @param string $discord
+   * @param string|null $discord
    *   The Discord username to set.
    *
    * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
    *   The active instance of this class.
    */
-  public function setDiscord(string $discord): SocialMediaProfile {
+  public function setDiscord(string $discord = NULL): SocialMediaProfile {
     $this->set('discord', $discord);
     return $this;
   }
@@ -258,13 +259,13 @@ class SocialMediaProfile extends SubProfileBase {
   /**
    * Sets the Behance username.
    *
-   * @param string $behance
+   * @param string|null $behance
    *   The Behance username to set.
    *
    * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
    *   The active instance of this class.
    */
-  public function setBehance(string $behance): SocialMediaProfile {
+  public function setBehance(string $behance = NULL): SocialMediaProfile {
     $this->set('behance', $behance);
     return $this;
   }
@@ -272,13 +273,13 @@ class SocialMediaProfile extends SubProfileBase {
   /**
    * Sets the Dribbble username.
    *
-   * @param string $dribbble
+   * @param string|null $dribbble
    *   The Dribbble username to set.
    *
    * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
    *   The active instance of this class.
    */
-  public function setDribbble(string $dribbble): SocialMediaProfile {
+  public function setDribbble(string $dribbble = NULL): SocialMediaProfile {
     $this->set('dribbble', $dribbble);
     return $this;
   }
