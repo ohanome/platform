@@ -5,6 +5,7 @@ namespace Drupal\ohano_profile\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_profile\Entity\BaseProfile;
+use Drupal\ohano_profile\Entity\SocialMediaProfile;
 use Drupal\ohano_profile\Entity\UserProfile;
 use Drupal\user\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -64,7 +65,39 @@ class ProfileController extends ControllerBase {
       return new Response('', 404);
     }
 
-    dd($userProfile);
+    /** @var BaseProfile $baseProfile */
+    $baseProfile = BaseProfile::loadByProfile($userProfile);
+
+    $renderedBaseProfile = $baseProfile->render();
+    $renderedBaseProfile['profile_picture'] = [
+      '#theme' => 'profile_picture',
+      '#image_url' => $renderedBaseProfile['profile_picture_url'],
+      '#username' => $baseProfile->getUsername(),
+    ];
+    $renderedBaseProfile['has_general_info'] = FALSE;
+    if ($baseProfile->getBirthday() || $baseProfile->getCity() || $baseProfile->getProvince() || $baseProfile->getCountry()) {
+      $renderedBaseProfile['has_general_info'] = TRUE;
+    }
+
+    $renderedSocialProfile = NULL;
+    if ($socialProfile = SocialMediaProfile::loadByProfile($userProfile)) {
+      $renderedSocialProfile = $socialProfile->render();
+    }
+
+    $build = [
+      '#theme' => 'profile_page',
+      '#profile' => [
+        '#theme' => 'profile_card_large',
+        '#profile' => [
+          'base' => $renderedBaseProfile,
+          'social' => $renderedSocialProfile,
+        ],
+      ],
+    ];
+
+    #dd($build);
+
+    return $build;
   }
 
   public function redirectToProfile($username = NULL, $uid = NULL) {

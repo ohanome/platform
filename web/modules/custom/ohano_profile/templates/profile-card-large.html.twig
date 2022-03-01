@@ -1,0 +1,70 @@
+<div class="profile-card">
+  <div class="banner" style="background-image: url('{{ profile.base.profile_banner_url }}')">
+    {{ profile.base.profile_picture }}
+  </div>
+  <div class="info">
+    <nav class="info-tabs">
+      <ul>
+        <li data-for="#basic" class="active">{{ "General"|trans }}</li>
+        {% if profile.gaming is not null %}<li data-for="#gaming">{{ "Gaming"|trans }}</li>{% endif %}
+        {% if profile.relationship is not null %}<li data-for="#relationship">{{ "Relationship"|trans }}</li>{% endif %}
+        {% if profile.job is not null %}<li data-for="#job">{{ "Job"|trans }}</li>{% endif %}
+        {% if profile.coding is not null %}<li data-for="#coding">{{ "Coding"|trans }}</li>{% endif %}
+      </ul>
+    </nav>
+    <div id="basic" class="section base active">
+      <h1>{{ profile.base.username }}</h1>
+      <p>
+        <b>{{ "About me"|trans }}</b><br />
+        {{ profile.base.profile_text }}
+      </p>
+      <div class="col">
+        {% if profile.base.has_general_info %}
+          <div class="ohano-table">
+            <div class="ohano-table-row">
+              {% if profile.base.birthday_formatted %}<div class="ohano-table-cell"><b>{{ "Birthday"|trans }}</b></div>{% endif %}
+              {% if profile.base.gender_value %}<div class="ohano-table-cell"><b>{{ "Gender"|trans }}</b></div>{% endif %}
+              {% if profile.base.city %}<div class="ohano-table-cell"><b>{{ "City"|trans }}</b></div>{% endif %}
+              {% if profile.base.province %}<div class="ohano-table-cell"><b>{{ "State / District"|trans }}</b></div>{% endif %}
+              {% if profile.base.country %}<div class="ohano-table-cell"><b>{{ "Country"|trans }}</b></div>{% endif %}
+            </div>
+            <div class="ohano-table-row">
+              {% if profile.base.birthday_formatted %}<div class="ohano-table-cell">{{ profile.base.birthday_formatted }}</div>{% endif %}
+              {% if profile.base.gender_value %}<div class="ohano-table-cell">{{ profile.base.gender_value }}</div>{% endif %}
+              {% if profile.base.city %}<div class="ohano-table-cell">{{ profile.base.city }}</div>{% endif %}
+              {% if profile.base.province %}<div class="ohano-table-cell">{{ profile.base.province }}</div>{% endif %}
+              {% if profile.base.country %}<div class="ohano-table-cell">{{ profile.base.country }}</div>{% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% if profile.social is not null %}
+          <div class="socials">
+            <h5>{{ "Socials"|trans }}</h5>
+            <ul>
+              {% if profile.social.twitter %}
+                <li>
+                  <a href="//twitter.com/{{ profile.social.twitter }}" target="_blank">Twitter</a>
+                </li>
+              {% endif %}
+              {% if profile.social.instagram %}
+                <li>
+                  <a href="//instagram.com/{{ profile.social.instagram }}" target="_blank">Instagram</a>
+                </li>
+              {% endif %}
+              {% if profile.social.twitch %}
+                <li>
+                  <a href="//twitch.com/{{ profile.social.twitch }}" target="_blank">Twitch</a>
+                </li>
+              {% endif %}
+              {% if profile.social.discord %}
+                <li>
+                  <a href="//discordapp.com/users/{{ profile.social.discord }}" target="_blank">Discord</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

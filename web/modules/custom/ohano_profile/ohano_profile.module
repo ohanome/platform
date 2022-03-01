@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function ohano_profile_theme($existing, $type, $theme, $path): array {
+  return [
+    'profile_page' => [
+      'template' => 'profile-page',
+      'variables' => [
+        'profile' => NULL,
+        'options' => NULL,
+        'feed' => NULL,
+      ],
+    ],
+    'profile_options' => [
+      'template' => 'profile-options',
+      'variables' => [
+        'own' => NULL,
+        'is_follower' => NULL,
+        'following' => NULL,
+        'can_be_followed' => NULL,
+        'blocked' => NULL,
+        'can_send_message' => NULL,
+        'can_be_shared' => NULL,
+      ],
+    ],
+    'profile_card_large' => [
+      'template' => 'profile-card-large',
+      'variables' => [
+        'profile' => NULL,
+      ],
+    ],
+    'profile_picture' =>  [
+      'template' => 'profile-picture',
+      'variables' => [
+        'image_url' => NULL,
+        'username' => NULL,
+      ],
+    ]
+  ];
+}

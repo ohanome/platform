@@ -1,0 +1,36 @@
+{#
+  Variables:
+  - "own" (bool): set when user is viewing his own profile
+  - "is_follower" (bool): set when the viewed user is a follower
+  - "following" (bool): set whenthe user is following the viewed user
+  - "can_be_followed" (bool): set when the user is allowed to follow the viewed user
+  - "blocked" (bool): set when the viewed user has been blocked
+  - "can_send_message" (bool): set when the user can send messages to the viewed user
+  - "can_be_shared" (bool): set when the viewed profile can be shared
+#}
+<div class="profile-options">
+  {% if own %}
+    <a href="/profile/edit">{{ "Edit profile"|trans }}</a>
+    <a href="#">{{ "Edit account settings"|trans }}</a>
+  {% else %}
+    {% if not is_follower and not following and not blocked and can_be_followed %}
+      <a href="#">{{ "Follow"|trans }}</a>
+    {% else if is_follower and not following and not blocked and can_be_followed %}
+      <a href="#">{{ "Follow back"|trans }}</a>
+    {% else if not blocked %}
+      <a href="#">{{ "Unfollow"|trans }}</a>
+    {% endif %}
+    {% if blocked %}
+      <a href="#">{{ "Unblock"|trans }}</a>
+    {% else %}
+      <a href="#">{{ "Block"|trans }}</a>
+    {% endif %}
+    <a href="#">{{ "Report"|trans }}</a>
+    {% if can_send_message %}
+      <a href="#">{{ "Send message"|trans }}</a>
+    {% endif %}
+    {% if can_be_shared %}
+      <a href="#">{{ "Share"|trans }}</a>
+    {% endif %}
+  {% endif %}
+</div>

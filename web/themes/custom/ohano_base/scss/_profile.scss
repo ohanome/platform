@@ -1,0 +1,29 @@
+.profile {
+  .profile-card-container {
+    .profile-card {
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      padding: 1rem;
+
+      .banner {
+        min-height: 20rem;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        border-radius: .5rem;
+
+        .profile-picture {
+          height: 10rem;
+          width: 10rem;
+          border: 2px solid white;
+          background-size: cover;
+          background-position: center;
+          border-radius: .5rem;
+          bottom: 1rem;
+          left: 1rem;
+          position: absolute;
+        }
+      }
+    }
+  }
+}
