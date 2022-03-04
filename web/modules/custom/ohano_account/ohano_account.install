@@ -1,8 +1,10 @@
 <?php
 
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Entity\AccountActivation;
 use Drupal\ohano_account\Entity\AccountVerification;
+use Drupal\ohano_profile\Entity\UserProfile;
 
 function ohano_account_install() {
   Account::install();
@@ -24,4 +26,20 @@ function ohano_account_update_9003() {
  */
 function ohano_account_update_9004() {
   AccountVerification::install();
+}
+
+/**
+ * Installs the active_profile filed on the Account entity.
+ */
+function ohano_account_update_9005() {
+  $field = BaseFieldDefinition::create('entity_reference')
+    ->setSetting('target_type', 'user_profile')
+    ->setSetting('handler', 'default');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('active_profile', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('active_profile', UserProfile::loadByUser($account->getUser()));
+    $account->save();
+  }
 }

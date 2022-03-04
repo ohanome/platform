@@ -25,6 +25,8 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *     "status" = "status",
  *     "account" = "account",
  *     "exclude_from_search" = "exclude_from_search",
+ *     "profile_name" = "profile_name",
+ *     "type" = "type",
  *   }
  * )
  */
@@ -55,6 +57,9 @@ class UserProfile extends EntityBase {
 
     $fields['exclude_from_search'] = BaseFieldDefinition::create('boolean')
       ->setDefaultValue(0);
+
+    $fields['profile_name'] = BaseFieldDefinition::create('string');
+    $fields['type'] = BaseFieldDefinition::create('string');
 
     return $fields;
   }
@@ -87,6 +92,26 @@ class UserProfile extends EntityBase {
    */
   public function isExcludedFromSearch(): bool {
     return (bool) $this->get('exclude_from_search')->value;
+  }
+
+  /**
+   * Gets the profile name.
+   *
+   * @return string
+   *   The profile name.
+   */
+  public function getProfileName(): string {
+    return $this->get('profile_name')->value;
+  }
+
+  /**
+   * Gets the profile type.
+   *
+   * @return string
+   *   The profile type.
+   */
+  public function getType(): string {
+    return $this->get('type')->value;
   }
 
   /**
@@ -132,13 +157,43 @@ class UserProfile extends EntityBase {
   }
 
   /**
+   * Sets the profile name.
+   *
+   * @param string $profileName
+   *   The profile name to set.
+   *
+   * @return \Drupal\ohano_profile\Entity\UserProfile
+   *   The active instance of this class.
+   */
+  public function setProfileName(string $profileName): UserProfile {
+    $this->set('profile_name', $profileName);
+    return $this;
+  }
+
+  /**
+   * Sets the profile type.
+   *
+   * @param string $type
+   *   The profile type to set.
+   *
+   * @return \Drupal\ohano_profile\Entity\UserProfile
+   *   The active instance of this class.
+   */
+  public function setType(string $type): UserProfile {
+    $this->set('type', $type);
+    return $this;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function render(): array {
     return parent::render() + [
         'status' => $this->getStatus(),
-        'account' => $this->getAccount(),
-        'exclude_from_search' => $this->isExcludedFromSearch()
+        'account' => $this->getAccount()->render(),
+        'exclude_from_search' => $this->isExcludedFromSearch(),
+        'profile_name' => $this->getProfileName(),
+        'type' => $this->getType(),
       ];
   }
 
@@ -148,6 +203,10 @@ class UserProfile extends EntityBase {
    * @return \Drupal\ohano_profile\Entity\UserProfile|null
    */
   public static function loadByUser(AccountInterface $user): ?UserProfile {
+    return self::loadMultipleByUser($user)[0];
+  }
+
+  public static function loadMultipleByUser(AccountInterface $user): ?array {
     $account = Account::getByUser($user);
     if (empty($account)) {
       return NULL;
@@ -155,6 +214,19 @@ class UserProfile extends EntityBase {
 
     $userProfileId = \Drupal::entityQuery(UserProfile::ENTITY_ID)
       ->condition('account', $account->id())
+      ->execute();
+    if (empty($userProfileId)) {
+      return NULL;
+    }
+
+    /** @var \Drupal\ohano_profile\Entity\UserProfile[] $loaded */
+    $loaded = UserProfile::loadMultiple(array_values($userProfileId));
+    return $loaded;
+  }
+
+  public static function loadByName(string $profileName): ?Userprofile {
+    $userProfileId = \Drupal::entityQuery(UserProfile::ENTITY_ID)
+      ->condition('profile_name', $profileName)
       ->execute();
     return empty($userProfileId) ? NULL : UserProfile::load(array_values($userProfileId)[0]);
   }

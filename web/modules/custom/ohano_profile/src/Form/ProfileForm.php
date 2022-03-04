@@ -9,7 +9,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\file\Entity\File;
 use Drupal\ohano_account\Blocklist;
+use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_core\Error\Error;
+use Drupal\ohano_core\Form\FormTrait;
 use Drupal\ohano_core\OhanoCore;
 use Drupal\ohano_profile\Entity\BaseProfile;
 use Drupal\ohano_profile\Entity\CodingProfile;
@@ -21,34 +23,39 @@ use Drupal\ohano_profile\Entity\UserProfile;
 use Drupal\ohano_profile\Option\EducationDegree;
 use Drupal\ohano_profile\Option\EmploymentStatus;
 use Drupal\ohano_profile\Option\Gender;
+use Drupal\ohano_profile\Option\ProfileType;
 use Drupal\ohano_profile\Option\RelationshipStatus;
 use Drupal\ohano_profile\Option\RelationshipType;
 use Drupal\ohano_profile\Option\Sexuality;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProfileForm extends FormBase {
+  use FormTrait;
 
   public function getFormId() {
     return 'ohano_profile_profile';
   }
 
-  protected function buildDefaultContainer(TranslatableMarkup|string $title, bool $open = TRUE) {
-    return [
-      '#type' => 'details',
-      '#open' => $open,
-      '#tree' => TRUE,
-      '#title' => $title,
-    ];
-  }
-
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state, string $profileName = NULL) {
     $form = [];
+
+    if (empty($profileName)) {
+      $this->messenger()->addError($this->t("Oops, that didn't work."));
+      (new RedirectResponse('/profile'))->send();
+    }
 
     $confirmationDelete = $this->t('Are you sure? Any saved data will be lost.');
     $currentUser = \Drupal::currentUser();
-    $userProfile = UserProfile::loadByUser($currentUser);
+    $account = Account::getByUser($currentUser);
+
+    $userProfile = UserProfile::loadByName($profileName);
     if (empty($userProfile)) {
       (new RedirectResponse('/profile/create-base?destination=/profile/edit'))->send();
+    }
+
+    if ($account->getId() != $userProfile->getAccount()->getId()) {
+      $this->messenger()->addError($this->t('You are not allowed to edit this profile.'));
+      (new RedirectResponse('/user/' . $userProfile->getProfileName()))->send();
     }
 
     /** @var BaseProfile $baseProfile */
@@ -57,6 +64,42 @@ class ProfileForm extends FormBase {
       $this->messenger()->addError($this->t("Oops, that looks wrong. We're sorry about that. Please contact the support with the following error code: @error", ['@error' => Error::BaseProfileNotFound->value]));
       return [];
     }
+
+    $form['profile_name'] = [
+      '#type' => 'hidden',
+      '#value' => $userProfile->getProfileName(),
+    ];
+
+    $form['back'] = [
+      '#type' => 'markup',
+      '#markup' => '<a href="/user/' . $userProfile->getProfileName() . '">' . $this->t('Back to your profile') . '</a><br />',
+    ];
+
+    $form['user_profile'] = $this->buildDefaultContainer($this->t('General'), TRUE);
+    $form['user_profile']['profile_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Profile name'),
+      '#default_value' => $userProfile->getProfileName(),
+    ];
+
+    if ($userProfile->getProfileName() == $currentUser->getAccountName()) {
+      $form['user_profile']['profile_name']['#attributes'] = [
+        'disabled' => [
+          'disabled',
+        ],
+      ];
+      $form['user_profile']['profile_name']['#description'] = $this->t("You can't change the name of your personal profile.");
+    }
+
+    $form['user_profile']['type'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Profile type'),
+      '#options' => ProfileType::translatableFormOptions(),
+      '#default_value' => $userProfile->getType(),
+      '#attributes' => [
+        'disabled' => 'disabled',
+      ],
+    ];
 
     $form['base_profile'] = $this->buildDefaultContainer($this->t('Base Profile'), TRUE);
     $form['base_profile'] += BaseProfile::renderForm($baseProfile);
@@ -233,6 +276,13 @@ class ProfileForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $formValues = $form_state->getValues();
 
+    $profileName = $formValues['profile_name'];
+    $account = Account::forActive();
+    $profile = UserProfile::loadByName($profileName);
+    if ($profile->getAccount()->getId() !== $account->getId()) {
+      $form_state->setErrorByName('profile_name', $this->t("Seems like you tried to edit a profile which is not yours."));
+    }
+
     $user = \Drupal::currentUser();
     // Validate real name.
     $realname = $formValues['base_profile']['real_name'];
@@ -261,8 +311,8 @@ class ProfileForm extends FormBase {
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $currentUser = \Drupal::currentUser();
-    $userProfile = UserProfile::loadByUser($currentUser);
     $values = $form_state->getValues();
+    $userProfile = UserProfile::loadByName($values['profile_name']);
 
     /** @var BaseProfile $baseProfile */
     $baseProfile = BaseProfile::loadByProfile($userProfile);
@@ -294,7 +344,12 @@ class ProfileForm extends FormBase {
       $baseProfile->setProfileBanner();
     }
     $baseProfile->setProfileText($values['base_profile']['profile_text']);
-    $baseProfile->setBirthday(DrupalDateTime::createFromFormat('Y-m-d', $values['base_profile']['birthday']));
+    if (!empty($values['base_profile']['birthday'])) {
+      $birthday = DrupalDateTime::createFromFormat('Y-m-d', $values['base_profile']['birthday']);
+    } else {
+      $birthday = NULL;
+    }
+    $baseProfile->setBirthday($birthday);
     $baseProfile->setGender(Gender::tryFrom($values['base_profile']['gender']));
     $baseProfile->setCity($values['base_profile']['city']);
     $baseProfile->setProvince($values['base_profile']['province']);
@@ -306,6 +361,7 @@ class ProfileForm extends FormBase {
       /** @var SocialMediaProfile $socialProfile */
       $socialProfile = SocialMediaProfile::loadByProfile($userProfile);
       $socialProfile->setTwitter($values['social_profile']['twitter']);
+      $socialProfile->setTwitch($values['social_profile']['twitch']);
       $socialProfile->setFacebook($values['social_profile']['facebook']);
       $socialProfile->setInstagram($values['social_profile']['instagram']);
       $socialProfile->setLinkedin($values['social_profile']['linkedin']);
@@ -321,8 +377,8 @@ class ProfileForm extends FormBase {
     if (!isset($form['relationship_profile']['create'])) {
       /** @var RelationshipProfile $relationshipProfile */
       $relationshipProfile = RelationshipProfile::loadByProfile($userProfile);
-      $relationshipProfile->setRelationshipStatus(RelationshipStatus::tryFrom($values['relationship_profile']['relationship_status']));
-      $relationshipProfile->setRelationshipType(RelationshipType::tryFrom($values['relationship_profile']['relationship_type']));
+      $relationshipProfile->setRelationshipStatus(RelationshipStatus::tryFrom($values['relationship_profile']['status']));
+      $relationshipProfile->setRelationshipType(RelationshipType::tryFrom($values['relationship_profile']['type']));
       $relationshipProfile->setSexuality(Sexuality::tryFrom($values['relationship_profile']['sexuality']));
 
       $relationshipProfile->save();
@@ -384,106 +440,126 @@ class ProfileForm extends FormBase {
     $this->messenger()->addMessage($this->t('Saved successfully!'));
   }
 
-  public function createAllProfiles() {
-    $this->createCodingProfile();
-    $this->createGamingProfile();
-    $this->createJobProfile();
-    $this->createRelationshipProfile();
-    $this->createSocialMediaProfile();
+  public function createAllProfiles(array &$form, FormStateInterface $form_state) {
+    $this->createCodingProfile($form, $form_state);
+    $this->createGamingProfile($form, $form_state);
+    $this->createJobProfile($form, $form_state);
+    $this->createRelationshipProfile($form, $form_state);
+    $this->createSocialMediaProfile($form, $form_state);
   }
 
-  public function deleteAllProfiles() {
-    $this->deleteCodingProfile();
-    $this->deleteGamingProfile();
-    $this->deleteJobProfile();
-    $this->deleteRelationshipProfile();
-    $this->deleteSocialMediaProfile();
+  public function deleteAllProfiles(array &$form, FormStateInterface $form_state) {
+    $this->deleteCodingProfile($form, $form_state);
+    $this->deleteGamingProfile($form, $form_state);
+    $this->deleteJobProfile($form, $form_state);
+    $this->deleteRelationshipProfile($form, $form_state);
+    $this->deleteSocialMediaProfile($form, $form_state);
   }
 
-  public function createSocialMediaProfile() {
-    if (empty(SocialMediaProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function createSocialMediaProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (empty(SocialMediaProfile::loadByProfile($userProfile))) {
       SocialMediaProfile::create()
-        ->setProfile(UserProfile::loadByUser(\Drupal::currentUser()))
+        ->setProfile($userProfile)
         ->save();
 
       $this->messenger()->addMessage($this->t('Successfully created social media profile!'));
     }
   }
 
-  public function deleteSocialMediaProfile() {
-    if (!empty($profile = SocialMediaProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function deleteSocialMediaProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (!empty($profile = SocialMediaProfile::loadByProfile($userProfile))) {
       $profile->delete();
 
       $this->messenger()->addMessage($this->t('Successfully deleted social media profile!'));
     }
   }
 
-  public function createRelationshipProfile() {
-    if (empty(RelationshipProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function createRelationshipProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (empty(RelationshipProfile::loadByProfile($userProfile))) {
       RelationshipProfile::create()
-        ->setProfile(UserProfile::loadByUser(\Drupal::currentUser()))
+        ->setProfile($userProfile)
         ->save();
 
       $this->messenger()->addMessage($this->t('Successfully created relationship profile!'));
     }
   }
 
-  public function deleteRelationshipProfile() {
-    if (!empty($profile = RelationshipProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function deleteRelationshipProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (!empty($profile = RelationshipProfile::loadByProfile($userProfile))) {
       $profile->delete();
 
       $this->messenger()->addMessage($this->t('Successfully deleted relationship profile!'));
     }
   }
 
-  public function createJobProfile() {
-    if (empty(JobProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function createJobProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (empty(JobProfile::loadByProfile($userProfile))) {
       JobProfile::create()
-        ->setProfile(UserProfile::loadByUser(\Drupal::currentUser()))
+        ->setProfile($userProfile)
         ->save();
 
       $this->messenger()->addMessage($this->t('Successfully created job profile!'));
     }
   }
 
-  public function deleteJobProfile() {
-    if (!empty($profile = JobProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function deleteJobProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (!empty($profile = JobProfile::loadByProfile($userProfile))) {
       $profile->delete();
 
       $this->messenger()->addMessage($this->t('Successfully deleted job profile!'));
     }
   }
 
-  public function createGamingProfile() {
-    if (empty(GamingProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function createGamingProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (empty(GamingProfile::loadByProfile($userProfile))) {
       GamingProfile::create()
-        ->setProfile(UserProfile::loadByUser(\Drupal::currentUser()))
+        ->setProfile($userProfile)
         ->save();
 
       $this->messenger()->addMessage($this->t('Successfully created gaming profile!'));
     }
   }
 
-  public function deleteGamingProfile() {
-    if (!empty($profile = GamingProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function deleteGamingProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (!empty($profile = GamingProfile::loadByProfile($userProfile))) {
       $profile->delete();
 
       $this->messenger()->addMessage($this->t('Successfully deleted gaming profile!'));
     }
   }
 
-  public function createCodingProfile() {
-    if (empty(CodingProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function createCodingProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (empty(CodingProfile::loadByProfile($userProfile))) {
       CodingProfile::create()
-        ->setProfile(UserProfile::loadByUser(\Drupal::currentUser()))
+        ->setProfile($userProfile)
         ->save();
 
       $this->messenger()->addMessage($this->t('Successfully created coding profile!'));
     }
   }
 
-  public function deleteCodingProfile() {
-    if (!empty($profile = CodingProfile::loadByProfile(UserProfile::loadByUser(\Drupal::currentUser())))) {
+  public function deleteCodingProfile(array &$form, FormStateInterface $form_state) {
+    $profileName = $form_state->getValue('profile_name');
+    $userProfile = UserProfile::loadByName($profileName);
+    if (!empty($profile = CodingProfile::loadByProfile($userProfile))) {
       $profile->delete();
 
       $this->messenger()->addMessage($this->t('Successfully deleted coding profile!'));

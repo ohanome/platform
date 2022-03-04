@@ -6,10 +6,37 @@ ohano_profile.create_profile_base:
   requirements:
     _permission: 'access content'
 ohano_profile.edit:
-  path: '/profile/edit'
+  path: '/profile/{profileName}/edit'
   defaults:
     _form: Drupal\ohano_profile\Form\ProfileForm
     _title: 'Edit profile'
+  requirements:
+    _permission: 'access content'
+ohano_profile.manage:
+  path: '/profile/manage'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::listProfiles
+    _title: 'Manage profile'
+  requirements:
+    _permission: 'access content'
+ohano_profile.add:
+  path: '/profile/add'
+  defaults:
+    _form: Drupal\ohano_profile\Form\ProfileAddForm
+    _title: 'Add profile'
+  requirements:
+    _permission: 'access content'
+ohano_profile.switch:
+  path: '/profile/switch/{profileName}'
+  defaults:
+    _controller: Drupal\ohano_profile\Controller\ProfileController::switchActiveProfile
+  requirements:
+    _permission: 'access content'
+ohano_profile.search:
+  path: '/profile/search'
+  defaults:
+    _form: Drupal\ohano_profile\Form\ProfileSearchForm
+    _title: 'Search profiles'
   requirements:
     _permission: 'access content'
 

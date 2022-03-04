@@ -1,0 +1,8 @@
+profile-card:
+  version: 1.0
+  js:
+    js/profile-card.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

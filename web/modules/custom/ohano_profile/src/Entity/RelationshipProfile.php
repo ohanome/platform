@@ -141,9 +141,12 @@ class RelationshipProfile extends SubProfileBase {
    */
   public function render(): array {
     return parent::render() + [
-      'relationship_status' => $this->getRelationshipStatus(),
-      'relationship_type' => $this->getRelationshipType(),
-      'sexuality' => $this->getSexuality(),
+      'relationship_status' => $this->getRelationshipStatus()?->value,
+      'relationship_status_value' => $this->getRelationshipStatus() ? t($this->getRelationshipStatus()->value) : NULL,
+      'relationship_type' => $this->getRelationshipType()?->value,
+      'relationship_type_value' => $this->getRelationshipType() ? t($this->getRelationshipType()->value) : NULL,
+      'sexuality' => $this->getSexuality()?->value,
+      'sexuality_value' => $this->getSexuality() ? t($this->getSexuality()->value) : NULL,
     ];
   }
 

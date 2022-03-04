@@ -20,4 +20,20 @@ body {
   main[role="main"] {
     padding-top: 7rem;
   }
+
+  span.tag {
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    background: rgba(0, 117, 200, 0.3);
+    padding: 0.1rem 0.5rem;
+    margin: 0 0.2rem;
+    border-radius: 0.3rem;
+  }
+
+  span.big {
+    font-size: 2rem;
+    font-family: "Comfortaa", sans-serif;
+  }
 }

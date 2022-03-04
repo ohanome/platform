@@ -16,6 +16,7 @@ function ohano_profile_theme($existing, $type, $theme, $path): array {
     'profile_options' => [
       'template' => 'profile-options',
       'variables' => [
+        'name' => NULL,
         'own' => NULL,
         'is_follower' => NULL,
         'following' => NULL,
@@ -31,12 +32,27 @@ function ohano_profile_theme($existing, $type, $theme, $path): array {
         'profile' => NULL,
       ],
     ],
-    'profile_picture' =>  [
+    'profile_picture' => [
       'template' => 'profile-picture',
       'variables' => [
         'image_url' => NULL,
         'username' => NULL,
       ],
-    ]
+    ],
+    'profile_list' => [
+      'template' => 'profile-list',
+      'variables' => [
+        'profiles' => NULL,
+        'form' => NULL,
+      ],
+    ],
+    'profile_block' => [
+      'template' => 'profile-block',
+      'variables' => [
+        'profile_picture' => NULL,
+        'other_profiles' => NULL,
+        'profile_name' => NULL,
+      ],
+    ],
   ];
 }

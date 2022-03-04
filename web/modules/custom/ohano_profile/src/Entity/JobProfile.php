@@ -195,8 +195,10 @@ class JobProfile extends SubProfileBase {
    */
   public function render(): array {
     return parent::render() + [
-      'employment_status' => $this->getEmploymentStatus(),
-      'education_degree' => $this->getEducationDegree(),
+      'employment_status' => $this->getEmploymentStatus()?->value,
+      'employment_status_value' => $this->getEmploymentStatus() ? t($this->getEmploymentStatus()->value) : NULL,
+      'education_degree' => $this->getEducationDegree()?->value,
+      'education_degree_value' => $this->getEducationDegree() ? t($this->getEducationDegree()->value) : NULL,
       'employer' => $this->getEmployer(),
       'industry' => $this->getIndustry(),
       'position' => $this->getPosition(),

@@ -56,6 +56,7 @@ class SocialMediaProfile extends SubProfileBase {
     $fields = parent::baseFieldDefinitions($entity_type);
 
     $fields['twitter'] = BaseFieldDefinition::create('string');
+    $fields['twitch'] = BaseFieldDefinition::create('string');
     $fields['instagram'] = BaseFieldDefinition::create('string');
     $fields['facebook'] = BaseFieldDefinition::create('string');
     $fields['linkedin'] = BaseFieldDefinition::create('string');
@@ -76,6 +77,16 @@ class SocialMediaProfile extends SubProfileBase {
    */
   public function getTwitter(): ?string {
     return $this->get('twitter')->value;
+  }
+
+  /**
+   * Gets the Twitch username.
+   *
+   * @return string|null
+   *   The Twitter username.
+   */
+  public function getTwitch(): ?string {
+    return $this->get('twitch')->value;
   }
 
   /**
@@ -169,6 +180,20 @@ class SocialMediaProfile extends SubProfileBase {
    */
   public function setTwitter(string $twitter = NULL): SocialMediaProfile {
     $this->set('twitter', $twitter);
+    return $this;
+  }
+
+  /**
+   * Sets the Twitch username.
+   *
+   * @param string|null $twitch
+   *   The Twitch username to set.
+   *
+   * @return \Drupal\ohano_profile\Entity\SocialMediaProfile
+   *   The active instance of this class.
+   */
+  public function setTwitch(string $twitch = NULL): SocialMediaProfile {
+    $this->set('twitch', $twitch);
     return $this;
   }
 
@@ -290,6 +315,7 @@ class SocialMediaProfile extends SubProfileBase {
   public function render(): array {
     return parent::render() + [
       'twitter' => $this->getTwitter(),
+      'twitch' => $this->getTwitch(),
       'instagram' => $this->getInstagram(),
       'facebook' => $this->getFacebook(),
       'linkedin' => $this->getLinkedin(),
@@ -315,21 +341,39 @@ class SocialMediaProfile extends SubProfileBase {
       '#default_value' => $subProfile->getTwitter(),
     ];
 
-    $form['facebook'] = [
+    $form['twitch'] = [
       '#type' => 'textfield',
+      '#title' => 'Twitch',
+      '#default_value' => $subProfile->getTwitch(),
+    ];
+
+    $form['instagram'] = [
+      '#type' => 'textfield',
+      '#title' => 'Instagram',
+      '#default_value' => $subProfile->getInstagram(),
+    ];
+
+    $form['facebook'] = [
+      '#type' => 'url',
       '#title' => 'Facebook',
+      '#description' => t('Because profile URLs may vary between different types of profiles, you need to enter the full URL here.'),
+      '#pattern' => '^https\:\/\/facebook\.com\/.*$',
       '#default_value' => $subProfile->getFacebook(),
     ];
 
     $form['linkedin'] = [
-      '#type' => 'textfield',
+      '#type' => 'url',
       '#title' => 'LinkedIn',
+      '#description' => t('Because profile URLs may vary between different types of profiles, you need to enter the full URL here.'),
+      '#pattern' => '^https\:\/\/linkedin\.com\/.*$',
       '#default_value' => $subProfile->getLinkedin(),
     ];
 
     $form['xing'] = [
-      '#type' => 'textfield',
+      '#type' => 'url',
       '#title' => 'Xing',
+      '#description' => t('Because profile URLs may vary between different types of profiles, you need to enter the full URL here.'),
+      '#pattern' => '^https\:\/\/xing\.com\/.*$',
       '#default_value' => $subProfile->getXing(),
     ];
 

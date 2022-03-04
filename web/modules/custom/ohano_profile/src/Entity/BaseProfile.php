@@ -206,7 +206,7 @@ class BaseProfile extends SubProfileBase {
   /**
    * Sets the real name of the user.
    *
-   * @param string $realname
+   * @param string|null $realname
    *   The real name to set.
    *
    * @return \Drupal\ohano_profile\Entity\BaseProfile
@@ -214,7 +214,7 @@ class BaseProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setRealname(string $realname): BaseProfile {
+  public function setRealname(string $realname = NULL): BaseProfile {
     $this->set('realname', $realname);
     return $this;
   }
@@ -254,7 +254,7 @@ class BaseProfile extends SubProfileBase {
   /**
    * Sets the profile text.
    *
-   * @param string $profileText
+   * @param string|null $profileText
    *   The profile text to set.
    *
    * @return \Drupal\ohano_profile\Entity\BaseProfile
@@ -262,7 +262,7 @@ class BaseProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setProfileText(string $profileText): BaseProfile {
+  public function setProfileText(string $profileText = NULL): BaseProfile {
     $this->set('profile_text', $profileText);
     return $this;
   }
@@ -270,7 +270,7 @@ class BaseProfile extends SubProfileBase {
   /**
    * Sets the birthday.
    *
-   * @param \Drupal\Core\Datetime\DrupalDateTime $birthday
+   * @param \Drupal\Core\Datetime\DrupalDateTime|null $birthday
    *   The birthday to set as timestamp int.
    *
    * @return \Drupal\ohano_profile\Entity\BaseProfile
@@ -278,15 +278,15 @@ class BaseProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setBirthday(DrupalDateTime $birthday): BaseProfile {
-    $this->set('birthday', $birthday->format('U'));
+  public function setBirthday(DrupalDateTime $birthday = NULL): BaseProfile {
+    $this->set('birthday', $birthday?->format('U'));
     return $this;
   }
 
   /**
    * Sets the gender.
    *
-   * @param \Drupal\ohano_profile\Option\Gender $gender
+   * @param \Drupal\ohano_profile\Option\Gender|null $gender
    *   The gender to set.
    *
    * @return \Drupal\ohano_profile\Entity\BaseProfile
@@ -294,21 +294,21 @@ class BaseProfile extends SubProfileBase {
    *
    * @noinspection PhpUnused
    */
-  public function setGender(Gender $gender): BaseProfile {
-    $this->set('gender', $gender->value);
+  public function setGender(Gender $gender = NULL): BaseProfile {
+    $this->set('gender', $gender?->value);
     return $this;
   }
 
   /**
    * Sets the city.
    *
-   * @param string $city
+   * @param string|null $city
    *   The city to set.
    *
    * @return \Drupal\ohano_profile\Entity\BaseProfile
    *   The active instance of this class.
    */
-  public function setCity(string $city): BaseProfile {
+  public function setCity(string $city = NULL): BaseProfile {
     $this->set('city', $city);
     return $this;
   }
@@ -316,13 +316,13 @@ class BaseProfile extends SubProfileBase {
   /**
    * Sets the province.
    *
-   * @param string $province
+   * @param string|null $province
    *   The province to set.
    *
    * @return \Drupal\ohano_profile\Entity\BaseProfile
    *   The active instance of this class.
    */
-  public function setProvince(string $province): BaseProfile {
+  public function setProvince(string $province = NULL): BaseProfile {
     $this->set('province', $province);
     return $this;
   }
@@ -330,13 +330,13 @@ class BaseProfile extends SubProfileBase {
   /**
    * Sets the country.
    *
-   * @param string $country
+   * @param string|null $country
    *   The country to set.
    *
    * @return \Drupal\ohano_profile\Entity\BaseProfile
    *   The active instance of this class.
    */
-  public function setCountry(string $country): BaseProfile {
+  public function setCountry(string $country = NULL): BaseProfile {
     $this->set('country', $country);
     return $this;
   }
@@ -349,14 +349,14 @@ class BaseProfile extends SubProfileBase {
       'username' => $this->getUsername(),
       'realname' => $this->getRealname(),
       'profile_picture' => $this->getProfilePicture(),
-      'profile_picture_url' => $this->getProfilePicture()->createFileUrl(FALSE),
+      'profile_picture_url' => !empty($this->getProfilePicture()) ? $this->getProfilePicture()->createFileUrl(FALSE) : NULL,
       'profile_banner' => $this->getProfileBanner(),
-      'profile_banner_url' => $this->getProfileBanner()->createFileUrl(FALSE),
+      'profile_banner_url' => !empty($this->getProfileBanner()) ? $this->getProfileBanner()->createFileUrl(FALSE) : NULL,
       'profile_text' => $this->getProfileText(),
       'birthday' => $this->getBirthday(),
-      'birthday_formatted' => DrupalDateTime::createFromFormat('U', $this->getBirthday())->format('d. F Y'),
-      'gender' => $this->getGender()->value,
-      'gender_value' => t($this->getGender()->value),
+      'birthday_formatted' => $this->getBirthday() ? DrupalDateTime::createFromFormat('U', $this->getBirthday())->format('d. F Y') : NULL,
+      'gender' => $this->getGender()?->value,
+      'gender_value' => $this->getGender() ? t($this->getGender()->value) : NULL,
       'city' => $this->getCity(),
       'province' => $this->getProvince(),
       'country' => $this->getCountry(),
@@ -370,18 +370,6 @@ class BaseProfile extends SubProfileBase {
     /** @var \Drupal\ohano_profile\Entity\BaseProfile $subProfile */
 
     $form = [];
-
-    $form['username'] = [
-      '#type' => 'textfield',
-      '#title' => t('Username'),
-      '#description' => t('Your username can only be edited on your account settings page.'),
-      '#attributes' => [
-        'disabled' => [
-          'disabled',
-        ],
-      ],
-      '#value' => $subProfile->getUsername(),
-    ];
 
     $form['real_name'] = [
       '#type' => 'textfield',
@@ -439,11 +427,15 @@ class BaseProfile extends SubProfileBase {
       '#default_value' => $subProfile->getProfileText(),
     ];
 
+    $defaultDate = NULL;
+    if ($subProfile->getBirthday()) {
+      $defaultDate = DrupalDateTime::createFromFormat('U', $subProfile->getBirthday())->format('Y-m-d');
+    }
     $form['birthday'] = [
       '#type' => 'date',
       '#title' => t('Birthday'),
       '#min' => '-18 years',
-      '#default_value' => DrupalDateTime::createFromFormat('U', $subProfile->getBirthday())->format('Y-m-d'),
+      '#default_value' => $defaultDate,
     ];
 
     $form['gender'] = [

@@ -7,6 +7,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\ohano_core\Entity\EntityInterface;
+use Drupal\ohano_profile\Entity\UserProfile;
 
 /**
  * Defines the Account entity.
@@ -24,6 +25,7 @@ use Drupal\ohano_core\Entity\EntityInterface;
  *     "updated" = "updated",
  *     "user" = "user",
  *     "bits" = "bits",
+ *     "active_profile" = "active_profile",
  *   }
  * )
  */
@@ -48,6 +50,9 @@ class Account extends EntityBase implements EntityInterface {
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default');
     $fields['bits'] = BaseFieldDefinition::create('integer');
+    $fields['active_profile'] = BaseFieldDefinition::create('entity_reference')
+      ->setSetting('target_type', 'user_profile')
+      ->setSetting('handler', 'default');
 
     return $fields;
   }
@@ -70,6 +75,10 @@ class Account extends EntityBase implements EntityInterface {
    */
   public function getBits(): int {
     return $this->get('bits')->value;
+  }
+
+  public function getActiveProfile(): UserProfile {
+    return $this->get('active_profile')->entity;
   }
 
   /**
@@ -97,6 +106,11 @@ class Account extends EntityBase implements EntityInterface {
    */
   public function setBits(int $bits): Account {
     $this->set('bits', $bits);
+    return $this;
+  }
+
+  public function setActiveProfile(UserProfile $userProfile): Account {
+    $this->set('active_profile', $userProfile);
     return $this;
   }
 
@@ -141,6 +155,16 @@ class Account extends EntityBase implements EntityInterface {
       ->execute();
 
     return Account::load(array_values($accountId)[0]);
+  }
+
+  /**
+   * Gets the account entity for the active user.
+   *
+   * @return \Drupal\ohano_account\Entity\Account|null
+   *   The account entity.
+   */
+  public static function forActive(): ?Account {
+    return Account::getByUser(\Drupal::currentUser());
   }
 
 }

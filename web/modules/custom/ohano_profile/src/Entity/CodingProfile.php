@@ -50,6 +50,7 @@ class CodingProfile extends SubProfileBase {
     $fields['github'] = BaseFieldDefinition::create('string');
     $fields['gitlab'] = BaseFieldDefinition::create('string');
     $fields['bitbucket'] = BaseFieldDefinition::create('string');
+    $fields['codepen'] = BaseFieldDefinition::create('string');
     $fields['programming_languages'] = BaseFieldDefinition::create('entity_reference')
       ->setSetting('target_type', 'taxonomy_term')
       ->setSetting('handler', 'default')
@@ -100,6 +101,15 @@ class CodingProfile extends SubProfileBase {
   }
 
   /**
+   * Gets the codepen username.
+   *
+   * @return string|null
+   */
+  public function getCodepen(): ?string {
+    return $this->get('codepen')->value;
+  }
+
+  /**
    * Sets the GitHub username.
    *
    * @param string $github
@@ -138,6 +148,20 @@ class CodingProfile extends SubProfileBase {
    */
   public function setBitbucket(string $bitbucket): CodingProfile {
     $this->set('bitbucket', $bitbucket);
+    return $this;
+  }
+
+  /**
+   * Sets the codepen username.
+   *
+   * @param string $codepen
+   *   The codepen username to set.
+   *
+   * @return \Drupal\ohano_profile\Entity\CodingProfile
+   *   The active instance of this class.
+   */
+  public function setCodepen(string $codepen): CodingProfile {
+    $this->set('codepen', $codepen);
     return $this;
   }
 
@@ -315,8 +339,12 @@ class CodingProfile extends SubProfileBase {
     }
 
     return parent::render() + [
-      'games' => $renderedProgrammingLanguages,
-      'platforms' => $renderedSystems,
+      'github' => $this->getGithub(),
+      'gitlab' => $this->getGitlab(),
+      'bitbucket' => $this->getBitbucket(),
+      'codepen' => $this->getCodepen(),
+      'programming_languages' => $renderedProgrammingLanguages,
+      'systems' => $renderedSystems,
     ];
   }
 
