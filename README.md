@@ -49,12 +49,9 @@ Unser Workflow sieht wie folgt aus:
 
 ### Commits
 
-Zu allem was wir machen muss es ein Issue geben. Commits sollen daher die folgende Form haben:
-```text
-[ISSUE_ID]: [Beschreibung was geändert wurde auf Englisch]
-```
+Commit-Messages werden immer in Englisch geschrieben.
 
-Englisch einfach nur weil es einfach ist diese README perspektivisch zu übersetzen, aber nicht Commits.
+Englisch einfach nur, weil es einfach ist diese README perspektivisch zu übersetzen, aber nicht Commits.
 
 ## Deployment
 
