@@ -14,6 +14,7 @@ use Drupal\ohano_profile\Entity\RelationshipProfile;
 use Drupal\ohano_profile\Entity\SocialMediaProfile;
 use Drupal\ohano_profile\Entity\UserProfile;
 use Drupal\ohano_profile\Option\Gender;
+use Drupal\taxonomy\Entity\Vocabulary;
 
 class ProfileSearchForm extends FormBase {
   use FormTrait;
@@ -43,6 +44,13 @@ class ProfileSearchForm extends FormBase {
 
     $form = [];
 
+    $form['to_simple'] = [
+      '#type' => 'markup',
+      '#markup' => '<a href="#">' . $this->t('To the simple search') . '</a><br />',
+    ];
+
+    $canSearchAll = \Drupal::currentUser()->hasPermission('ohano search user by all fields');
+
     $form['base'] = $this->buildDefaultContainer($this->t('Basic information'), TRUE);
 
     $form['base']['profile_name'] = [
@@ -50,7 +58,7 @@ class ProfileSearchForm extends FormBase {
       '#title' => $this->t('User- / Profile name'),
     ];
 
-    if ($baseProfile->getRealName()) {
+    if ($baseProfile->getRealName() || $canSearchAll) {
       $form['base']['real_name'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Name'),
@@ -60,18 +68,20 @@ class ProfileSearchForm extends FormBase {
       $showHiddenFieldNotice = TRUE;
     }
 
-    if ($baseProfile->getGender()) {
+    if ($baseProfile->getGender() || $canSearchAll) {
       $form['base']['gender'] = [
         '#type' => 'select',
+        '#chosen' => TRUE,
+        '#multiple' => TRUE,
         '#title' => $this->t('Gender'),
-        '#options' => [NULL => '-'] + Gender::translatableFormOptions(),
+        '#options' => Gender::translatableFormOptions(),
       ];
     }
     else {
       $showHiddenFieldNotice = TRUE;
     }
 
-    if ($baseProfile->getCity()) {
+    if ($baseProfile->getCity() || $canSearchAll) {
       $form['base']['city'] = [
         '#type' => 'textfield',
         '#title' => $this->t("City"),
@@ -81,7 +91,7 @@ class ProfileSearchForm extends FormBase {
       $showHiddenFieldNotice = TRUE;
     }
 
-    if ($baseProfile->getProvince()) {
+    if ($baseProfile->getProvince() || $canSearchAll) {
       $form['base']['province'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Sate or province'),
@@ -91,7 +101,7 @@ class ProfileSearchForm extends FormBase {
       $showHiddenFieldNotice = TRUE;
     }
 
-    if ($baseProfile->getCountry()) {
+    if ($baseProfile->getCountry() || $canSearchAll) {
       $form['base']['country'] = [
         '#type' => 'textfield',
         '#title' => $this->t("Country"),
@@ -101,9 +111,9 @@ class ProfileSearchForm extends FormBase {
       $showHiddenFieldNotice = TRUE;
     }
 
-    if ($codingProfile) {
-      $form['coding'] = $this->buildDefaultContainer($this->t("Coding"), FALSE);
-      if ($codingProfile->getGithub()) {
+    if ($codingProfile || $canSearchAll) {
+      $form['coding'] = $this->buildDefaultContainer($this->t("Coding"), TRUE);
+      if ($codingProfile->getGithub() || $canSearchAll) {
         $form['coding']['github'] = [
           '#type' => 'textfield',
           '#title' => $this->t("GitHub"),
@@ -113,7 +123,7 @@ class ProfileSearchForm extends FormBase {
         $showHiddenFieldNotice = TRUE;
       }
 
-      if ($codingProfile->getGitlab()) {
+      if ($codingProfile->getGitlab() || $canSearchAll) {
         $form['coding']['gitlab'] = [
           '#type' => 'textfield',
           '#title' => $this->t("GitLab"),
@@ -123,10 +133,151 @@ class ProfileSearchForm extends FormBase {
         $showHiddenFieldNotice = TRUE;
       }
 
-      if ($codingProfile->getBitbucket()) {
+      if ($codingProfile->getBitbucket() || $canSearchAll) {
         $form['coding']['bitbucket'] = [
           '#type' => 'textfield',
           '#title' => $this->t("Bitbucket"),
+        ];
+      }
+      else {
+        $showHiddenFieldNotice = TRUE;
+      }
+
+      if (empty($codingProfile->getProgrammingLanguages()) || $canSearchAll) {
+        $programmingLanguages = \Drupal::entityTypeManager()
+          ->getStorage('taxonomy_term')
+          ->loadTree('programming_languages');
+        $options = [];
+        foreach ($programmingLanguages as $language) {
+          $options[$language->tid] = $language->name;
+        }
+
+        $form['coding']['programming_languages'] = $this->buildDefaultContainer($this->t('Programming languages'), TRUE);
+        $form['coding']['programming_languages']['languages'] = [
+          '#type' => 'select',
+          '#chosen' => TRUE,
+          '#multiple' => TRUE,
+          '#options' => $options,
+          '#title' => $this->t('Programming languages'),
+        ];
+
+        $form['coding']['programming_languages']['operator'] = [
+          '#type' => 'radios',
+          '#title' => $this->t('Must include'),
+          '#options' => [
+            'AND' => $this->t('all'),
+            'OR' => $this->t('one of the selected'),
+          ],
+          '#default_value' => 'OR',
+        ];
+      }
+      else {
+        $showHiddenFieldNotice = TRUE;
+      }
+
+      if (empty($codingProfile->getSystems()) || $canSearchAll) {
+        $systems = \Drupal::entityTypeManager()
+          ->getStorage('taxonomy_term')
+          ->loadTree('systems');
+        $options = [];
+        foreach ($systems as $system) {
+          $options[$system->tid] = $system->name;
+        }
+
+        $form['coding']['systems'] = $this->buildDefaultContainer($this->t('Systems'), TRUE);
+        $form['coding']['systems']['systems'] = [
+          '#type' => 'select',
+          '#chosen' => TRUE,
+          '#multiple' => TRUE,
+          '#options' => $options,
+          '#title' => $this->t('Systems'),
+        ];
+
+        $form['coding']['systems']['operator'] = [
+          '#type' => 'radios',
+          '#title' => $this->t('Must include'),
+          '#options' => [
+            'AND' => $this->t('all'),
+            'OR' => $this->t('one of the selected'),
+          ],
+          '#default_value' => 'OR',
+        ];
+      }
+      else {
+        $showHiddenFieldNotice = TRUE;
+      }
+    }
+    else {
+      $showHiddenFieldNotice = TRUE;
+    }
+
+    if ($gamingProfile || $canSearchAll) {
+      $form['gaming'] = $this->buildDefaultContainer($this->t('Gaming'));
+
+      if ($gamingProfile->getMinecraftName() || $canSearchAll) {
+        $form['gaming']['minecraft_name'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('Minecraft name'),
+        ];
+      }
+      else {
+        $showHiddenFieldNotice = TRUE;
+      }
+
+      if ($gamingProfile->getValorant() || $canSearchAll) {
+        $form['gaming']['valorant'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('VALORANT'),
+        ];
+      }
+      else {
+        $showHiddenFieldNotice = TRUE;
+      }
+
+      if ($gamingProfile->getLeagueOfLegends() || $canSearchAll) {
+        $form['gaming']['league_of_legends'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('League of Legends'),
+        ];
+      }
+      else {
+        $showHiddenFieldNotice = TRUE;
+      }
+
+      if ($gamingProfile->getBattleNet() || $canSearchAll) {
+        $form['gaming']['battle_net'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('Battle.net'),
+        ];
+      }
+      else {
+        $showHiddenFieldNotice = TRUE;
+      }
+
+      if ($gamingProfile->getUbisoftConnect() || $canSearchAll) {
+        $form['gaming']['ubisoft_connect'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('Ubisoft Connect'),
+        ];
+      }
+      else {
+        $showHiddenFieldNotice = TRUE;
+      }
+
+      if ($gamingProfile->getSteam() || $canSearchAll) {
+        $form['gaming']['steam'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('Steam'),
+        ];
+      }
+      else {
+        $showHiddenFieldNotice = TRUE;
+      }
+
+      if ($gamingProfile->getEaOrigin() || $canSearchAll) {
+        $form['gaming']['ea_origin'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('EA Origin'),
         ];
       }
       else {
@@ -140,6 +291,16 @@ class ProfileSearchForm extends FormBase {
     if ($showHiddenFieldNotice) {
       $this->messenger()->addWarning($this->t("Some fields are hidden because you don't have them filled in your own profile."));
     }
+
+    $form['operator'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Must include'),
+      '#options' => [
+        'AND' => $this->t('all'),
+        'OR' => $this->t('one of the selected'),
+      ],
+      '#default_value' => 'OR',
+    ];
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -165,14 +326,18 @@ class ProfileSearchForm extends FormBase {
     $select = $database->select('ohano_user_profile', 'up');
     $select->fields('up', ['id']);
     $select->condition('up.id', $profile->getId(), '!=');
+    $conjunction = $values['operator'];
+
+    $condition = $select->conditionGroupFactory($conjunction);
+
     if (!empty($values['base']['profile_name'])) {
-      $select->condition('up.profile_name', $values['base']['profile_name'], 'LIKE');
+      $condition->condition('up.profile_name', $values['base']['profile_name'], 'LIKE');
     }
 
     if (!empty($values['base']['real_name'])) {
       $select->join('ohano_base_profile', 'bp', 'up.id = bp.profile');
       $baseProfileJoined = TRUE;
-      $select->condition('bp.realname', $values['base']['real_name'], 'LIKE');
+      $condition->condition('bp.realname', $values['base']['real_name'], 'LIKE');
     }
 
     if (!empty($values['base']['gender'])) {
@@ -180,7 +345,7 @@ class ProfileSearchForm extends FormBase {
         $select->join('ohano_base_profile', 'bp', 'up.id = bp.profile');
         $baseProfileJoined = TRUE;
       }
-      $select->condition('bp.gender', $values['base']['gender']);
+      $condition->condition('bp.gender', $values['base']['gender']);
     }
 
     if (!empty($values['base']['city'])) {
@@ -188,7 +353,7 @@ class ProfileSearchForm extends FormBase {
         $select->join('ohano_base_profile', 'bp', 'up.id = bp.profile');
         $baseProfileJoined = TRUE;
       }
-      $select->condition('bp.city', $values['base']['city'], 'LIKE');
+      $condition->condition('bp.city', $values['base']['city'], 'LIKE');
     }
 
     if (!empty($values['base']['province'])) {
@@ -196,7 +361,7 @@ class ProfileSearchForm extends FormBase {
         $select->join('ohano_base_profile', 'bp', 'up.id = bp.profile');
         $baseProfileJoined = TRUE;
       }
-      $select->condition('bp.province', $values['base']['province'], 'LIKE');
+      $condition->condition('bp.province', $values['base']['province'], 'LIKE');
     }
 
     if (!empty($values['base']['country'])) {
@@ -204,7 +369,7 @@ class ProfileSearchForm extends FormBase {
         $select->join('ohano_base_profile', 'bp', 'up.id = bp.profile');
         $baseProfileJoined = TRUE;
       }
-      $select->condition('bp.country', $values['base']['country'], 'LIKE');
+      $condition->condition('bp.country', $values['base']['country'], 'LIKE');
     }
 
     if (!empty($values['coding']['github'])) {
@@ -212,7 +377,7 @@ class ProfileSearchForm extends FormBase {
         $select->join('ohano_coding_profile', 'cp', 'up.id = cp.profile');
         $codingProfileJoined = TRUE;
       }
-      $select->condition('cp.github', $values['coding']['github'], 'LIKE');
+      $condition->condition('cp.github', $values['coding']['github'], 'LIKE');
     }
 
     if (!empty($values['coding']['gitlab'])) {
@@ -220,7 +385,7 @@ class ProfileSearchForm extends FormBase {
         $select->join('ohano_coding_profile', 'cp', 'up.id = cp.profile');
         $codingProfileJoined = TRUE;
       }
-      $select->condition('cp.gitlab', $values['coding']['gitlab'], 'LIKE');
+      $condition->condition('cp.gitlab', $values['coding']['gitlab'], 'LIKE');
     }
 
     if (!empty($values['coding']['bitbucket'])) {
@@ -228,8 +393,10 @@ class ProfileSearchForm extends FormBase {
         $select->join('ohano_coding_profile', 'cp', 'up.id = cp.profile');
         $codingProfileJoined = TRUE;
       }
-      $select->condition('cp.bitbucket', $values['coding']['bitbucket'], 'LIKE');
+      $condition->condition('cp.bitbucket', $values['coding']['bitbucket'], 'LIKE');
     }
+
+    $select->condition($condition);
 
     $executed = $select->execute();
     $res = $executed->fetchAll();
