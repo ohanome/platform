@@ -18,7 +18,9 @@ enum Sexuality: string {
   case Homosexual = "Homosexual";
   case Bisexual = "Bisexual";
   case Pansexual = "Pansexual";
+  case Omnisexual = "Omnisexual";
   case Asexual = "Asexual";
+  case Secret = "Secret";
   case Other = "Other";
 
   public static function translatableFormOptions(): array {
