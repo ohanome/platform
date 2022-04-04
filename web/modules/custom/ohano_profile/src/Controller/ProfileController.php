@@ -164,12 +164,26 @@ class ProfileController extends ControllerBase {
         $imageUrl = $profilePicture->createFileUrl(FALSE);
       }
 
+      $bannerUrl = NULL;
+      if ($profileBanner = $baseProfile->getProfileBanner()) {
+        $bannerUrl = $profileBanner->createFileUrl(FALSE);
+      }
+
       $renderable = [
         'name' => $userProfile->getProfileName(),
         'image_url' => $imageUrl,
         'type' => ProfileType::translatableFormOptions()[$userProfile->getType()],
         'icon' => Settings::PROFILE_TYPE_ICONS[$userProfile->getType()],
+        'profile_banner' => $bannerUrl,
       ];
+
+      if ($imageUrl) {
+        $renderable['profile_picture'] = [
+          '#theme' => 'profile_picture',
+          '#image_url' => $imageUrl,
+          '#username' => $userProfile->getProfileName(),
+        ];
+      }
 
       if ($account->getActiveProfile()->getId() == $userProfile->getId()) {
         $renderable['is_active'] = 1;
@@ -178,6 +192,7 @@ class ProfileController extends ControllerBase {
       $renderableProfiles[] = $renderable;
     }
 
+    #dd($renderableProfiles);
     return [
       '#theme' => 'profile_list',
       '#profiles' => $renderableProfiles,

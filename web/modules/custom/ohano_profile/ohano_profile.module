@@ -1,5 +1,9 @@
 <?php
 
+use Drupal\ohano_account\Entity\Account;
+use Drupal\ohano_profile\Entity\BaseProfile;
+use Drupal\ohano_profile\Entity\UserProfile;
+
 /**
  * Implements hook_theme().
  */
@@ -32,6 +36,12 @@ function ohano_profile_theme($existing, $type, $theme, $path): array {
         'profile' => NULL,
       ],
     ],
+    'profile_card_small' => [
+      'template' => 'profile-card-small',
+      'variables' => [
+        'profile' => NULL,
+      ],
+    ],
     'profile_picture' => [
       'template' => 'profile-picture',
       'variables' => [
@@ -54,5 +64,11 @@ function ohano_profile_theme($existing, $type, $theme, $path): array {
         'profile_name' => NULL,
       ],
     ],
+    'profile_card_list' => [
+      'template' => 'profile-card-list',
+      'variables' => [
+        'profiles' => NULL,
+      ]
+    ]
   ];
 }

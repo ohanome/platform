@@ -37,6 +37,11 @@ class ProfileBlock extends BlockBase {
     $profiles = UserProfile::loadMultipleByUser(\Drupal::currentUser());
     $otherProfiles = [];
     foreach ($profiles as $otherProfile) {
+      if ($otherProfile->get('profile_name')->value == NULL) {
+        $otherProfile->delete();
+        continue;
+      }
+
       if ($otherProfile->getProfileName() != $profile->getProfileName()) {
         $otherProfiles[] = $otherProfile->getProfileName();
       }

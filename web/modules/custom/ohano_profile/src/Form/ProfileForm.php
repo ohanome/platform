@@ -82,13 +82,13 @@ class ProfileForm extends FormBase {
       '#default_value' => $userProfile->getProfileName(),
     ];
 
-    if ($userProfile->getProfileName() == $currentUser->getAccountName()) {
+    if ($userProfile->getType() == ProfileType::Personal->value) {
       $form['user_profile']['profile_name']['#attributes'] = [
         'disabled' => [
           'disabled',
         ],
       ];
-      $form['user_profile']['profile_name']['#description'] = $this->t("You can't change the name of your personal profile.");
+      $form['user_profile']['profile_name']['#description'] = $this->t("You can't change the name of your personal profile. To change your username, head over to your account settings.");
     }
 
     $form['user_profile']['type'] = [
@@ -244,26 +244,45 @@ class ProfileForm extends FormBase {
       ];
     }
 
-    $form['actions']['create_all'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Create all profiles'),
-      '#submit' => [
-        '::createAllProfiles',
-      ],
-    ];
-
-    $form['actions']['delete_all'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Delete all profiles'),
-      '#submit' => [
-        '::deleteAllProfiles',
-      ],
-      '#attributes' => [
-        'onclick' => [
-          'return confirm("' . $confirmationDelete->render() . '");'
+    if ($currentUser->hasPermission('ohano bulk create sub profiles')) {
+      $form['actions']['create_all'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Create all sub profiles'),
+        '#submit' => [
+          '::createAllProfiles',
         ],
-      ],
-    ];
+      ];
+    }
+
+    if ($currentUser->hasPermission('ohano bulk delete sub profiles')) {
+      $form['actions']['delete_all'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Delete all sub profiles'),
+        '#submit' => [
+          '::deleteAllProfiles',
+        ],
+        '#attributes' => [
+          'onclick' => [
+            'return confirm("' . $confirmationDelete->render() . '");'
+          ],
+        ],
+      ];
+    }
+
+    if ($userProfile->getType() !== ProfileType::Personal->value) {
+      $form['actions']['delete'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Delete whole profile'),
+        '#submit' => [
+          '::deleteWholeProfile',
+        ],
+        '#attributes' => [
+          'onclick' => [
+            'return confirm("' . $confirmationDelete->render() . '");'
+          ],
+        ],
+      ];
+    }
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -438,6 +457,28 @@ class ProfileForm extends FormBase {
     }
 
     $this->messenger()->addMessage($this->t('Saved successfully!'));
+  }
+
+  public function deleteWholeProfile(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+    $profileName = $values['profile_name'];
+    /** @var UserProfile $userProfile */
+    $userProfile = UserProfile::loadByName($profileName);
+    $currentUser = \Drupal::currentUser();
+
+    if ($userProfile->getAccount()->getUser()->id() == $currentUser->id() || $currentUser->hasPermission('ohano delete every profile')) {
+      if ($userProfile->getType() !== ProfileType::Personal->value) {
+        $personalProfile = UserProfile::loadByName($currentUser->getAccountName());
+        $account = Account::getByUser($currentUser);
+        if ($account->getActiveProfile()->id() == $userProfile->id()) {
+          $account->setActiveProfile($personalProfile);
+        }
+
+        $userProfile->delete();
+        $this->messenger()->addMessage($this->t("Profile with name @name has been deleted successfully.", ['@name' => $profileName]));
+        $form_state->setRedirect('ohano_profile.profile.self');
+      }
+    }
   }
 
   public function createAllProfiles(array &$form, FormStateInterface $form_state) {

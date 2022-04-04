@@ -137,6 +137,9 @@
   a {
     text-decoration: none;
     display: block;
+    border-radius: .5rem;
+    background-size: cover;
+    background-position: center;
 
     &:not(:last-of-type) {
       margin-bottom: 1rem;
@@ -145,16 +148,29 @@
     .profile {
       height: 10rem;
       padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: .5rem;
       display: flex;
+      border-radius: .5rem;
+      border: 1px solid #ddd;
+      background-color: rgba(255,255,255,0.5);
+      backdrop-filter: blur(.1rem);
+      transition: all ease-in-out 200ms;
+
+      .profile-picture {
+        height: 8rem;
+        width: 8rem;
+        border: 2px solid white;
+      }
 
       &.active {
-        background-color: rgba(100,400,100, 0.3);
+        border: 1px solid rgba(100,400,100,0.5);
+        .profile-picture {
+          border: 2px solid rgb(100,400,100);
+        }
       }
 
       &:hover {
-        background-color: #ddd;
+        background-color: rgba(255,255,255,0.7);
+        transition: all ease-in-out 200ms;
       }
 
       img {

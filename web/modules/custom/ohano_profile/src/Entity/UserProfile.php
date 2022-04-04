@@ -7,6 +7,7 @@ use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\ohano_profile\Option\RelationshipType;
 
 /**
  * Defines the UserProfile entity.
@@ -62,6 +63,34 @@ class UserProfile extends EntityBase {
     $fields['type'] = BaseFieldDefinition::create('string');
 
     return $fields;
+  }
+
+  public function delete() {
+    if ($baseProfile = BaseProfile::loadByProfile($this)) {
+      $baseProfile->delete();
+    }
+
+    if ($codingProfile = CodingProfile::loadByProfile($this)) {
+      $codingProfile->delete();
+    }
+
+    if ($gamingProfile = GamingProfile::loadByProfile($this)) {
+      $gamingProfile->delete();
+    }
+
+    if ($jobProfile = JobProfile::loadByProfile($this)) {
+      $jobProfile->delete();
+    }
+
+    if ($relationshipProfile = RelationshipProfile::loadByProfile($this)) {
+      $relationshipProfile->delete();
+    }
+
+    if ($socialMediaProfile = SocialMediaProfile::loadByProfile($this)) {
+      $socialMediaProfile->delete();
+    }
+
+    parent::delete();
   }
 
   /**
