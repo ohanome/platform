@@ -1,0 +1,19 @@
+uuid: bb75cfc5-d50e-4b5b-be75-d2dd3301019a
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_preface
+    - node.type.update
+id: node.update.field_preface
+field_name: field_preface
+entity_type: node
+bundle: update
+label: Vorwort
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

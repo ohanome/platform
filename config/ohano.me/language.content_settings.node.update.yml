@@ -1,0 +1,11 @@
+uuid: f9389cb2-62e0-48dd-a5e4-2e9673b7fbc0
+langcode: de
+status: true
+dependencies:
+  config:
+    - node.type.update
+id: node.update
+target_entity_type_id: node
+target_bundle: update
+default_langcode: site_default
+language_alterable: true

@@ -1,0 +1,62 @@
+uuid: 70793575-d824-4adb-a315-eb84063570eb
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.field.node.update.field_events
+    - field.field.node.update.field_other
+    - field.field.node.update.field_platform
+    - field.field.node.update.field_preface
+    - field.field.node.update.field_team
+    - node.type.update
+  module:
+    - user
+id: node.update.default
+targetEntityType: node
+bundle: update
+mode: default
+content:
+  field_events:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_other:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_platform:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_preface:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_team:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

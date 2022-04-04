@@ -1,0 +1,31 @@
+uuid: 79a55acd-2b80-4e4f-8768-d5dbb1c856ee
+langcode: de
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.update.field_events
+    - field.field.node.update.field_other
+    - field.field.node.update.field_platform
+    - field.field.node.update.field_preface
+    - field.field.node.update.field_team
+    - node.type.update
+  module:
+    - user
+id: node.update.teaser
+targetEntityType: node
+bundle: update
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_events: true
+  field_other: true
+  field_platform: true
+  field_preface: true
+  field_team: true
+  langcode: true

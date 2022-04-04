@@ -1,0 +1,19 @@
+uuid: 03b40437-0879-4988-88a0-436331cfeb51
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_team
+    - node.type.update
+id: node.update.field_team
+field_name: field_team
+entity_type: node
+bundle: update
+label: Team
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

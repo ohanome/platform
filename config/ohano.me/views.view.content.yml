@@ -8,7 +8,7 @@ dependencies:
 _core:
   default_config_hash: vBKWYGGDoAX-tFd1JErB8tZLSxx3lJ0foouVsgpcbB4
 id: content
-label: Inhalt
+label: Content
 module: node
 description: 'Inhalte finden und verwalten.'
 tag: default
@@ -21,7 +21,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Inhalt
+      title: Content
       fields:
         node_bulk_form:
           id: node_bulk_form
@@ -69,7 +69,7 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: field
-          label: Inhaltstyp
+          label: 'Content type'
           exclude: false
           alter:
             alter_text: false
@@ -331,7 +331,7 @@ display:
           exposed: true
           expose:
             operator_id: type_op
-            label: Inhaltstyp
+            label: 'Content type'
             description: ''
             use_operator: false
             operator: type_op
@@ -593,14 +593,14 @@ display:
       path: admin/content/node
       menu:
         type: 'default tab'
-        title: Inhalt
+        title: Content
         description: ''
         weight: -10
         menu_name: admin
         context: ''
       tab_options:
         type: normal
-        title: Inhalt
+        title: Content
         description: 'Inhalte finden und verwalten'
         weight: -10
         menu_name: admin
