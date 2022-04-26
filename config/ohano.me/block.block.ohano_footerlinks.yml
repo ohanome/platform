@@ -1,0 +1,25 @@
+uuid: 98253e0d-3cd1-40f2-9fd7-c3680211d8ee
+langcode: de
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - system
+  theme:
+    - ohano
+id: ohano_footerlinks
+theme: ohano
+region: sidebar_right
+weight: -4
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: Links
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

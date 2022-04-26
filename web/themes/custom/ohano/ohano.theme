@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Implements hook_preprocess().
+ */
+function ohano_preprocess(&$variables, $hook) {
+  $variables['attributes']['class'][] = $hook;
+}
+
+function ohano_preprocess_node(&$variables) {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $variables['node'];
+
+  $variables['attributes']['class'][] = 'view-mode--' . $variables['view_mode'];
+  $variables['attributes']['class'][] = 'node-' . $variables['view_mode'];
+
+  $variables['attributes']['class'][] = 'node-type--' . $node->bundle();
+}

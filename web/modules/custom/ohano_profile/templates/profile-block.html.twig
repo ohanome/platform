@@ -1,14 +1,14 @@
 <div class="profile-block">
-  <div class="row row-cols-2">
+  <div class="profile-block-inner{% if profile_picture %} has-profile-picture{% endif %}">
     {% if profile_picture %}
-      <div class="col-3">
+      <div class="profile-picture-wrapper">
         {{ profile_picture }}
       </div>
     {% endif %}
-    <div class="{% if profile_picture %}col-9{% else %}col-12{% endif %}">
-      <div class="row row-cols-2">
-        <div class="col-11">
-          <span class="big">{{ profile_name }}</span>
+    <div class="profile-info-wrapper">
+      <div class="">
+        <div class="profile-name-outer">
+          <span class="profile-name">{{ profile_name }}</span>
         </div>
         <div class="col-1"></div>
       </div>
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="row row-cols-1">
+    <div class="profile-actions-wrapper">
       <div class="col col-12">
         {% if other_profiles %}
           <div class="btn-group" role="group">

@@ -19,6 +19,13 @@ use Drupal\ohano_profile\Entity\UserProfile;
 class ProfileBlock extends BlockBase {
 
   public function build() {
+    if (\Drupal::currentUser()->isAnonymous()) {
+      return [
+        '#type' => 'markup',
+        '#markup' => '',
+      ];
+    }
+
     $account = Account::forActive();
     $profile = $account->getActiveProfile();
 

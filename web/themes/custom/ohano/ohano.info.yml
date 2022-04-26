@@ -1,0 +1,17 @@
+type: theme
+base theme: stable
+core_version_requirement: ^9 || ^10
+
+name: 'ohano'
+description: 'Default theme for ohano'
+package: 'ohano'
+
+libraries:
+  - ohano/global-styling
+
+regions:
+  header: Header
+  breadcrumb: Breadcrumbs
+  content: 'Main content'
+  sidebar_right: 'Sidebar right'
+  sidebar_left: 'Sidebar left'

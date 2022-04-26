@@ -1,0 +1,20 @@
+uuid: fd9c5136-0064-44b2-a105-f37694ad734b
+langcode: de
+status: true
+dependencies:
+  theme:
+    - ohano
+_core:
+  default_config_hash: sDmKoL9ejxB_fvD_qmgOHa8HN3X9AIsbud2xK8brMiI
+id: ohano_primary_admin_actions
+theme: ohano
+region: sidebar_right
+weight: -6
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

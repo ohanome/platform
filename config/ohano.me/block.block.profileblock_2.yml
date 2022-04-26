@@ -1,0 +1,20 @@
+uuid: 0585a168-ea28-475f-b5e0-56d6d22a3de1
+langcode: de
+status: true
+dependencies:
+  module:
+    - ohano_profile
+  theme:
+    - ohano
+id: profileblock_2
+theme: ohano
+region: sidebar_left
+weight: -6
+provider: null
+plugin: ohano_profile__profile_block
+settings:
+  id: ohano_profile__profile_block
+  label: 'Profile Block'
+  label_display: '0'
+  provider: ohano_profile
+visibility: {  }

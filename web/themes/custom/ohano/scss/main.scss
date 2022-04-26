@@ -1,0 +1,40 @@
+@import "font_setup";
+
+@import "font";
+@import "color_setup";
+
+@import "block__local_tasks";
+@import "block__ohano_content";
+@import "header";
+@import "aside";
+
+// EXPERIMENTAL
+//@import "tests/sample1/main";
+
+body {
+  margin: 0;
+
+  .region {
+    border-radius: 1rem;
+    margin: .5rem;
+    padding: .5rem;
+  }
+}
+
+main {
+  width: 100%;
+  display: flex;
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    .layout-sidebar-left,
+    .layout-sidebar-right {
+      width: calc(100%/12*2);
+    }
+
+    .layout-content {
+      width: calc(100%/12*8);
+    }
+  }
+}
