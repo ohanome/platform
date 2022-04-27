@@ -1,0 +1,14 @@
+<?php
+
+function ohano_appearance_theme() {
+  return [
+    'block__brightness' => [
+      'template' => 'block--brightness',
+      'base hook' => 'block'
+    ],
+    'block__font_size' => [
+      'template' => 'block--font-size',
+      'base hook' => 'block'
+    ],
+  ];
+}

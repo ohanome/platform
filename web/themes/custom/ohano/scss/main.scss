@@ -26,6 +26,10 @@ main {
   display: flex;
 }
 
+.region.region-meta.region-meta--frontend {
+  display: none;
+}
+
 @media screen and (min-width: 1024px) {
   main {
     .layout-sidebar-left,

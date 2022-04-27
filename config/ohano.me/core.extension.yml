@@ -41,6 +41,7 @@ module:
   menu_ui: 0
   node: 0
   ohano_account: 0
+  ohano_appearance: 0
   ohano_core: 0
   ohano_mail: 0
   ohano_profile: 0

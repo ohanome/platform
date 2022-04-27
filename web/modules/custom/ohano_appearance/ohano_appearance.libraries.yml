@@ -1,0 +1,17 @@
+dark-light-mode-switch:
+  version: 1.0.0
+  js:
+    js/dark-light-mode-switch.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+font-size-switch:
+  version: 1.0.0
+  js:
+    js/font-size-switch: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

@@ -1,0 +1,7 @@
+name: ohano Appearance
+description: Provides appearance settings to users
+type: module
+package: ohano
+core_version_requirement: ^9 || ^10
+dependencies:
+  - ohano_core
