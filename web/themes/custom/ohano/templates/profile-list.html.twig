@@ -1,0 +1,19 @@
+<div class="profile-list">
+  {{ form }}
+  {% for profile in profiles %}
+    <a href="/user/{{ profile.name }}"{% if profile.profile_banner %} style="background-image: url('{{ profile.profile_banner }}')"{% endif %}>
+      <div class="profile{% if profile.is_active %} active{% endif %}">
+        {% if profile.profile_picture %}
+          {{ profile.profile_picture }}
+        {% endif %}
+        <span class="big">{{ profile.name }}</span>
+        <span><sup><i class="{{ profile.icon }}"></i></sup></span>
+      </div>
+    </a>
+  {% endfor %}
+  <a href="{{ path('ohano_profile.add') }}">
+    <div class="profile add">
+      <span><i class="fa fa-plus"></i>&nbsp;{{ "Add profile"|trans }}</span>
+    </div>
+  </a>
+</div>

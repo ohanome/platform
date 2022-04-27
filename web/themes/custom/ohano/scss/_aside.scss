@@ -1,12 +1,15 @@
 body {
   main {
     aside {
-      nav {
+      .block {
         margin: .5rem;
 
-        h2[id^="block-"] {
+        h2 {
           font-size: 1.2rem;
         }
+      }
+
+      nav {
 
         ul {
           padding: 0;
