@@ -36,7 +36,7 @@
       <div class="col col-12">
         {% if other_profiles %}
           <div class="profile-switch dropdown">
-            <button class="dropdown-base">{{ "Switch profile"|trans }}&nbsp;<i class="fa fa-angle-down"></i></button>
+            <button class="dropdown-base">{{ "Switch profile"|trans }}</button>
             <div class="dropdown-content">
               {% for other_profile in other_profiles %}
                 <a class="dropdown-item button" href="{{ path('ohano_profile.switch', {'profileName': other_profile}) }}">{{ other_profile }}</a>

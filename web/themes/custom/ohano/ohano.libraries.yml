@@ -5,6 +5,7 @@ global-styling:
       css/main.css: {}
   js:
     js/main.js: {}
+    js/dropdown.js: {}
     js/fontawesome.js: {}
   dependencies:
     - core/jquery
