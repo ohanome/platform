@@ -118,6 +118,9 @@ class ProfileForm extends FormBase {
           'onclick' => [
             'return confirm("' . $confirmationDelete->render() . '");'
           ],
+          'class' => [
+            'delete-button',
+          ],
         ],
       ];
 
@@ -128,6 +131,11 @@ class ProfileForm extends FormBase {
         '#value' => $this->t('Create social media profile'),
         '#submit' => [
           '::createSocialMediaProfile',
+        ],
+        '#attributes' => [
+          'class' => [
+            'create-button',
+          ],
         ],
       ];
     }
@@ -147,6 +155,9 @@ class ProfileForm extends FormBase {
           'onclick' => [
             'return confirm("' . $confirmationDelete->render() . '");'
           ],
+          'class' => [
+            'delete-button',
+          ],
         ],
       ];
     }
@@ -156,6 +167,11 @@ class ProfileForm extends FormBase {
         '#value' => $this->t('Create relationship profile'),
         '#submit' => [
           '::createRelationshipProfile',
+        ],
+        '#attributes' => [
+          'class' => [
+            'create-button',
+          ],
         ],
       ];
     }
@@ -175,6 +191,9 @@ class ProfileForm extends FormBase {
           'onclick' => [
             'return confirm("' . $confirmationDelete->render() . '");'
           ],
+          'class' => [
+            'delete-button',
+          ],
         ],
       ];
     }
@@ -184,6 +203,11 @@ class ProfileForm extends FormBase {
         '#value' => $this->t('Create job profile'),
         '#submit' => [
           '::createJobProfile',
+        ],
+        '#attributes' => [
+          'class' => [
+            'create-button',
+          ],
         ],
       ];
     }
@@ -203,6 +227,9 @@ class ProfileForm extends FormBase {
           'onclick' => [
             'return confirm("' . $confirmationDelete->render() . '");'
           ],
+          'class' => [
+            'delete-button',
+          ],
         ],
       ];
     }
@@ -212,6 +239,11 @@ class ProfileForm extends FormBase {
         '#value' => $this->t('Create gaming profile'),
         '#submit' => [
           '::createGamingProfile',
+        ],
+        '#attributes' => [
+          'class' => [
+            'create-button',
+          ],
         ],
       ];
     }
@@ -231,6 +263,9 @@ class ProfileForm extends FormBase {
           'onclick' => [
             'return confirm("' . $confirmationDelete->render() . '");'
           ],
+          'class' => [
+            'delete-button',
+          ],
         ],
       ];
     }
@@ -241,6 +276,11 @@ class ProfileForm extends FormBase {
         '#submit' => [
           '::createCodingProfile',
         ],
+        '#attributes' => [
+          'class' => [
+            'create-button',
+          ],
+        ],
       ];
     }
 
@@ -250,6 +290,11 @@ class ProfileForm extends FormBase {
         '#value' => $this->t('Create all sub profiles'),
         '#submit' => [
           '::createAllProfiles',
+        ],
+        '#attributes' => [
+          'class' => [
+            'create-button',
+          ],
         ],
       ];
     }
@@ -265,6 +310,9 @@ class ProfileForm extends FormBase {
           'onclick' => [
             'return confirm("' . $confirmationDelete->render() . '");'
           ],
+          'class' => [
+            'delete-button',
+          ],
         ],
       ];
     }
@@ -279,6 +327,9 @@ class ProfileForm extends FormBase {
         '#attributes' => [
           'onclick' => [
             'return confirm("' . $confirmationDelete->render() . '");'
+          ],
+          'class' => [
+            'delete-button',
           ],
         ],
       ];

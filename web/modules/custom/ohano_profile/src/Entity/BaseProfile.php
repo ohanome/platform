@@ -380,7 +380,7 @@ class BaseProfile extends SubProfileBase {
     if (!empty($subProfile->getProfilePicture())) {
       $form['profile_picture_preview'] = [
         '#type' => 'markup',
-        '#markup' => '<img class="w-100" src="' . $subProfile->getProfilePicture()->createFileUrl(FALSE) . '" alt=""/><br />',
+        '#markup' => '<img class="profile-picture" src="' . $subProfile->getProfilePicture()->createFileUrl(FALSE) . '" alt=""/><br />',
       ];
     }
 
@@ -402,7 +402,7 @@ class BaseProfile extends SubProfileBase {
     if (!empty($subProfile->getProfileBanner())) {
       $form['profile_banner_preview'] = [
         '#type' => 'markup',
-        '#markup' => '<img class="w-100" src="' . $subProfile->getProfileBanner()->createFileUrl(FALSE) . '" alt=""/><br />',
+        '#markup' => '<img class="profile-banner" src="' . $subProfile->getProfileBanner()->createFileUrl(FALSE) . '" alt=""/><br />',
       ];
     }
 

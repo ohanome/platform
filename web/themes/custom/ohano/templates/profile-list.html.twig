@@ -6,14 +6,13 @@
         {% if profile.profile_picture %}
           {{ profile.profile_picture }}
         {% endif %}
-        <span class="big">{{ profile.name }}</span>
-        <span><sup><i class="{{ profile.icon }}"></i></sup></span>
+        <span class="big"><i class="{{ profile.icon }}" title="{{ profile.type }}"></i>&nbsp;{{ profile.name }}</span>
       </div>
     </a>
   {% endfor %}
   <a href="{{ path('ohano_profile.add') }}">
     <div class="profile add">
-      <span><i class="fa fa-plus"></i>&nbsp;{{ "Add profile"|trans }}</span>
+      <span class="big"><i class="fa fa-plus"></i>&nbsp;{{ "Add profile"|trans }}</span>
     </div>
   </a>
 </div>
