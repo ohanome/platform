@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.article.comment
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
+    - field.field.node.article.field_teaser_text
     - image.style.large
     - node.type.article
   module:
@@ -51,4 +52,5 @@ content:
     region: content
 hidden:
   comment: true
+  field_teaser_text: true
   langcode: true

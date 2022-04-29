@@ -115,7 +115,8 @@ button,
 /* width */
 ::-webkit-scrollbar {
   width: 1rem;
-  padding: .25rem;
+  border-radius: .5rem;
+  margin: 1rem;
 }
 
 /* Track */
@@ -127,12 +128,43 @@ button,
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--background-primary);
+  background: var(--black700);
+  border-radius: .5rem;
+  border: .33rem solid var(--background-secondary);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-color-secondary);
+}
+
+.node-teaser {
+  .teaser-container {
+    background: var(--background-primary);
+    display: block;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: var(--text-color-primary);
+    text-decoration: none;
+    transition: all ease-in-out var(--transition-duration);
+
+    &:hover {
+      color: var(--text-color-secondary);
+      transition: all ease-in-out var(--transition-duration);
+    }
+
+    .date {
+      span {
+        font-size: .8rem;
+        font-weight: 300;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+img {
+  border-radius: .5rem;
 }
 
 @media screen and (min-width: 1024px) {

@@ -4,6 +4,16 @@ body {
       article {
         margin: .5rem;
       }
+      .container {
+        .views-row {
+
+          &:not(:last-of-type) {
+            article {
+              margin-bottom: 1rem;
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.update.field_platform
     - field.field.node.update.field_preface
     - field.field.node.update.field_team
+    - field.field.node.update.field_teaser_text
     - field.field.node.update.field_update_number
     - node.type.update
   module:
@@ -29,5 +30,6 @@ hidden:
   field_platform: true
   field_preface: true
   field_team: true
+  field_teaser_text: true
   field_update_number: true
   langcode: true

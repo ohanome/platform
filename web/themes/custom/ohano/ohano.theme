@@ -16,3 +16,9 @@ function ohano_preprocess_node(&$variables) {
 
   $variables['attributes']['class'][] = 'node-type--' . $node->bundle();
 }
+
+function ohano_preprocess_node__teaser(&$variables) {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $variables['node'];
+  $variables['text'] = $node->get('field_teaser_text')->value;
+}
