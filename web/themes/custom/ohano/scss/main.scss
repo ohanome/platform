@@ -15,6 +15,7 @@
 @import "aside";
 @import "dropdown";
 @import "form";
+@import "statistics";
 
 // EXPERIMENTAL
 //@import "tests/sample1/main";
@@ -104,6 +105,34 @@ button,
 
 #block-ohano-page-title {
   margin: .5rem;
+}
+
+*::selection {
+  color: var(--background-primary);
+  background: var(--text-color-primary);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 1rem;
+  padding: .25rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+  padding: .5rem;
+  border-radius: .5rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--background-primary);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-color-secondary);
 }
 
 @media screen and (min-width: 1024px) {

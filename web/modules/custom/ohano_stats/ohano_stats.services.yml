@@ -1,0 +1,3 @@
+services:
+  ohano_stats.statistic:
+    class: Drupal\ohano_stats\Service\StatisticsService

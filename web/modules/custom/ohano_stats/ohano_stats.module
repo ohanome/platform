@@ -1,0 +1,36 @@
+<?php
+
+function ohano_stats_theme() {
+  return [
+    'statistic' => [
+      'template' => 'statistic',
+      'variables' => [
+        'name' => NULL,
+        'value' => NULL,
+        'after' => NULL,
+        'before' => NULL,
+        'link' => NULL,
+        'single' => NULL,
+      ],
+    ],
+    'statistics_row' => [
+      'template' => 'statistics-row',
+      'variables' => [
+        'row_name' => NULL,
+        'statistic_container' => NULL,
+      ],
+    ],
+    'statistic_container' => [
+      'template' => 'statistic-container',
+      'variables' => [
+        'statistics' => NULL,
+      ],
+    ],
+    'statistics_page' => [
+      'template' => 'statistics-page',
+      'variables' => [
+        'statistic_rows' => NULL,
+      ],
+    ]
+  ];
+}
