@@ -128,3 +128,22 @@ ohano_account.config.registration:
     _title: 'Registration'
   requirements:
     _permission: 'ohano account configure registration'
+
+ohano_account.api.set_font_size:
+  path: '/api/account/set/font-size/{fontSize}'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\Api\AccountController::setFontSize
+  requirements:
+    _permission: 'access content'
+ohano_account.api.set_color_mode:
+  path: '/api/account/set/color-mode/{colorMode}'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\Api\AccountController::setColorMode
+  requirements:
+    _permission: 'access content'
+ohano_account.api.set_color_shade:
+  path: '/api/account/set/color-shade/{colorShade}'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\Api\AccountController::setColorShade
+  requirements:
+    _permission: 'access content'

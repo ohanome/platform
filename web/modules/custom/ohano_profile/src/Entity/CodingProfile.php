@@ -374,31 +374,49 @@ class CodingProfile extends SubProfileBase {
       '#default_value' => $subProfile->getBitbucket(),
     ];
 
+    $allTerms = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'programming_languages')
+      ->execute();
+    $allTerms = Term::loadMultiple($allTerms);
+    foreach ($allTerms as $tid => $term) {
+      $allTerms[$tid] = $term->getName();
+    }
+
+    $selectedTerms = $subProfile->getProgrammingLanguages();
+    foreach ($selectedTerms as $index => $term) {
+      $selectedTerms[$index] = $term->id();
+    }
+
     $form['programming_languages'] = [
-      '#type' => 'entity_autocomplete',
+      '#type' => 'select',
+      '#multiple' => TRUE,
       '#title' => t('Programming languages'),
-      '#tags' => TRUE,
-      '#target_type' => 'taxonomy_term',
-      '#selection_settings' => [
-        'target_bundles' => [
-          'programming_languages',
-        ],
-      ],
-      '#default_value' => $subProfile->getProgrammingLanguages(),
+      '#options' => $allTerms,
+      '#default_value' => $selectedTerms,
+      '#chosen' => TRUE,
     ];
 
+    $allTerms = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'systems')
+      ->execute();
+    $allTerms = Term::loadMultiple($allTerms);
+    foreach ($allTerms as $tid => $term) {
+      $allTerms[$tid] = $term->getName();
+    }
+
+    $selectedTerms = $subProfile->getSystems();
+    foreach ($selectedTerms as $index => $term) {
+      $selectedTerms[$index] = $term->id();
+    }
+
     $form['systems'] = [
-      '#type' => 'entity_autocomplete',
+      '#type' => 'select',
+      '#multiple' => TRUE,
       '#title' => t('Systems'),
       '#description' => t('Frameworks, *MS (CMS, DMS, ...), etc.'),
-      '#tags' => TRUE,
-      '#target_type' => 'taxonomy_term',
-      '#selection_settings' => [
-        'target_bundles' => [
-          'systems',
-        ],
-      ],
-      '#default_value' => $subProfile->getSystems(),
+      '#options' => $allTerms,
+      '#default_value' => $selectedTerms,
+      '#chosen' => TRUE,
     ];
 
     return $form;

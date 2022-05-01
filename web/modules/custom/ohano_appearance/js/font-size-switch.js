@@ -1,44 +1,61 @@
 (function ($, Drupal, drupalSettings) {
   function resetFontSize() {
-    document.getElementsByTagName('html')[0].classList.remove('font-s');
-    document.getElementsByTagName('html')[0].classList.remove('font-m');
-    document.getElementsByTagName('html')[0].classList.remove('font-l');
-    document.getElementsByTagName('html')[0].classList.remove('font-xl');
-    document.getElementsByTagName('html')[0].classList.remove('font-xxl');
+    document.getElementsByTagName('html')[0].classList.remove('font-size-xxs');
+    document.getElementsByTagName('html')[0].classList.remove('font-size-xs');
+    document.getElementsByTagName('html')[0].classList.remove('font-size-s');
+    document.getElementsByTagName('html')[0].classList.remove('font-size-m');
+    document.getElementsByTagName('html')[0].classList.remove('font-size-l');
+    document.getElementsByTagName('html')[0].classList.remove('font-size-xl');
+    document.getElementsByTagName('html')[0].classList.remove('font-size-xxl');
+  }
+
+  function setFontSize(font_size) {
+    resetFontSize();
+    document.getElementsByTagName('html')[0].classList.add('font-size-' + font_size);
+    window.localStorage.setItem('ohano.font-size', font_size);
+    $.post(`${window.location.origin}/api/account/set/font-size/${font_size}`).then(res => {
+      console.debug('changed font size to ' + font_size + ': ' + res);
+    });
+  }
+
+  function setFontSizeXXS() {
+    setFontSize('xxs');
+  }
+
+  function setFontSizeXS() {
+    setFontSize('xs');
   }
 
   function setFontSizeS() {
-    resetFontSize();
-    document.getElementsByTagName('html')[0].classList.add('font-s');
-    window.localStorage.setItem('ohano.font-size', 's');
+    setFontSize('s');
   }
 
   function setFontSizeM() {
-    resetFontSize();
-    document.getElementsByTagName('html')[0].classList.add('font-m');
-    window.localStorage.setItem('ohano.font-size', 'm');
+    setFontSize('m');
   }
 
   function setFontSizeL() {
-    resetFontSize();
-    document.getElementsByTagName('html')[0].classList.add('font-l');
-    window.localStorage.setItem('ohano.font-size', 'l');
+    setFontSize('l');
   }
 
   function setFontSizeXL() {
-    resetFontSize();
-    document.getElementsByTagName('html')[0].classList.add('font-xl');
-    window.localStorage.setItem('ohano.font-size', 'xl');
+    setFontSize('xl');
   }
 
   function setFontSizeXXL() {
-    resetFontSize();
-    document.getElementsByTagName('html')[0].classList.add('font-xxl');
-    window.localStorage.setItem('ohano.font-size', 'xxl');
+    setFontSize('xxl');
   }
 
   Drupal.behaviors.switchFontSize = {
     attach: function (context, settings) {
+      $('#setFontSizeXXS').click(function () {
+        setFontSizeXXS();
+      });
+
+      $('#setFontSizeXS').click(function () {
+        setFontSizeXS();
+      });
+
       $('#setFontSizeS').click(function () {
         setFontSizeS();
       });
@@ -61,7 +78,19 @@
 
       $(document).ready(function () {
         let fontSize = window.localStorage.getItem('ohano.font-size');
+        if ($('body').hasClass('authenticated')) {
+          return;
+        }
+
         switch (fontSize) {
+          case 'xxs':
+            setFontSizeXXS();
+            break;
+
+          case 'xs':
+            setFontSizeXS();
+            break;
+
           case 's':
             setFontSizeS();
             break;

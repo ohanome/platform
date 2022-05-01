@@ -69,7 +69,7 @@ class RelationshipProfile extends SubProfileBase {
    *   The relationship status.
    */
   public function getRelationshipStatus(): ?RelationshipStatus {
-    return RelationshipStatus::tryFrom($this->get('relationship_status')->value);
+    return RelationshipStatus::tryFrom($this->get('relationship_status')->value ?? "");
   }
 
   /**
@@ -79,7 +79,7 @@ class RelationshipProfile extends SubProfileBase {
    *   The relationship type.
    */
   public function getRelationshipType(): ?RelationshipType {
-    return RelationshipType::tryFrom($this->get('relationship_type')->value);
+    return RelationshipType::tryFrom($this->get('relationship_type')->value ?? "");
   }
 
   /**
@@ -89,7 +89,7 @@ class RelationshipProfile extends SubProfileBase {
    *   The sexuality.
    */
   public function getSexuality(): ?Sexuality {
-    return Sexuality::tryFrom($this->get('sexuality')->value);
+    return Sexuality::tryFrom($this->get('sexuality')->value ?? "");
   }
 
   /**
@@ -162,21 +162,21 @@ class RelationshipProfile extends SubProfileBase {
       '#type' => 'select',
       '#title' => t('Relationship status'),
       '#options' => [NULL => '-'] + RelationshipStatus::translatableFormOptions(),
-      '#default_value' => $subProfile->getRelationshipStatus()->value,
+      '#default_value' => $subProfile->getRelationshipStatus()?->value,
     ];
 
     $form['type'] = [
       '#type' => 'select',
       '#title' => t('Preferred relationship type'),
       '#options' => [NULL => '-'] + RelationshipType::translatableFormOptions(),
-      '#default_value' => $subProfile->getRelationshipType()->value,
+      '#default_value' => $subProfile->getRelationshipType()?->value,
     ];
 
     $form['sexuality'] = [
       '#type' => 'select',
       '#title' => t('Sexuality'),
       '#options' => [NULL => '-'] + Sexuality::translatableFormOptions(),
-      '#default_value' => $subProfile->getSexuality()->value,
+      '#default_value' => $subProfile->getSexuality()?->value,
     ];
 
     return $form;

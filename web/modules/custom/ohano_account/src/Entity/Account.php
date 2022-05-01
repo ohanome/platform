@@ -5,6 +5,9 @@ namespace Drupal\ohano_account\Entity;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\ohano_account\Option\ColorMode;
+use Drupal\ohano_account\Option\ColorShade;
+use Drupal\ohano_account\Option\FontSize;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\ohano_core\Entity\EntityInterface;
 use Drupal\ohano_profile\Entity\UserProfile;
@@ -26,6 +29,9 @@ use Drupal\ohano_profile\Entity\UserProfile;
  *     "user" = "user",
  *     "bits" = "bits",
  *     "active_profile" = "active_profile",
+ *     "font_size" = "font_size",
+ *     "color_mode" = "color_mode",
+ *     "color_shade" = "color_shade",
  *   }
  * )
  */
@@ -53,6 +59,15 @@ class Account extends EntityBase implements EntityInterface {
     $fields['active_profile'] = BaseFieldDefinition::create('entity_reference')
       ->setSetting('target_type', 'user_profile')
       ->setSetting('handler', 'default');
+    $fields['font_size'] = BaseFieldDefinition::create('list_string')
+      ->setSetting('allowed_values', FontSize::translatableFormOptions())
+      ->setDefaultValue(FontSize::M->value);
+    $fields['color_mode'] = BaseFieldDefinition::create('list_string')
+      ->setSetting('allowed_values', ColorMode::translatableFormOptions())
+      ->setDefaultValue(ColorMode::Light->value);
+    $fields['color_shade'] = BaseFieldDefinition::create('list_string')
+      ->setSetting('allowed_values', ColorShade::translatableFormOptions())
+      ->setDefaultValue(ColorShade::Neutral->value);
 
     return $fields;
   }

@@ -22,3 +22,7 @@ function ohano_preprocess_node__teaser(&$variables) {
   $node = $variables['node'];
   $variables['text'] = $node->get('field_teaser_text')->value;
 }
+
+function ohano_preprocess_html(&$variables) {
+  $currentUser = \Drupal::currentUser();
+}

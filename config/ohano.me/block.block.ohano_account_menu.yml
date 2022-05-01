@@ -13,7 +13,7 @@ _core:
 id: ohano_account_menu
 theme: ohano
 region: sidebar_left
-weight: -5
+weight: -3
 provider: null
 plugin: 'system_menu_block:account'
 settings:

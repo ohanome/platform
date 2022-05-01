@@ -109,7 +109,7 @@ class BaseProfile extends SubProfileBase {
    *   The profile picture as entity.
    */
   public function getProfilePicture(): ?File {
-    return $this->get('profile_picture')->referencedEntities()[0];
+    return ($files = $this->get('profile_picture')->referencedEntities()) ? $files[0] : NULL;
   }
 
   /**
@@ -119,7 +119,7 @@ class BaseProfile extends SubProfileBase {
    *   The profile banner as entity.
    */
   public function getProfileBanner(): ?File {
-    return $this->get('profile_banner')->referencedEntities()[0];
+    return ($files = $this->get('profile_banner')->referencedEntities()) ? $files[0] : NULL;
   }
 
   /**

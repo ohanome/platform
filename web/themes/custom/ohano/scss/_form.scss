@@ -82,4 +82,13 @@ form {
     background: var(--red);
     color: var(--gray100);
   }
+
+  .file_managed_file {
+    .file {
+      a {
+        color: var(--text-color-secondary);
+        text-decoration: none;
+      }
+    }
+  }
 }

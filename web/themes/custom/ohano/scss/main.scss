@@ -16,6 +16,8 @@
 @import "dropdown";
 @import "form";
 @import "statistics";
+@import "status_messages";
+@import "chosen";
 
 // EXPERIMENTAL
 //@import "tests/sample1/main";
@@ -49,6 +51,7 @@ button,
   border: none;
   text-decoration: none;
   text-align: center;
+  font-size: 1rem;
 
   border-radius: .5rem;
 
@@ -128,7 +131,7 @@ button,
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--black700);
+  background: var(--stone900);
   border-radius: .5rem;
   border: .33rem solid var(--background-secondary);
 }
@@ -136,6 +139,7 @@ button,
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-color-secondary);
+  cursor: grab;
 }
 
 .node-teaser {

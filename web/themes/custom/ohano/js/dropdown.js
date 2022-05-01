@@ -5,11 +5,15 @@
       let dropdownBase = '.dropdown-base';
       let $dropdownBase = $(dropdownBase);
 
-      $(document).ready(function () {
-        $dropdownBase.html($dropdownBase.html() + arrow);
+      $(document).once('ready').ready(function () {
+        $dropdownBase.each((k, v) => {
+          if ($(v).find('.dropdown-arrow').length === 0) {
+            $(v).html($(v).html() + arrow);
+          }
+        });
       })
 
-      $dropdownBase.click(function () {
+      $dropdownBase.once('clicked').click(function () {
         let parent = $(this).parent('.dropdown');
         if (parent.hasClass('active')) {
           parent.removeClass('active');

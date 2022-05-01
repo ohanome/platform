@@ -27,6 +27,7 @@ use Drupal\ohano_profile\Option\ProfileType;
 use Drupal\ohano_profile\Option\RelationshipStatus;
 use Drupal\ohano_profile\Option\RelationshipType;
 use Drupal\ohano_profile\Option\Sexuality;
+use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProfileForm extends FormBase {
@@ -72,7 +73,7 @@ class ProfileForm extends FormBase {
 
     $form['back'] = [
       '#type' => 'markup',
-      '#markup' => '<a href="/user/' . $userProfile->getProfileName() . '">' . $this->t('Back to your profile') . '</a><br />',
+      '#markup' => '<div><a class="button" href="/user/' . $userProfile->getProfileName() . '"><i class="fa fa-angle-left"></i>&nbsp;' . $this->t('Back to your profile') . '</a></div><br />',
     ];
 
     $form['user_profile'] = $this->buildDefaultContainer($this->t('General'), TRUE);
@@ -489,8 +490,8 @@ class ProfileForm extends FormBase {
       $gamingProfile->setUbisoftConnect($values['gaming_profile']['ubisoft_connect']);
       $gamingProfile->setSteam($values['gaming_profile']['steam']);
       $gamingProfile->setEaOrigin($values['gaming_profile']['ea_origin']);
-      $gamingProfile->setGames($values['gaming_profile']['games']);
-      $gamingProfile->setPlatforms($values['gaming_profile']['platforms']);
+      $gamingProfile->setGames(Term::loadMultiple($values['gaming_profile']['games']));
+      $gamingProfile->setPlatforms(Term::loadMultiple($values['gaming_profile']['platforms']));
 
       $gamingProfile->save();
     }
@@ -501,8 +502,8 @@ class ProfileForm extends FormBase {
       $codingProfile->setGithub($values['coding_profile']['github']);
       $codingProfile->setGitlab($values['coding_profile']['gitlab']);
       $codingProfile->setBitbucket($values['coding_profile']['bitbucket']);
-      $codingProfile->setProgrammingLanguages($values['coding_profile']['programming_languages']);
-      $codingProfile->setSystems($values['coding_profile']['systems']);
+      $codingProfile->setProgrammingLanguages(Term::loadMultiple($values['coding_profile']['programming_languages']));
+      $codingProfile->setSystems(Term::loadMultiple($values['coding_profile']['systems']));
 
       $codingProfile->save();
     }

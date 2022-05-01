@@ -544,32 +544,49 @@ class GamingProfile extends SubProfileBase {
       '#default_value' => $subProfile->getEaOrigin(),
     ];
 
+    $allTerms = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'games')
+      ->execute();
+    $allTerms = Term::loadMultiple($allTerms);
+    foreach ($allTerms as $tid => $term) {
+      $allTerms[$tid] = $term->getName();
+    }
+
+    $selectedTerms = $subProfile->getGames();
+    foreach ($selectedTerms as $index => $term) {
+      $selectedTerms[$index] = $term->id();
+    }
+
     $form['games'] = [
-      '#type' => 'entity_autocomplete',
+      '#type' => 'select',
+      '#multiple' => TRUE,
       '#title' => t('Games'),
       '#description' => t('What games do you play?'),
-      '#tags' => TRUE,
-      '#target_type' => 'taxonomy_term',
-      '#selection_settings' => [
-        'target_bundles' => [
-          'games',
-        ],
-      ],
-      '#default_value' => $subProfile->getGames(),
+      '#options' => $allTerms,
+      '#default_value' => $selectedTerms,
+      '#chosen' => TRUE,
     ];
 
+    $allTerms = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'gaming_platforms')
+      ->execute();
+    $allTerms = Term::loadMultiple($allTerms);
+    foreach ($allTerms as $tid => $term) {
+      $allTerms[$tid] = $term->getName();
+    }
+
+    $selectedTerms = $subProfile->getPlatforms();
+    foreach ($selectedTerms as $index => $term) {
+      $selectedTerms[$index] = $term->id();
+    }
+
     $form['platforms'] = [
-      '#type' => 'entity_autocomplete',
+      '#type' => 'select',
+      '#multiple' => TRUE,
       '#title' => t('Gaming platforms'),
-      '#description' => t('Start typing the name of a game; separate games by a comma'),
-      '#tags' => TRUE,
-      '#target_type' => 'taxonomy_term',
-      '#selection_settings' => [
-        'target_bundles' => [
-          'gaming_platforms',
-        ],
-      ],
-      '#default_value' => $subProfile->getPlatforms(),
+      '#options' => $allTerms,
+      '#default_value' => $selectedTerms,
+      '#chosen' => TRUE,
     ];
 
     return $form;

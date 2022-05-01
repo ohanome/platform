@@ -9,7 +9,7 @@ dependencies:
 id: fontsizeblock
 theme: ohano
 region: sidebar_left
-weight: 0
+weight: -6
 provider: null
 plugin: ohano_appearance__font_size_block
 settings:

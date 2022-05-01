@@ -1,12 +1,24 @@
 (function ($, Drupal, drupalSettings) {
+  function resetColorMode() {
+    document.getElementsByTagName('html')[0].classList.remove('color-mode-light');
+    document.getElementsByTagName('html')[0].classList.remove('color-mode-dark');
+  }
+
+  function setColorMode(color_mode) {
+    resetColorMode();
+    document.getElementsByTagName('html')[0].classList.add('color-mode-' + color_mode);
+    window.localStorage.setItem('ohano.color_mode', color_mode);
+    $.post(`${window.location.origin}/api/account/set/color-mode/${color_mode}`).then(res => {
+      console.debug('changed color mode to ' + color_mode + ': ' + res);
+    });
+  }
+
   function setDarkMode() {
-    document.getElementsByTagName('html')[0].classList.add('dark');
-    window.localStorage.setItem('ohano.darkmode', '1');
+    setColorMode('dark');
   }
 
   function setLightMode() {
-    document.getElementsByTagName('html')[0].classList.remove('dark');
-    window.localStorage.setItem('ohano.darkmode', '0');
+    setColorMode('light');
   }
 
   Drupal.behaviors.switchDarkLightMode = {
@@ -19,16 +31,11 @@
         setLightMode();
       });
 
-      $('#setBrightnessToSystem').click(function () {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          setDarkMode();
-        } else {
-          setLightMode();
-        }
-      });
-
       $(document).ready(function () {
-        let darkModeOn = window.localStorage.getItem('ohano.darkmode');
+        let darkModeOn = window.localStorage.getItem('ohano.color_mode');
+        if ($('body').hasClass('authenticated')) {
+          return;
+        }
         if (darkModeOn === '1') {
           setDarkMode();
         } else {

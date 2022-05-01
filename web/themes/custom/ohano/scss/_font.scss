@@ -1,27 +1,31 @@
 html {
   font-size: 14px;
 
-  &.font-xs {
+  &.font-size-xxs {
+    font-size: 8px;
+  }
+
+  &.font-size-xs {
     font-size: 10px;
   }
 
-  &.font-s {
+  &.font-size-s {
     font-size: 12px;
   }
 
-  &.font-m {
+  &.font-size-m {
     font-size: 14px;
   }
 
-  &.font-l {
+  &.font-size-l {
     font-size: 16px;
   }
 
-  &.font-xl {
+  &.font-size-xl {
     font-size: 18px;
   }
 
-  &.font-xxl {
+  &.font-size-xxl {
     font-size: 20px;
   }
 }

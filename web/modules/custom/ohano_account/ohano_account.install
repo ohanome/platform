@@ -4,6 +4,9 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Entity\AccountActivation;
 use Drupal\ohano_account\Entity\AccountVerification;
+use Drupal\ohano_account\Option\ColorMode;
+use Drupal\ohano_account\Option\ColorShade;
+use Drupal\ohano_account\Option\FontSize;
 use Drupal\ohano_profile\Entity\UserProfile;
 
 function ohano_account_install() {
@@ -40,6 +43,54 @@ function ohano_account_update_9005() {
 
   foreach (Account::loadMultiple() as $account) {
     $account->set('active_profile', UserProfile::loadByUser($account->getUser()));
+    $account->save();
+  }
+}
+
+/**
+ * Installs the font_size field on the Account entity.
+ */
+function ohano_account_update_9006() {
+  $field = BaseFieldDefinition::create('list_string')
+    ->setSetting('allowed_values', FontSize::translatableFormOptions())
+    ->setDefaultValue(FontSize::M->value);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('font_size', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('font_size', FontSize::M->value);
+    $account->save();
+  }
+}
+
+/**
+ * Installs the color_mode field on the Account entity.
+ */
+function ohano_account_update_9007() {
+  $field = BaseFieldDefinition::create('list_string')
+    ->setSetting('allowed_values', ColorMode::translatableFormOptions())
+    ->setDefaultValue(ColorMode::Light->value);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('color_mode', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('color_mode', ColorMode::Light->value);
+    $account->save();
+  }
+}
+
+/**
+ * Installs the color_shade field on the Account entity.
+ */
+function ohano_account_update_9008() {
+  $field = BaseFieldDefinition::create('list_string')
+    ->setSetting('allowed_values', FontSize::translatableFormOptions())
+    ->setDefaultValue(ColorShade::Neutral->value);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('color_shade', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('color_shade', ColorShade::Neutral->value);
     $account->save();
   }
 }

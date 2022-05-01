@@ -1,4 +1,4 @@
-uuid: 35807c72-1911-4bc9-accf-fc742dfba630
+uuid: f02264a0-7fdd-4a8d-b004-65377d80a4f9
 langcode: de
 status: true
 dependencies:
@@ -6,15 +6,15 @@ dependencies:
     - ohano_appearance
   theme:
     - ohano
-id: brightnessblock
+id: colorshadeblock
 theme: ohano
 region: sidebar_left
-weight: -5
+weight: -4
 provider: null
-plugin: ohano_appearance__brightness_block
+plugin: ohano_appearance__color_shade_block
 settings:
-  id: ohano_appearance__brightness_block
-  label: Helligkeit
+  id: ohano_appearance__color_shade_block
+  label: Farbtemperatur
   label_display: visible
   provider: ohano_appearance
 visibility: {  }
