@@ -23,6 +23,7 @@ function ohano_preprocess_node__teaser(&$variables) {
   $variables['text'] = $node->get('field_teaser_text')->value;
 }
 
-function ohano_preprocess_html(&$variables) {
-  $currentUser = \Drupal::currentUser();
+function ohano_preprocess_field(&$variables) {
+  $variables['attributes']['class'][] = 'field--' . str_replace('_', '-', $variables['field_name']);
+  $variables['attributes']['class'][] = 'field-type--' . str_replace('_', '-', $variables['field_type']);
 }

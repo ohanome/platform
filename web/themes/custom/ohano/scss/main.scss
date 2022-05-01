@@ -18,6 +18,7 @@
 @import "statistics";
 @import "status_messages";
 @import "chosen";
+@import "node";
 
 // EXPERIMENTAL
 //@import "tests/sample1/main";
@@ -140,31 +141,6 @@ button,
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-color-secondary);
   cursor: grab;
-}
-
-.node-teaser {
-  .teaser-container {
-    background: var(--background-primary);
-    display: block;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    color: var(--text-color-primary);
-    text-decoration: none;
-    transition: all ease-in-out var(--transition-duration);
-
-    &:hover {
-      color: var(--text-color-secondary);
-      transition: all ease-in-out var(--transition-duration);
-    }
-
-    .date {
-      span {
-        font-size: .8rem;
-        font-weight: 300;
-        font-style: italic;
-      }
-    }
-  }
 }
 
 img {
