@@ -6,3 +6,34 @@
 function ohano_core_preprocess_html(&$variables) {
   $variables['page']['#attached']['library'][] = 'ohano_core/admin-theme';
 }
+
+function ohano_core_theme() {
+  return [
+    'features_block' => [
+      'template' => 'features-block',
+      'variables' => [
+        'features' => NULL,
+      ],
+    ],
+    'feature' => [
+      'template' => 'feature',
+      'variables' => [
+        'icon_class' => NULL,
+        'name' => NULL,
+        'path' => NULL,
+      ],
+    ]
+  ];
+}
+
+/**
+ * Implements hook_features_alter().
+ */
+function ohano_core_features_alter(&$features) {
+  $features[] = \Drupal\ohano_core\Feature\FeedWip::class;
+  $features[] = \Drupal\ohano_core\Feature\MessagesWip::class;
+  $features[] = \Drupal\ohano_core\Feature\SearchWip::class;
+  $features[] = \Drupal\ohano_core\Feature\ActivityWip::class;
+  $features[] = \Drupal\ohano_core\Feature\NotificationsWip::class;
+  $features[] = \Drupal\ohano_core\Feature\SettingsWip::class;
+}

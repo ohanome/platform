@@ -9,7 +9,7 @@ dependencies:
 id: profileblock_2
 theme: ohano
 region: sidebar_left
-weight: -7
+weight: -8
 provider: null
 plugin: ohano_profile__profile_block
 settings:

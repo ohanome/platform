@@ -1,7 +1,10 @@
 <div class="block-inner">
-  <div class="button-group">
-    <button id="setLightMode">{{ 'Light'|trans }}</button>
-    <button id="setDarkMode">{{ 'Dark'|trans }}</button>
+  <div class="color-mode-switch dropdown">
+    <button class="dropdown-base">{{ "Color mode"|trans }}</button>
+    <div class="dropdown-content">
+      <button id="setLightMode" class="dropdown-item">{{ 'Light'|trans }}</button>
+      <button id="setDarkMode" class="dropdown-item">{{ 'Dark'|trans }}</button>
+    </div>
   </div>
 </div>
 

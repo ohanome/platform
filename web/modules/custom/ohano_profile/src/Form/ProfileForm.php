@@ -524,6 +524,7 @@ class ProfileForm extends FormBase {
         $account = Account::getByUser($currentUser);
         if ($account->getActiveProfile()->id() == $userProfile->id()) {
           $account->setActiveProfile($personalProfile);
+          $account->save();
         }
 
         $userProfile->delete();

@@ -21,35 +21,6 @@ class StatisticsController extends ControllerBase {
   }
 
   public function getStatistics() {
-    \Drupal::messenger()->addMessage('Sample message');
-    \Drupal::messenger()->addMessage('Sample message');
-    \Drupal::messenger()->addMessage('Sample message');
-    \Drupal::messenger()->addMessage('Sample message');
-    \Drupal::messenger()->addMessage('Sample message');
-    \Drupal::messenger()->addMessage('Sample message');
-    \Drupal::messenger()->addMessage('Sample message');
-    \Drupal::messenger()->addError('Sample error');
-    \Drupal::messenger()->addError('Sample error');
-    \Drupal::messenger()->addError('Sample error');
-    \Drupal::messenger()->addError('Sample error');
-    \Drupal::messenger()->addError('Sample error');
-    \Drupal::messenger()->addError('Sample error');
-    \Drupal::messenger()->addError('Sample error');
-    \Drupal::messenger()->addWarning('Sample warning');
-    \Drupal::messenger()->addWarning('Sample warning');
-    \Drupal::messenger()->addWarning('Sample warning');
-    \Drupal::messenger()->addWarning('Sample warning');
-    \Drupal::messenger()->addWarning('Sample warning');
-    \Drupal::messenger()->addWarning('Sample warning');
-    \Drupal::messenger()->addWarning('Sample warning');
-    \Drupal::messenger()->addStatus('Sample status');
-    \Drupal::messenger()->addStatus('Sample status');
-    \Drupal::messenger()->addStatus('Sample status');
-    \Drupal::messenger()->addStatus('Sample status');
-    \Drupal::messenger()->addStatus('Sample status');
-    \Drupal::messenger()->addStatus('Sample status');
-    \Drupal::messenger()->addStatus('Sample status');
-
     $statistics = [];
 
     $statistics[] = [

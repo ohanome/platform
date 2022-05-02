@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\ohano_stats\Feature\Statistics;
+
 function ohano_stats_theme() {
   return [
     'statistic' => [
@@ -33,4 +35,8 @@ function ohano_stats_theme() {
       ],
     ]
   ];
+}
+
+function ohano_stats_features_alter(&$features) {
+  $features[] = Statistics::class;
 }
