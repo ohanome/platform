@@ -15,6 +15,6 @@ plugin: ohano_appearance__font_size_block
 settings:
   id: ohano_appearance__font_size_block
   label: Schriftgröße
-  label_display: visible
+  label_display: '0'
   provider: ohano_appearance
 visibility: {  }

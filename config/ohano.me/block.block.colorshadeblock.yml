@@ -15,6 +15,6 @@ plugin: ohano_appearance__color_shade_block
 settings:
   id: ohano_appearance__color_shade_block
   label: Farbtemperatur
-  label_display: visible
+  label_display: '0'
   provider: ohano_appearance
 visibility: {  }

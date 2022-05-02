@@ -15,6 +15,6 @@ plugin: ohano_appearance__brightness_block
 settings:
   id: ohano_appearance__brightness_block
   label: Helligkeit
-  label_display: visible
+  label_display: '0'
   provider: ohano_appearance
 visibility: {  }
