@@ -1,0 +1,25 @@
+.search-container {
+  .result-count {
+    padding: 0.5rem;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .results {
+    padding: .5rem;
+
+    a.search-result {
+      display: block;
+      padding: 1rem;
+      background-color: var(--background-primary);
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      color: var(--text-color-primary);
+      text-decoration: none;
+
+      &:not(:last-of-type) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

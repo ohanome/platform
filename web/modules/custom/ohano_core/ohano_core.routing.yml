@@ -12,3 +12,10 @@ ohano_core.config:
     _title: 'ohano'
   requirements:
     _permission: 'ohano access configuration'
+
+ohano_core.developer_mode:
+  path: '/ohano/developer-mode'
+  defaults:
+    _controller: \Drupal\ohano_core\Controller\DeveloperModeController::switchDeveloperMode
+  requirements:
+    _permission: 'ohano access developer mode'

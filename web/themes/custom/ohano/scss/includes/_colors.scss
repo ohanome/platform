@@ -270,6 +270,110 @@
 
 }
 
+/***********************************************************************************************************************
+Diverse color helper classes
+***********************************************************************************************************************/
+.color-black {
+  color: var(--black) !important;
+}
+
+.color-white {
+  color: var(--white) !important;
+}
+
+.color-slate {
+  color: var(--slate) !important;
+}
+
+.color-gray {
+  color: var(--gray) !important;
+}
+
+.color-zinc {
+  color: var(--zinc) !important;
+}
+
+.color-neutral {
+  color: var(--neutral) !important;
+}
+
+.color-stone {
+  color: var(--stone) !important;
+}
+
+.color-red {
+  color: var(--red) !important;
+}
+
+.color-orange {
+  color: var(--orange) !important;
+}
+
+.color-amber {
+  color: var(--amber) !important;
+}
+
+.color-yellow {
+  color: var(--yellow) !important;
+}
+
+.color-lime {
+  color: var(--lime) !important;
+}
+
+.color-green {
+  color: var(--green) !important;
+}
+
+.color-emerald {
+  color: var(--emerald) !important;
+}
+
+.color-teal {
+  color: var(--teal) !important;
+}
+
+.color-cyan {
+  color: var(--cyan) !important;
+}
+
+.color-sky {
+  color: var(--sky) !important;
+}
+
+.color-blue {
+  color: var(--blue) !important;
+}
+
+.color-indigo {
+  color: var(--indigo) !important;
+}
+
+.color-violet {
+  color: var(--violet) !important;
+}
+
+.color-purple {
+  color: var(--purple) !important;
+}
+
+.color-fuchsia {
+  color: var(--fuchsia) !important;
+}
+
+.color-pink {
+  color: var(--pink) !important;
+}
+
+.color-rose {
+  color: var(--rose) !important;
+}
+
+
+/***********************************************************************************************************************
+Color mode and shade handling
+***********************************************************************************************************************/
+
 html,
 html.color-mode-light {
   --text-color-secondary: var(--blue700);

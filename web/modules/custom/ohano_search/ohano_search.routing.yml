@@ -1,0 +1,7 @@
+ohano_search.search:
+  path: '/search'
+  defaults:
+    _controller: Drupal\ohano_search\Controller\SearchController::search
+    _title: 'Search'
+  requirements:
+    _permission: 'ohano access search'

@@ -6,15 +6,15 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 
-class SearchWip implements FeatureInterface {
+class HelpWip implements FeatureInterface {
   use StringTranslationTrait;
 
   public static function getName(): TranslatableMarkup|string {
-    return t('Search (WIP)');
+    return t('Help (WIP)');
   }
 
   public static function getIconClass(): string {
-    return 'fas fa-search';
+    return 'fas fa-first-aid';
   }
 
   public static function getPath(): Url {
@@ -22,7 +22,7 @@ class SearchWip implements FeatureInterface {
   }
 
   public static function getWeight(): int {
-    return 40;
+    return 80;
   }
 
 }

@@ -68,8 +68,14 @@ class Account extends EntityBase implements EntityInterface {
     $fields['color_shade'] = BaseFieldDefinition::create('list_string')
       ->setSetting('allowed_values', ColorShade::translatableFormOptions())
       ->setDefaultValue(ColorShade::Neutral->value);
+    $fields['developer_mode'] = BaseFieldDefinition::create('boolean');
 
     return $fields;
+  }
+
+  public static function isInDeveloperMode(): bool {
+    $account = Account::forActive();
+    return (bool) $account->get('developer_mode')->value;
   }
 
   /**

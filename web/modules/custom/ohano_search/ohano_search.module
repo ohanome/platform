@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function ohano_search_theme($existing, $type, $theme, $path) {
+  return [
+    'search_page' => [
+      'template' => 'search-page',
+      'base hook' => 'page',
+      'variables' => [
+        'search_form' => NULL,
+        'results' => NULL,
+        'result_count' => NULL,
+      ],
+    ],
+    'search_result_entry' => [
+      'template' => 'search-result-entry',
+      'variables' => [
+        'title' => NULL,
+        'link' => NULL,
+        'score' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_features_alter().
+ */
+function ohano_search_features_alter(&$features) {
+  $features[] = \Drupal\ohano_search\Feature\Search::class;
+}

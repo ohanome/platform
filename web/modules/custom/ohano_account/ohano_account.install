@@ -94,3 +94,17 @@ function ohano_account_update_9008() {
     $account->save();
   }
 }
+
+/**
+ * Installs the developer_mode field on the Account entity.
+ */
+function ohano_account_update_9009() {
+  $field = BaseFieldDefinition::create('boolean');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('developer_mode', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('developer_mode', FALSE);
+    $account->save();
+  }
+}
