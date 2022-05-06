@@ -13,12 +13,38 @@ form {
 
   input,
   select,
-  textarea {
+  textarea,
+  button,
+  .button {
     padding: 0.5rem;
     background: var(--background-primary);
-    border: none;
+    border: 3px solid var(--background-primary);
     border-radius: 0.5rem;
     color: var(--text-color-primary);
+  }
+
+  input:focus,
+  input:focus-visible,
+  input:focus-within,
+  select:focus,
+  select:focus-visible,
+  select:focus-visible,
+  textarea:focus,
+  textarea:focus-visible,
+  textarea:focus-visible {
+    outline: none;
+    border-color: var(--text-color-primary) !important;
+  }
+
+  .button:hover,
+  button:hover {
+    border-color: var(--text-color-primary);
+  }
+
+  input.error,
+  select.error,
+  textarea.error {
+    border: 3px solid var(--red);
   }
 
   label {
@@ -28,6 +54,11 @@ form {
 
   .description {
     font-style: italic;
+  }
+
+  input:disabled {
+    color: var(--red);
+    text-decoration: line-through;
   }
 
   details {
@@ -62,6 +93,7 @@ form {
     .button,
     textarea {
       background: var(--background-secondary);
+      border-color: var(--background-secondary);
     }
 
     .delete-button,

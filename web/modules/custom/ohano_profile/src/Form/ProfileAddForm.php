@@ -25,6 +25,7 @@ class ProfileAddForm extends FormBase {
     $form['profile_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Name'),
+      '#description' => $this->t('Only letters, numbers and the special characters -_. are allowed. Everything else will be replaced automatically. At the start only letters are allowed and at the end only letters and numbers are allowed.'),
       '#required' => TRUE,
     ];
 
@@ -40,6 +41,11 @@ class ProfileAddForm extends FormBase {
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add profile'),
+    ];
+
+    $form['#attached']['library'][] = 'ohano_profile/profile-add-form';
+    $form['#cache'] = [
+      'max-age' => 0,
     ];
 
     return $form;
@@ -60,6 +66,8 @@ class ProfileAddForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $profileName = $values['profile_name'];
+    $profileName = str_replace(' ', '-', $profileName);
+
     $type = $values['type'];
 
     $user = User::load(\Drupal::currentUser()->id());

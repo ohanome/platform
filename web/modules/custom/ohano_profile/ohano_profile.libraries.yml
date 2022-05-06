@@ -6,3 +6,12 @@ profile-card:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+
+profile-add-form:
+  version: 1.0
+  js:
+    js/profile-add-form.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
