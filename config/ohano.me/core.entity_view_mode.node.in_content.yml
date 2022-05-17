@@ -1,0 +1,10 @@
+uuid: ee53f833-994a-45e1-a427-32795ee675cf
+langcode: de
+status: true
+dependencies:
+  module:
+    - node
+id: node.in_content
+label: 'In Content'
+targetEntityType: node
+cache: true

@@ -1,10 +1,12 @@
-uuid: 03b40437-0879-4988-88a0-436331cfeb51
+uuid: 495a138f-1f97-4cf6-b1f8-54abddd27a07
 langcode: de
 status: true
 dependencies:
   config:
     - field.storage.node.field_team
     - node.type.update
+  module:
+    - text
 id: node.update.field_team
 field_name: field_team
 entity_type: node
@@ -16,4 +18,4 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string_long
+field_type: text_long

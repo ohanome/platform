@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.update.field_update_number
     - node.type.update
   module:
+    - text
     - user
 id: node.update.default
 targetEntityType: node
@@ -19,37 +20,38 @@ bundle: update
 mode: default
 content:
   field_events:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: visually_hidden
     settings:
-      link: true
+      view_mode: in_content
+      link: false
     third_party_settings: {  }
     weight: 4
     region: content
   field_other:
-    type: basic_string
-    label: above
+    type: text_default
+    label: visually_hidden
     settings: {  }
     third_party_settings: {  }
     weight: 5
     region: content
   field_platform:
-    type: basic_string
-    label: above
+    type: text_default
+    label: visually_hidden
     settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content
   field_preface:
     type: basic_string
-    label: hidden
+    label: visually_hidden
     settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content
   field_team:
-    type: basic_string
-    label: above
+    type: text_default
+    label: visually_hidden
     settings: {  }
     third_party_settings: {  }
     weight: 3

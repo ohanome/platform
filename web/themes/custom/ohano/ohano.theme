@@ -27,3 +27,7 @@ function ohano_preprocess_field(&$variables) {
   $variables['attributes']['class'][] = 'field--' . str_replace('_', '-', $variables['field_name']);
   $variables['attributes']['class'][] = 'field-type--' . str_replace('_', '-', $variables['field_type']);
 }
+
+function ohano_preprocess_node__update__full(&$variables) {
+  #dd($variables['content']);
+}

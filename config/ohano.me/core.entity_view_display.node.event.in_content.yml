@@ -1,0 +1,62 @@
+uuid: 1fae2f4a-65eb-4455-8e7b-a1c3d8c5f803
+langcode: de
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.in_content
+    - field.field.node.event.field_end
+    - field.field.node.event.field_info
+    - field.field.node.event.field_location
+    - field.field.node.event.field_start
+    - field.field.node.event.field_teaser_text
+    - node.type.event
+  module:
+    - user
+id: node.event.in_content
+targetEntityType: node
+bundle: event
+mode: in_content
+content:
+  field_end:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_info:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_location:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_start:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_teaser_text: true
+  langcode: true

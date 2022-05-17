@@ -1,16 +1,16 @@
-uuid: abe24073-0919-4c64-a226-9c7c58b14c35
+uuid: dde36e02-4dd1-41b4-b54e-e0b7755f0f3e
 langcode: de
 status: true
 dependencies:
   module:
     - node
+    - text
 id: node.field_team
 field_name: field_team
 entity_type: node
-type: string_long
-settings:
-  case_sensitive: false
-module: core
+type: text_long
+settings: {  }
+module: text
 locked: false
 cardinality: 1
 translatable: true

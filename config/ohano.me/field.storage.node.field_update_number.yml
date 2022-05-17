@@ -12,6 +12,36 @@ type: list_string
 settings:
   allowed_values:
     -
+      value: '09.21'
+      label: '09.21'
+    -
+      value: '10.21'
+      label: '10.21'
+    -
+      value: '11.21'
+      label: '11.21'
+    -
+      value: '12.21'
+      label: '12.21'
+    -
+      value: '01.22'
+      label: '01.22'
+    -
+      value: '02.22'
+      label: '02.22'
+    -
+      value: '03.22'
+      label: '03.22'
+    -
+      value: '04.22'
+      label: '04.22'
+    -
+      value: '05.22'
+      label: '05.22'
+    -
+      value: '06.22'
+      label: '06.22'
+    -
       value: '07.22'
       label: '07.22'
     -

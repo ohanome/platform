@@ -14,6 +14,7 @@ dependencies:
   module:
     - path
     - scheduler
+    - text
 id: node.update.default
 targetEntityType: node
 bundle: update
@@ -36,16 +37,16 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_other:
-    type: string_textarea
-    weight: 14
+    type: text_textarea
+    weight: 27
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
   field_platform:
-    type: string_textarea
-    weight: 11
+    type: text_textarea
+    weight: 26
     region: content
     settings:
       rows: 5
@@ -60,8 +61,8 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_team:
-    type: string_textarea
-    weight: 12
+    type: text_textarea
+    weight: 28
     region: content
     settings:
       rows: 5
