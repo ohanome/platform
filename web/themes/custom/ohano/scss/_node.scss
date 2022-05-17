@@ -45,4 +45,44 @@
       }
     }
   }
+
+  &.node-type--update {
+    .field--field-events {
+      > div {
+        > div {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  &.node-type--event {
+    &.node-in_content {
+      &:first-of-type {
+        margin-left: 0 !important;
+      }
+
+      a {
+        color: var(--text-color-primary);
+        background-color: var(--background-primary);
+        padding: 1rem;
+        border-radius: .5rem;
+        display: block;
+
+        &:hover {
+          border: none;
+          box-shadow: none;
+          background-color: var(--background-secondary);
+        }
+
+        > div {
+          display: flex;
+
+          > div.field {
+            margin-left: .5rem;
+          }
+        }
+      }
+    }
+  }
 }
