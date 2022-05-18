@@ -45,6 +45,8 @@ class FeaturesBlock extends BlockBase {
       }
       if ($weight = $feature::getWeight()) {
         $renderable['#weight'] = $weight;
+      } else {
+        $renderable['#weight'] = 0;
       }
 
       $toRender[] = $renderable;

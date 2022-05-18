@@ -43,7 +43,8 @@ form {
 
   input.error,
   select.error,
-  textarea.error {
+  textarea.error,
+  .delete-button {
     border: 3px solid var(--red);
   }
 
@@ -58,7 +59,6 @@ form {
 
   input:disabled {
     color: var(--red);
-    text-decoration: line-through;
   }
 
   details {
@@ -100,6 +100,7 @@ form {
     input[name="base_profile_profile_picture_remove_button"],
     input[name="base_profile_profile_banner_remove_button"] {
       background: var(--red);
+      border-color: var(--red);
       color: var(--gray100);
     }
   }

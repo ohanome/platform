@@ -139,12 +139,14 @@ button,
   background: var(--stone900);
   border-radius: .5rem;
   border: .33rem solid var(--background-secondary);
+  transition: all ease-in-out var(--transition-duration);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-color-secondary);
   cursor: grab;
+  border-width: .25rem;
 }
 
 img {
