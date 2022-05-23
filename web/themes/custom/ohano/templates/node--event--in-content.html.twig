@@ -70,7 +70,7 @@
 <article{{ attributes }}>
   <a href="{{ url }}" rel="bookmark">
     <h3>{{ label }}</h3>
-    {% if content.field_start %}
+    {% if content.field_start|render|striptags %}
       <div class="start">
         <div>
           <i class="fas fa-clock"></i>
@@ -78,7 +78,7 @@
         {{ content.field_start }}
       </div>
     {% endif %}
-    {% if content.field_location %}
+    {% if content.field_location|render|striptags %}
       <div class="location">
         <div>
           <i class="fas fa-map-marker-alt"></i>
@@ -86,7 +86,7 @@
         {{ content.field_location }}
       </div>
     {% endif %}
-    {% if content.field_info %}
+    {% if content.field_info|render|striptags %}
       <div class="info">
         <div>
           <i class="fas fa-info"></i>

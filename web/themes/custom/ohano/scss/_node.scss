@@ -49,9 +49,7 @@
   &.node-type--update {
     .field--field-events {
       > div {
-        > div {
-          display: flex;
-        }
+        display: flex;
       }
     }
   }
