@@ -1,19 +1,19 @@
-uuid: 6c43c279-fe5f-431d-9eca-58835f580fb6
+uuid: 3ae90227-9231-480d-9515-b41a72cd8275
 langcode: de
 status: true
 dependencies:
   config:
-    - node.type.page
+    - node.type.webform
 _core:
-  default_config_hash: fPUEnm4T5zfZRr3ttDUqq7yCDd2uW3clWD-pvos4tlQ
-id: node.page.promote
+  default_config_hash: FvXJkxryo6J_0TQRlb5Z77Ge-sim5GHzCI1Ft3kZu-4
+id: node.webform.promote
 field_name: promote
 entity_type: node
-bundle: page
+bundle: webform
 label: 'Promoted to front page'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     value: 0

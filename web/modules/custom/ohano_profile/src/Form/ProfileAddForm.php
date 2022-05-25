@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ohano_account\Blocklist;
 use Drupal\ohano_account\Entity\Account;
+use Drupal\ohano_account\Validator\UsernameValidator;
 use Drupal\ohano_core\Form\FormTrait;
 use Drupal\ohano_profile\Entity\BaseProfile;
 use Drupal\ohano_profile\Entity\UserProfile;
@@ -27,6 +28,7 @@ class ProfileAddForm extends FormBase {
       '#title' => $this->t('Name'),
       '#description' => $this->t('Only letters, numbers and the special characters -_. are allowed. Everything else will be replaced automatically. At the start only letters are allowed and at the end only letters and numbers are allowed.'),
       '#required' => TRUE,
+      '#pattern' => '^[\w]{4,24}$',
     ];
 
     $typeOptions = ProfileType::translatableFormOptions();
@@ -52,9 +54,10 @@ class ProfileAddForm extends FormBase {
   }
 
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\ohano_account\Validator\UsernameValidator $usernameValidator */
+    $usernameValidator = \Drupal::service('ohano_account.validator.username');
     $values = $form_state->getValues();
-    $foundProfile = UserProfile::loadByName($values['profile_name']);
-    if (in_array($values['profile_name'], Blocklist::USERNAME) || !empty($foundProfile)) {
+    if ($usernameValidator->validateUsername($values['profile_name']) != UsernameValidator::VALID) {
       $form_state->setErrorByName('profile_name', $this->t('This profile name is already taken.'));
     }
 

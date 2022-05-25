@@ -147,3 +147,9 @@ ohano_account.api.set_color_shade:
     _controller: Drupal\ohano_account\Controller\Api\AccountController::setColorShade
   requirements:
     _permission: 'access content'
+ohano_account.api.validate_username:
+  path: '/api/account/validate/username/{username}'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\Api\ValidatorController::validateUsername
+  requirements:
+    _permission: 'access content'

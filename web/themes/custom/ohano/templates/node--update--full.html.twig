@@ -69,34 +69,34 @@
 #}
 <article{{ attributes }}>
 
-  {% if content.field_preface %}
+  {% if content.field_preface|render|striptags %}
     <div class="preface">
       {{ content.field_preface }}
     </div>
   {% endif %}
 
-  {% if content.field_platform %}
+  {% if content.field_platform|render|striptags %}
     <div class="platform">
-      <h2><img src="/themes/custom/ohano/logo-white-bg-64.png" style="width: 1em; height: 1em" alt="{{ 'ohano Logo'|trans }}"/>&nbsp;{{ 'Platform'|trans }}</h2>
+      <h2><img src="/themes/custom/ohano/logo-white-bg-64.png" style="width: 1em; height: 1em; top: 0.5rem; position: relative;" alt="{{ 'ohano Logo'|trans }}"/>&nbsp;{{ 'Platform'|trans }}</h2>
       {{ content.field_platform }}
     </div>
   {% endif %}
 
-  {% if content.field_team %}
+  {% if content.field_team|render|striptags %}
     <div class="team">
       <h2>👥&nbsp;{{ 'Team'|trans }}</h2>
       {{ content.field_team }}
     </div>
   {% endif %}
 
-  {% if content.field_events %}
+  {% if content.field_events|render|striptags %}
     <div class="events">
       <h2>📅&nbsp;{{ 'Events'|trans }}</h2>
       {{ content.field_events }}
     </div>
   {% endif %}
 
-  {% if content.field_other %}
+  {% if content.field_other|render|striptags %}
     <div class="other">
       <h2>💡&nbsp;{{ 'Other'|trans }}</h2>
       {{ content.field_other }}

@@ -81,6 +81,7 @@ class ProfileForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Profile name'),
       '#default_value' => $userProfile->getProfileName(),
+      '#pattern' => '^[\w]{4,24}$',
     ];
 
     if ($userProfile->getType() == ProfileType::Personal->value) {

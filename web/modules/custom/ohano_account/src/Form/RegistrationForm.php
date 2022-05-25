@@ -12,6 +12,7 @@ use Drupal\ohano_account\Entity\AccountActivation;
 use Drupal\ohano_account\Entity\AccountVerification;
 use Drupal\ohano_account\Form\Config\RegistrationConfigForm;
 use Drupal\ohano_account\Validator\EmailValidator;
+use Drupal\ohano_account\Validator\UsernameValidator;
 use Drupal\ohano_mail\OhanoMail;
 use Drupal\ohano_mail\OhanoMailer;
 use Drupal\user\Entity\User;
@@ -115,10 +116,13 @@ class RegistrationForm extends FormBase {
       $form_state->setErrorByName('password', $this->t("The passwords don't match."));
     }
 
+    /** @var \Drupal\ohano_account\Validator\UsernameValidator $usernameValidator */
+    $usernameValidator = \Drupal::service('ohano_account.validator.username');
+
     $existingUser = \Drupal::entityQuery('user')
       ->condition('name', $form_state->getValue('username'))
       ->execute();
-    if (!empty($existingUser)) {
+    if (!empty($existingUser) && $usernameValidator->validateUsername($form_state->getValue('username')) != UsernameValidator::VALID) {
       $form_state->setErrorByName('username', $this->t("We're sorry but this username is already taken."));
     }
 
