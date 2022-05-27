@@ -14,6 +14,15 @@ trait FormTrait {
     ];
   }
 
+  public function buildEmailField(TranslatableMarkup|string $title, string $defaultValue = NULL, bool $required = FALSE) {
+    return [
+      '#type' => 'email',
+      '#title' => $title,
+      '#default_value' => $defaultValue,
+      '#required' => $required,
+    ];
+  }
+
   public function buildSelectField(TranslatableMarkup|string $title, array $options, string $defaultValue = NULL, bool $required = FALSE, bool $useChosen = FALSE, bool $multi = FALSE) {
     return [
       '#type' => 'select',

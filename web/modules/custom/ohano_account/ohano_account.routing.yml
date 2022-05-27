@@ -74,6 +74,15 @@ ohano_account.verification:
   requirements:
     _permission: 'ohano access verification form'
 
+# Settings
+ohano_account.settings:
+  path: '/account/settings'
+  defaults:
+    _form: Drupal\ohano_account\Form\SettingsForm
+    _title: 'Manage account'
+  requirements:
+    _permission: 'ohano access account settings form'
+
 # Activation
 ohano_account.activate:
   path: '/account/activate/{code}'

@@ -13,8 +13,7 @@
   <ul>
     {% if own %}
     <li><a href="{{ path('ohano_profile.edit', {'profileName': name}) }}">{{ "Edit profile"|trans }}</a></li>
-    <li><a href="#">{{ "Manage account"|trans }}</a></li>
-    <li><a href="#">{{ "Settings"|trans }}</a></li>
+    <li><a href="#">{{ "Profile settings"|trans }}</a></li>
     <li><a href="{{ path('ohano_profile.manage') }}">{{ "Manage profiles"|trans }}</a></li>
     {% endif %}
   </ul>

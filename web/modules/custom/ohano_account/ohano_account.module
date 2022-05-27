@@ -13,6 +13,15 @@ function ohano_account_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'account-verification-list',
     ],
+    'active_tier' => [
+      'variables' => [
+        'tier' => NULL,
+        'date' => NULL,
+        'timestamp' => NULL,
+        'days_left' => NULL,
+      ],
+      'template' => 'active-tier',
+    ],
   ];
 }
 
@@ -31,5 +40,14 @@ function ohano_account_preprocess_html(&$variables) {
     $variables['#cache'] = [
       'max-age' => '0',
     ];
+  }
+}
+
+/**
+ * Implements hook_features_alter().
+ */
+function ohano_account_features_alter(&$features) {
+  if (\Drupal::currentUser()->hasPermission('ohano access account settings')) {
+    $features[] = \Drupal\ohano_account\Feature\Settings::class;
   }
 }

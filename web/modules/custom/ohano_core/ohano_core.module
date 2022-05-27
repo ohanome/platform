@@ -34,8 +34,8 @@ function ohano_core_features_alter(&$features) {
   $features[] = \Drupal\ohano_core\Feature\MessagesWip::class;
   $features[] = \Drupal\ohano_core\Feature\ActivityWip::class;
   $features[] = \Drupal\ohano_core\Feature\NotificationsWip::class;
-  $features[] = \Drupal\ohano_core\Feature\SettingsWip::class;
   $features[] = \Drupal\ohano_core\Feature\HelpWip::class;
+  $features[] = \Drupal\ohano_core\Feature\AccountWip::class;
 
   if (\Drupal::currentUser()->hasPermission('ohano access developer mode')) {
     $features[] = \Drupal\ohano_core\Feature\DeveloperMode::class;

@@ -7,6 +7,7 @@ use Drupal\ohano_account\Entity\AccountVerification;
 use Drupal\ohano_account\Option\ColorMode;
 use Drupal\ohano_account\Option\ColorShade;
 use Drupal\ohano_account\Option\FontSize;
+use Drupal\ohano_account\Option\SubscriptionTier;
 use Drupal\ohano_profile\Entity\UserProfile;
 
 function ohano_account_install() {
@@ -105,6 +106,42 @@ function ohano_account_update_9009() {
 
   foreach (Account::loadMultiple() as $account) {
     $account->set('developer_mode', FALSE);
+    $account->save();
+  }
+}
+
+/**
+ * Installs the subscription_tier field on the Account entity.
+ */
+function ohano_account_update_9010() {
+  $field = BaseFieldDefinition::create('list_string')
+    ->setSetting('allowed_values', SubscriptionTier::translatableFormOptions())
+    ->setDefaultValue(SubscriptionTier::None->name);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('subscription_tier', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    if ($account->getUser()->id() == 1) {
+      $tier = SubscriptionTier::Pro;
+    } else {
+      $tier = SubscriptionTier::None;
+    }
+
+    $account->set('subscription_tier', $tier->name);
+    $account->save();
+  }
+}
+
+/**
+ * Installs the subscription_active field on the Account entity.
+ */
+function ohano_account_update_9011() {
+  $field = BaseFieldDefinition::create('datetime');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('subscription_active', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('subscription_active', (new \Drupal\Core\Datetime\DrupalDateTime())->format('Y-m-d'));
     $account->save();
   }
 }

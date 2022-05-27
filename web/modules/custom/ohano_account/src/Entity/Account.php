@@ -2,12 +2,14 @@
 
 namespace Drupal\ohano_account\Entity;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\ohano_account\Option\ColorMode;
 use Drupal\ohano_account\Option\ColorShade;
 use Drupal\ohano_account\Option\FontSize;
+use Drupal\ohano_account\Option\SubscriptionTier;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\ohano_core\Entity\EntityInterface;
 use Drupal\ohano_profile\Entity\UserProfile;
@@ -32,6 +34,9 @@ use Drupal\ohano_profile\Entity\UserProfile;
  *     "font_size" = "font_size",
  *     "color_mode" = "color_mode",
  *     "color_shade" = "color_shade",
+ *     "subscription_tier" = "subscription_tier",
+ *     "subscription_active" = "subscription_active",
+ *     "developer_mode" = "developer_mode",
  *   }
  * )
  */
@@ -68,6 +73,10 @@ class Account extends EntityBase implements EntityInterface {
     $fields['color_shade'] = BaseFieldDefinition::create('list_string')
       ->setSetting('allowed_values', ColorShade::translatableFormOptions())
       ->setDefaultValue(ColorShade::Neutral->value);
+    $fields['subscription_tier'] = BaseFieldDefinition::create('list_string')
+      ->setSetting('allowed_values', SubscriptionTier::translatableFormOptions())
+      ->setDefaultValue(SubscriptionTier::None->name);
+    $fields['subscription_active'] = BaseFieldDefinition::create('datetime');
     $fields['developer_mode'] = BaseFieldDefinition::create('boolean');
 
     return $fields;
@@ -103,6 +112,41 @@ class Account extends EntityBase implements EntityInterface {
   }
 
   /**
+   * Returns the font size.
+   *
+   * In case that the font size is not supported, this will return the default
+   * fallback value.
+   *
+   * @return string
+   *   The font size value.
+   */
+  public function getFontSize(): string {
+    if (FontSize::tryFrom($this->get('font_size')->value)) {
+      return $this->get('font_size')->value;
+    }
+
+    return FontSize::M->value;
+  }
+
+  public function getColorMode(): string {
+    $value = $this->get('color_mode')->value;
+    if (ColorMode::tryFrom($value)) {
+      return $value;
+    }
+
+    return ColorMode::Light->value;
+  }
+
+  public function getColorShade(): string {
+    $value = $this->get('color_shade')->value;
+    if (ColorShade::tryFrom($value)) {
+      return $value;
+    }
+
+    return ColorShade::Neutral->value;
+  }
+
+  /**
    * Sets the user for this account.
    *
    * @param \Drupal\Core\Session\AccountInterface $user
@@ -132,6 +176,24 @@ class Account extends EntityBase implements EntityInterface {
 
   public function setActiveProfile(UserProfile $userProfile): Account {
     $this->set('active_profile', $userProfile);
+    return $this;
+  }
+
+  public function setFontSize(FontSize $fontSize): Account {
+    $this->set('font_size', $fontSize->value);
+
+    return $this;
+  }
+
+  public function setColorMode(ColorMode $colorMode): Account {
+    $this->set('color_mode', $colorMode->value);
+
+    return $this;
+  }
+
+  public function setColorShade(ColorShade $colorShade): Account {
+    $this->set('color_shade', $colorShade->value);
+
     return $this;
   }
 

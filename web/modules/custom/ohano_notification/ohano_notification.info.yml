@@ -1,0 +1,7 @@
+name: "ohano Notification"
+package: "ohano"
+type: module
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - ohano_core
