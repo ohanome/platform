@@ -61,6 +61,21 @@ form {
     color: var(--red);
   }
 
+  table {
+    background-color: var(--background-primary);
+    width: 100%;
+    padding: .5rem;
+    border-radius: .5rem;
+
+    thead {
+      tr {
+        background-color: var(--background-secondary);
+        padding: .5rem;
+        border-radius: .5rem;
+      }
+    }
+  }
+
   details {
     padding: 1rem;
     background: var(--background-primary);

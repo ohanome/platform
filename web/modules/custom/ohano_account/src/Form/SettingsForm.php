@@ -55,8 +55,16 @@ class SettingsForm extends FormBase {
     $activeTier = $account->get('subscription_tier')->value;
     $activeUntil = $account->get('subscription_active')->value;
     $activeUntil = DrupalDateTime::createFromFormat("Y-m-d", $activeUntil);
-    $timestamp = $activeUntil->format('U');
-    $daysLeft = ((int) (new DrupalDateTime())->format('U') - (int) $timestamp) / 60 / 60 / 24;
+    $activeUntil->setTime(0, 0);
+
+    $now = new DrupalDateTime();
+    $now->setTime(0, 0);
+
+    $timestamp = (int) $activeUntil->format('U');
+    $timestampNow = (int) $now->format('U');
+    $daysLeft = ($timestamp - $timestampNow) / 60 / 60 / 24;
+    $daysLeft = (int) $daysLeft;
+
     $form['subscription'] = $this->buildDefaultContainer($this->t('Subscription'));
     $form['subscription']['active_tier'] = [
       '#type' => 'markup',
@@ -84,42 +92,8 @@ class SettingsForm extends FormBase {
     $form['appearance']['color_shade'] = $this->buildSelectField($this->t('Color shade'), ColorShade::translatableFormOptions(), $account->getColorShade());
 
     $form['notifications'] = $this->buildDefaultContainer($this->t('Notifications'));
-    $form['notifications']['table'] = [
-      '#type' => 'table',
-      '#sticky' => TRUE
-    ];
-
-    foreach (['-' => $this->t('Type')] + NotificationChannel::translatableFormOptions() as $value => $translation) {
-      $form['notifications']['table']['#header'][] = [
-        'data' => $translation,
-        'class' => ['checkbox'],
-      ];
-    }
-
-    foreach (NotificationType::translatableFormOptions() as $value => $translation) {
-      $form['notifications']['table'][$value] = [
-        [
-          '#wrapper_attributes' => [
-            'colspan' => 1,
-            'class' => ['module'],
-            'id' => 'channel-' . $value,
-          ],
-          '#markup' => $translation,
-        ],
-      ];
-
-      foreach (NotificationChannel::translatableFormOptions() as $value1 => $translation1) {
-        $form['notifications']['table'][$value][$value1] = [
-          '#title' => $value . ': ' . $value1,
-          '#title_display' => 'invisible',
-          '#wrapper_attributes' => [
-            'class' => ['checkbox'],
-          ],
-          '#type' => 'checkbox',
-          '#default_value' => 0,
-          '#parents' => [$value1, $value],
-        ];
-      }
+    foreach (NotificationType::cases() as $type) {
+      $form['notifications'][$type->name] = $this->buildSelectField($this->t($type->value), [NULL => $this->t('None')] + NotificationChannel::translatableFormOptions());
     }
 
     return $form;
