@@ -18,3 +18,8 @@ source-serif:
   css:
     theme:
       node_modules/source-serif/source-serif-text.css: {}
+
+highlight.js:
+  version: 11.5.1
+  js:
+    node_modules/highlight.js

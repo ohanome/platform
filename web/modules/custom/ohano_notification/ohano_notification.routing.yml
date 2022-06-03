@@ -1,0 +1,7 @@
+ohano_notification.list:
+  path: '/notifications'
+  defaults:
+    _controller: \Drupal\ohano_notification\Controller\NotificationController::listNotifications
+    _title: ''
+  requirements:
+    _permission: 'access content'

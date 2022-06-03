@@ -1,0 +1,7 @@
+services:
+  ohano_notification.notification:
+    class: Drupal\ohano_notification\Service\NotificationService
+  ohano_notification.subscriber.request:
+    class: Drupal\ohano_notification\EventSubscriber\RequestSubscriber
+    tags:
+      - { name: 'event_subscriber' }

@@ -369,6 +369,14 @@ Diverse color helper classes
   color: var(--rose) !important;
 }
 
+.color-primary {
+  color: var(--text-color-primary) !important;
+}
+
+.color-secondary {
+  color: var(--text-color-secondary) !important;
+}
+
 
 /***********************************************************************************************************************
 Color mode and shade handling

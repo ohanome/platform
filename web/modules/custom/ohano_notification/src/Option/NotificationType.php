@@ -15,9 +15,12 @@ namespace Drupal\ohano_notification\Option;
  */
 enum NotificationType: string {
   case Newsletter = "Newsletter";
-  case NewFollower = "New follower";
-  case NewMessage = "New message";
+  case Follower = "Follower related";
+  case Message = "Message related";
+  case Post = "Post related";
+  case Comment = "Comment related";
   case Security = "Security";
+  case Misc = "Miscellaneous";
 
   public static function translatableFormOptions(): array {
     $options = [];

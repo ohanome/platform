@@ -9,6 +9,8 @@ use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Option\ColorMode;
 use Drupal\ohano_account\Option\ColorShade;
 use Drupal\ohano_account\Option\FontSize;
+use Drupal\ohano_notification\Entity\Notification;
+use Drupal\ohano_notification\Entity\NotificationSettings;
 use Drupal\ohano_notification\Option\NotificationChannel;
 use Drupal\ohano_core\Form\FormTrait;
 use Drupal\ohano_notification\Option\NotificationType;
@@ -91,10 +93,45 @@ class SettingsForm extends FormBase {
     $form['appearance']['color_mode'] = $this->buildSelectField($this->t('Color mode'), ColorMode::translatableFormOptions(), $account->getColorMode());
     $form['appearance']['color_shade'] = $this->buildSelectField($this->t('Color shade'), ColorShade::translatableFormOptions(), $account->getColorShade());
 
+
+    $notificationSettings = NotificationSettings::forAccount($account);
     $form['notifications'] = $this->buildDefaultContainer($this->t('Notifications'));
-    foreach (NotificationType::cases() as $type) {
-      $form['notifications'][$type->name] = $this->buildSelectField($this->t($type->value), [NULL => $this->t('None')] + NotificationChannel::translatableFormOptions());
-    }
+    $form['notifications']['#description'] = $this->t('Every notification will be available over the notification center, regardless of the settings you set here. If you set a certain setting to "none" you may not notice a new notification.');
+    $form['notifications']['newsletter'] = $this->buildSelectField(
+      $this->t('Newsletter'),
+      NotificationChannel::translatableFormOptions(),
+      $notificationSettings->get('newsletter')->value
+    );
+    $form['notifications']['follower'] = $this->buildSelectField(
+      $this->t('Follower related'),
+      NotificationChannel::translatableFormOptions(),
+      $notificationSettings->get('follower')->value
+    );
+    $form['notifications']['message'] = $this->buildSelectField(
+      $this->t('Follower related'),
+      NotificationChannel::translatableFormOptions(),
+      $notificationSettings->get('message')->value
+    );
+    $form['notifications']['security'] = $this->buildSelectField(
+      $this->t('Security related'),
+      NotificationChannel::translatableFormOptions(),
+      $notificationSettings->get('security')->value
+    );
+    $form['notifications']['post'] = $this->buildSelectField(
+      $this->t('Post related'),
+      NotificationChannel::translatableFormOptions(),
+      $notificationSettings->get('post')->value
+    );
+    $form['notifications']['comment'] = $this->buildSelectField(
+      $this->t('Comment related'),
+      NotificationChannel::translatableFormOptions(),
+      $notificationSettings->get('comment')->value
+    );
+    $form['notifications']['miscellaneous'] = $this->buildSelectField(
+      $this->t('Miscellaneous'),
+      NotificationChannel::translatableFormOptions(),
+      $notificationSettings->get('miscellaneous')->value
+    );
 
     return $form;
   }

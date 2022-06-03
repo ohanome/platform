@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "highlight.js": "^11.5.1",
     "node-sass": "^7.0.1",
     "source-serif": "^4.4.0"
   },

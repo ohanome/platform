@@ -3,6 +3,7 @@
 namespace Drupal\ohano_profile\Entity;
 
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -91,6 +92,10 @@ class UserProfile extends EntityBase {
     }
 
     parent::delete();
+  }
+
+  public function getProfileUrl(): Url {
+    return Url::fromRoute('ohano_profile.profile.other', ['username' => $this->getProfileName()]);
   }
 
   /**

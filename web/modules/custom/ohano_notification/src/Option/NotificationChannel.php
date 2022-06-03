@@ -14,6 +14,7 @@ namespace Drupal\ohano_notification\Option;
  * @todo: Remove 'phpcs:ignoreFile' once phpcs supports enums.
  */
 enum NotificationChannel: string {
+  case None = "None";
   case Email = "Email";
   case InApp = "In-App";
   case Push = "Push";
