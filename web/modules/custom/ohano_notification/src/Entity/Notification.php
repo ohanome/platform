@@ -69,9 +69,10 @@ class Notification extends EntityBase {
     return $query->execute();
   }
 
-  public static function getAllByState(Account $account, NotificationState $state): array {
+  public static function getAllByState(Account $account, UserProfile $profile, NotificationState $state): array {
     $query = \Drupal::entityQuery(Notification::entityTypeId())
       ->condition('account', $account->getId())
+      ->condition('profile', $profile->getId())
       ->condition('state', $state->value);
     return $query->execute();
   }
@@ -96,8 +97,8 @@ class Notification extends EntityBase {
     return Notification::loadMultiple(array_values($result));
   }
 
-  public static function loadAllByState(Account $account, NotificationState $state): array {
-    $result = Notification::getAllByState($account, $state);
+  public static function loadAllByState(Account $account, UserProfile $profile, NotificationState $state): array {
+    $result = Notification::getAllByState($account, $profile, $state);
     return Notification::loadMultiple(array_values($result));
   }
 

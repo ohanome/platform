@@ -1,5 +1,6 @@
-<div class="notification">
-  {% if link %}<a href="{{ link }}">{% endif %}
-
+<div class="notification{% if type %} {{ type }}{% endif %}">
+  {% if link %}<a href="{{- link -}}">{% endif %}
+    {% if timestamp %}<span class="timestamp">{{- timestamp -}}</span>{% endif %}
+    {% if content %}{{- content -}}{% endif %}
   {% if link %}</a>{% endif %}
 </div>
