@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.article.body
     - field.field.node.article.comment
+    - field.field.node.article.field_feedback_form
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
     - field.field.node.article.field_teaser_text
@@ -16,6 +17,7 @@ dependencies:
     - path
     - scheduler
     - text
+    - webform
 _core:
   default_config_hash: Pzq9mzrsfoPf775qgEU_SUbHSro9pv1ga-Euh1Ykd_k
 id: node.article.default
@@ -44,6 +46,14 @@ content:
     weight: 7
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_feedback_form:
+    type: webform_entity_reference_select
+    weight: 26
+    region: content
+    settings:
+      default_data: true
+      webforms: {  }
     third_party_settings: {  }
   field_image:
     type: image_image

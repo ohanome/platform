@@ -41,3 +41,94 @@
     }
   }
 }
+
+@media screen and (max-width: 375px) {
+  #block-ohano-primary-local-tasks {
+    ul {
+      flex-direction: column;
+
+      li {
+        &:first-of-type {
+          a {
+            border-bottom-left-radius: 0;
+            border-top-right-radius: .5rem;
+          }
+        }
+
+        &:last-of-type {
+          a {
+            border-bottom-right-radius: .5rem;
+            border-bottom-left-radius: .5rem;
+            border-top-right-radius: 0;
+          }
+        }
+
+        a {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #block-ohano-primary-local-tasks {}
+}
+
+@media screen and (max-width: 425px) {
+  #block-ohano-primary-local-tasks {
+    ul {
+      flex-direction: column;
+
+      li {
+        &:first-of-type {
+          a {
+            border-bottom-left-radius: 0;
+            border-top-right-radius: .5rem;
+          }
+        }
+
+        &:last-of-type {
+          a {
+            border-bottom-right-radius: .5rem;
+            border-bottom-left-radius: .5rem;
+            border-top-right-radius: 0;
+          }
+        }
+
+        a {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #block-ohano-primary-local-tasks {
+    ul {
+      flex-direction: column;
+
+      li {
+        &:first-of-type {
+          a {
+            border-bottom-left-radius: 0;
+            border-top-right-radius: .5rem;
+          }
+        }
+
+        &:last-of-type {
+          a {
+            border-bottom-right-radius: .5rem;
+            border-bottom-left-radius: .5rem;
+            border-top-right-radius: 0;
+          }
+        }
+
+        a {
+          display: block;
+        }
+      }
+    }
+  }
+}

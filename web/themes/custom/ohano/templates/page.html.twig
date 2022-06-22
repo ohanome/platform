@@ -62,7 +62,7 @@
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
     {% if page.sidebar_left %}
-      <aside class="layout-sidebar-left" role="complementary">
+      <aside class="layout-sidebar-left desktop-only" role="complementary">
         {{ page.sidebar_left }}
       </aside>
     {% endif %}
@@ -72,10 +72,24 @@
     </div>{# /.layout-content #}
 
     {% if page.sidebar_right %}
-      <aside class="layout-sidebar-right" role="complementary">
+      <aside class="layout-sidebar-right desktop-only" role="complementary">
         {{ page.sidebar_right }}
       </aside>
     {% endif %}
+
+    <div class="mobile-container">
+    {% if page.sidebar_left %}
+      <aside class="layout-sidebar-left mobile-only" role="complementary">
+        {{ page.sidebar_left }}
+      </aside>
+    {% endif %}
+
+    {% if page.sidebar_right %}
+      <aside class="layout-sidebar-right mobile-only" role="complementary">
+        {{ page.sidebar_right }}
+      </aside>
+    {% endif %}
+    </div>
 
   </main>
 

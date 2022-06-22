@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.article.body
     - field.field.node.article.comment
+    - field.field.node.article.field_feedback_form
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
     - field.field.node.article.field_teaser_text
@@ -14,6 +15,7 @@ dependencies:
     - image
     - text
     - user
+    - webform
 _core:
   default_config_hash: b4RQ-Nfz-gOoG_jjftd_qDIz4lf_-OzlxoLHkRXjfrE
 id: node.article.default
@@ -27,6 +29,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_feedback_form:
+    type: webform_entity_reference_entity_view
+    label: above
+    settings:
+      source_entity: true
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_image:
     type: image

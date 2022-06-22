@@ -1,6 +1,6 @@
 uuid: 493dd5fe-b2b7-4f03-9bb3-e0c840c71750
 langcode: de
-status: closed
+status: open
 dependencies: {  }
 weight: 0
 open: null
@@ -44,13 +44,13 @@ settings:
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: both
+  form_title: source_entity_webform
   form_submit_once: false
   form_open_message: ''
   form_close_message: ''
   form_exception_message: ''
   form_previous_submissions: true
-  form_confidential: false
+  form_confidential: true
   form_confidential_message: ''
   form_disable_remote_addr: false
   form_convert_anonymous: false
@@ -84,7 +84,7 @@ settings:
   submission_label: ''
   submission_exception_message: ''
   submission_locked_message: ''
-  submission_log: false
+  submission_log: true
   submission_excluded_elements: {  }
   submission_exclude_empty: false
   submission_exclude_empty_checkbox: false
@@ -116,7 +116,7 @@ settings:
   wizard_track: ''
   wizard_prev_button_label: ''
   wizard_next_button_label: ''
-  wizard_toggle: false
+  wizard_toggle: true
   wizard_toggle_show_label: ''
   wizard_toggle_hide_label: ''
   preview: 0
@@ -134,10 +134,10 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: page
+  confirmation_type: inline
   confirmation_url: ''
   confirmation_title: ''
-  confirmation_message: ''
+  confirmation_message: 'Vielen Dank f&uuml;r dein Feedback!'
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -149,9 +149,9 @@ settings:
   limit_total_interval: null
   limit_total_message: ''
   limit_total_unique: false
-  limit_user: null
+  limit_user: 1
   limit_user_interval: null
-  limit_user_message: ''
+  limit_user_message: 'Du hast dieses Formular bereits ausgef&uuml;llt.'
   limit_user_unique: false
   entity_limit_total: null
   entity_limit_total_interval: null
