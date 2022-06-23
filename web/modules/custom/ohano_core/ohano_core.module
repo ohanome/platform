@@ -40,3 +40,9 @@ function ohano_core_features_alter(&$features) {
     $features[] = \Drupal\ohano_core\Feature\DeveloperMode::class;
   }
 }
+
+function ohano_preprocess_html(&$variables) {
+  if ((int) (new \DateTime())->format("m") < 8) {
+    \Drupal::messenger()->addMessage(t("Welcome! Do you want to <a href='@url'>learn something about ohano first</a>?", ['@url' => '/ohano']));
+  }
+}

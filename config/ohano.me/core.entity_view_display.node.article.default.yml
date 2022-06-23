@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.article.body
-    - field.field.node.article.comment
     - field.field.node.article.field_feedback_form
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
@@ -61,6 +60,5 @@ content:
     weight: 3
     region: content
 hidden:
-  comment: true
   field_teaser_text: true
   langcode: true
