@@ -1,0 +1,31 @@
+body {
+  main {
+    .block#block-ohano-content {
+      article {
+        margin: .5rem;
+      }
+      .container {
+        .views-row {
+
+          &:not(:last-of-type) {
+            article {
+              margin-bottom: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 425px) {
+}
+
+@media screen and (max-width: 375px) {
+}
+
+@media screen and (max-width: 320px) {
+}

@@ -3,6 +3,8 @@ services:
     class: Drupal\ohano_account\Filter\Email\GoogleMailFilter
   ohano_account.validator.email:
     class: Drupal\ohano_account\Validator\EmailValidator
+  ohano_account.validator.username:
+    class: Drupal\ohano_account\Validator\UsernameValidator
   ohano_account.subscriber.request:
     class: Drupal\ohano_account\EventSubscriber\RequestSubscriber
     tags:

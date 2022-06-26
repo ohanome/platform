@@ -1,0 +1,11 @@
+uuid: b1dfafc3-21d5-4832-b0ab-0fb01ed8703b
+langcode: de
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.gaming_platforms
+id: taxonomy_term.gaming_platforms
+target_entity_type_id: taxonomy_term
+target_bundle: gaming_platforms
+default_langcode: site_default
+language_alterable: false

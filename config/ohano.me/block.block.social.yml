@@ -1,0 +1,25 @@
+uuid: a8132671-70e5-48fd-a7f3-ed2fa8026510
+langcode: de
+status: true
+dependencies:
+  config:
+    - system.menu.find-us-on
+  module:
+    - system
+  theme:
+    - ohano_base
+id: social
+theme: ohano_base
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:find-us-on'
+settings:
+  id: 'system_menu_block:find-us-on'
+  label: Social
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

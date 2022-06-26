@@ -1,0 +1,11 @@
+<div class="block-inner">
+  <div class="color-mode-switch dropdown">
+    <button class="dropdown-base">{{ "Color mode"|trans }}</button>
+    <div class="dropdown-content">
+      <button id="setLightMode" class="dropdown-item">{{ 'Light'|trans }}</button>
+      <button id="setDarkMode" class="dropdown-item">{{ 'Dark'|trans }}</button>
+    </div>
+  </div>
+</div>
+
+{{ attach_library('ohano_appearance/dark-light-mode-switch') }}

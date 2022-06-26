@@ -10,7 +10,9 @@ use Drupal\ohano_account\Blocklist;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Entity\AccountActivation;
 use Drupal\ohano_account\Entity\AccountVerification;
+use Drupal\ohano_account\Form\Config\RegistrationConfigForm;
 use Drupal\ohano_account\Validator\EmailValidator;
+use Drupal\ohano_account\Validator\UsernameValidator;
 use Drupal\ohano_mail\OhanoMail;
 use Drupal\ohano_mail\OhanoMailer;
 use Drupal\user\Entity\User;
@@ -34,6 +36,11 @@ class RegistrationForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    if ($this->configFactory()->get(RegistrationConfigForm::CONFIG_NAME)->get('open') != 1) {
+      $this->messenger()->addError($this->t("We're sorry but registration is currently closed."));
+      return [];
+    }
+
     $form = [];
 
     $form['info'] = [
@@ -109,10 +116,13 @@ class RegistrationForm extends FormBase {
       $form_state->setErrorByName('password', $this->t("The passwords don't match."));
     }
 
+    /** @var \Drupal\ohano_account\Validator\UsernameValidator $usernameValidator */
+    $usernameValidator = \Drupal::service('ohano_account.validator.username');
+
     $existingUser = \Drupal::entityQuery('user')
       ->condition('name', $form_state->getValue('username'))
       ->execute();
-    if (!empty($existingUser)) {
+    if (!empty($existingUser) && $usernameValidator->validateUsername($form_state->getValue('username')) != UsernameValidator::VALID) {
       $form_state->setErrorByName('username', $this->t("We're sorry but this username is already taken."));
     }
 

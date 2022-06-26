@@ -1,0 +1,51 @@
+.profile-list {
+  padding: .5rem;
+
+  a {
+    display: block;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    background-color: var(--background-primary);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-decoration: none;
+
+    .profile {
+      height: 16rem;
+      line-height: 16rem;
+      border-radius: 0.5rem;
+      backdrop-filter: blur(.5rem);
+      background-color: rgba(0,0,0,0.2);
+      color: var(--gray100);
+      padding: 0 4rem;
+      display: flex;
+
+      .big {
+        font-family: "Poppins", sans-serif;
+        font-size: 3rem;
+        font-weight: bold;
+      }
+
+      sup {
+        font-size: 2rem;
+      }
+
+      &.add {
+        text-align: center;
+      }
+
+      .profile-picture {
+        height: 8rem;
+        width: 8rem;
+        position: relative;
+        top: 4rem;
+        margin-right: 4rem;
+        border-radius: 0.25rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    }
+  }
+}

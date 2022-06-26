@@ -1,0 +1,61 @@
+body {
+  header {
+    .region {
+      display: flex;
+      flex-direction: row;
+      margin-top: 1rem;
+
+      .block#block-ohano-site-branding {
+        a,
+        a:visited,
+        a:link {
+          text-decoration: none;
+          color: var(--text-color-primary);
+          font-family: "Poppins", sans-serif;
+          display: block;
+          font-size: 2.5rem;
+          line-height: 2.5rem;
+          padding: 1rem;
+        }
+      }
+
+      nav {
+        justify-self: flex-end;
+
+        ul {
+          padding: 0;
+
+          li {
+            list-style: none;
+
+            a,
+            a:visited,
+            a:link {
+              display: block;
+              margin: -.5rem;
+              text-decoration: none;
+              color: var(--text-color-primary);
+              padding: 1rem;
+              transition: all ease-in-out 200ms;
+              border-radius: .7rem;
+
+              &.is-active {
+                font-weight: bold;
+              }
+
+              &:hover {
+                background-color: var(--text-color-primary);
+                color: var(--background-primary);
+                transition: all ease-in-out 200ms;
+              }
+
+              &:first-of-type {
+                margin-left: 2rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

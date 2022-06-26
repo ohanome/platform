@@ -1,0 +1,19 @@
+<div class="search-container">
+  <div class="search-form">
+    {{ search_form }}
+  </div>
+  {% if result_count %}
+    <div class="result-count">
+      {{ "Found results:"|trans }}&nbsp;{{ result_count }}
+    </div>
+  {% endif %}
+  <div class="results">
+    {% if results %}
+      {% for result in results %}
+        {{ result }}
+      {% endfor %}
+    {% else %}
+      <i>{{ "Your search yielded no results"|trans }}</i>
+    {% endif %}
+  </div>
+</div>

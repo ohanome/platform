@@ -1,0 +1,67 @@
+ohano_profile.create_profile_base:
+  path: '/profile/create-base'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::createProfileBase
+    _title: ''
+  requirements:
+    _permission: 'access content'
+ohano_profile.edit:
+  path: '/profile/{profileName}/edit'
+  defaults:
+    _form: Drupal\ohano_profile\Form\ProfileForm
+    _title: 'Edit profile'
+  requirements:
+    _permission: 'access content'
+ohano_profile.manage:
+  path: '/profile/manage'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::listProfiles
+    _title: 'Manage profile'
+  requirements:
+    _permission: 'access content'
+ohano_profile.add:
+  path: '/profile/add'
+  defaults:
+    _form: Drupal\ohano_profile\Form\ProfileAddForm
+    _title: 'Add profile'
+  requirements:
+    _permission: 'access content'
+ohano_profile.switch:
+  path: '/profile/switch/{profileName}'
+  defaults:
+    _controller: Drupal\ohano_profile\Controller\ProfileController::switchActiveProfile
+  requirements:
+    _permission: 'access content'
+ohano_profile.search:
+  path: '/profile/search'
+  defaults:
+    _form: Drupal\ohano_profile\Form\ProfileSearchForm
+    _title: 'Search profiles'
+  requirements:
+    _permission: 'access content'
+
+ohano_profile.profile.self:
+  path: '/user'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::profile
+  requirements:
+    _permission: 'access content'
+
+ohano_profile.profile.other:
+  path: '/user/{username}'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::profile
+  requirements:
+    _permission: 'access content'
+ohano_profile.profile.alt2:
+  path: '/profile'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::redirectToProfile
+  requirements:
+    _permission: 'access content'
+ohano_profile.profile.alt3:
+  path: '/profile/{username}'
+  defaults:
+    _controller: \Drupal\ohano_profile\Controller\ProfileController::redirectToProfile
+  requirements:
+    _permission: 'access content'

@@ -1,0 +1,3 @@
+<a class="search-result"{% if link %} href="{{ link }}"{% endif %}>
+  {% if title %}{{ title }}{% endif %}{% if score %}&nbsp;({{ "Match"|trans }}: {{ score }} %){% endif %}
+</a>

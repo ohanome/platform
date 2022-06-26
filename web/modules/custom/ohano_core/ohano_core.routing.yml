@@ -5,3 +5,17 @@ ohano_core.admin:
     _title: 'ohano'
   requirements:
     _permission: 'ohano access ohano administration'
+ohano_core.config:
+  path: '/admin/config/ohano'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'ohano'
+  requirements:
+    _permission: 'ohano access configuration'
+
+ohano_core.developer_mode:
+  path: '/ohano/developer-mode'
+  defaults:
+    _controller: \Drupal\ohano_core\Controller\DeveloperModeController::switchDeveloperMode
+  requirements:
+    _permission: 'ohano access developer mode'

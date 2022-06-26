@@ -1,0 +1,21 @@
+uuid: fccd7e8a-6457-41c6-a07f-2eba4d0b5ef5
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_end
+    - node.type.event
+id: node.event.field_end
+field_name: field_end
+entity_type: node
+bundle: event
+label: Ende
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1649095416
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

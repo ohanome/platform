@@ -9,6 +9,7 @@ dependencies:
     - contact
     - eu_cookie_compliance
     - filter
+    - media
     - ohano_account
     - search
     - system
@@ -26,3 +27,4 @@ permissions:
   - 'ohano access registration form'
   - 'search content'
   - 'use text format restricted_html'
+  - 'view media'

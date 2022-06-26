@@ -1,0 +1,23 @@
+diff --git a/index.php b/index.php
+index 750dc28..bbfde08 100644
+--- a/index.php
++++ b/index.php
+@@ -1,5 +1,18 @@
+ <?php
+ 
++$then = (int) (new \DateTime())
++  ->setTimezone(new DateTimeZone('Europe/Berlin'))
++  ->setDate(2022, 7, 1)
++  ->setTime(18, 0)
++  ->format('U');
++$now = (int) (new \DateTime())
++  ->setTimezone(new DateTimeZone('Europe/Berlin'))
++  ->format('U');
++if ($now < $then && $_SERVER['HTTP_HOST'] == 'ohano.me') {
++  header('Location: /hello.html');
++  die();
++}
++
+ /**
+  * @file
+  * The PHP page that serves all page requests on a Drupal installation.

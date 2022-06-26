@@ -1,0 +1,12 @@
+@import "includes/colors";
+
+body {
+  background-color: var(--background-primary);
+  color: var(--text-color-primary);
+
+  .layout-container {
+    .region {
+      background-color: var(--background-secondary);
+    }
+  }
+}

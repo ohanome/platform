@@ -1,0 +1,41 @@
+<div class="profile-block">
+  <div class="profile-block-inner{% if profile_picture %} has-profile-picture{% endif %}">
+    {% if profile_picture %}
+      <div class="profile-picture-wrapper">
+        {{ profile_picture }}
+      </div>
+    {% endif %}
+    <div class="profile-info-wrapper">
+      <div class="">
+        <div class="profile-name-outer">
+          <span class="profile-name">{{ profile_name }}</span>
+        </div>
+        <div class="col-1"></div>
+      </div>
+      <div class="row row-cols-1">
+        <div class="col-12">
+          <div class="btn-group">
+            <a class="btn btn-dark" href="{{ path('ohano_profile.profile.self') }}">{{ "View"|trans }}</a>
+            <a class="btn btn-dark" href="{{ path('ohano_profile.edit', {'profileName': profile_name}) }}">{{ "Edit"|trans }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-actions-wrapper">
+      <div class="col col-12">
+        {% if other_profiles %}
+          <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ "Switch profile" }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              {% for other_profile in other_profiles %}
+                <li><a class="dropdown-item" href="{{ path('ohano_profile.switch', {'profileName': other_profile}) }}">{{ other_profile }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

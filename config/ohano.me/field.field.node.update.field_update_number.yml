@@ -1,0 +1,21 @@
+uuid: f116526f-77c5-406e-af06-e50c4493a47a
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_update_number
+    - node.type.update
+  module:
+    - options
+id: node.update.field_update_number
+field_name: field_update_number
+entity_type: node
+bundle: update
+label: 'Update Nummer'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

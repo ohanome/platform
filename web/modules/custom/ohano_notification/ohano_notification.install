@@ -1,0 +1,31 @@
+<?php
+
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\ohano_notification\Entity\Notification;
+use Drupal\ohano_profile\Entity\UserProfile;
+
+/**
+ * Installs the notification_settings entity type.
+ */
+function ohano_notification_update_9001() {
+  \Drupal\ohano_notification\Entity\NotificationSettings::install();
+}
+
+/**
+ * Installs the notification_settings entity type.
+ */
+function ohano_notification_update_9002() {
+  \Drupal\ohano_notification\Entity\NotificationSettings::uninstall();
+  \Drupal\ohano_notification\Entity\NotificationSettings::install();
+}
+
+/**
+ * Installs the profile field
+ */
+function ohano_notification_update_9003() {
+  $field = BaseFieldDefinition::create('entity_reference')
+    ->setSetting('target_type', UserProfile::ENTITY_ID)
+    ->setSetting('handler', 'default');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('profile', Notification::ENTITY_ID, Notification::ENTITY_ID, $field);
+}

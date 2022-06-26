@@ -1,0 +1,22 @@
+uuid: 7f93974c-9a93-4dd8-8f7f-c12e4d1f7004
+langcode: de
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ohano
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: ohano_content
+theme: ohano
+region: content
+weight: -2
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

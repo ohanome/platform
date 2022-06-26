@@ -1,0 +1,31 @@
+uuid: db5e25f3-6843-4308-8fe8-354f38061020
+langcode: de
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.event.field_end
+    - field.field.node.event.field_info
+    - field.field.node.event.field_location
+    - field.field.node.event.field_start
+    - field.field.node.event.field_teaser_text
+    - node.type.event
+  module:
+    - user
+id: node.event.teaser
+targetEntityType: node
+bundle: event
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_end: true
+  field_info: true
+  field_location: true
+  field_start: true
+  field_teaser_text: true
+  langcode: true

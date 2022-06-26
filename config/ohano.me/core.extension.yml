@@ -9,11 +9,14 @@ module:
   block: 0
   block_content: 0
   breakpoint: 0
+  chosen: 0
+  chosen_lib: 0
   ckeditor: 0
   color: 0
   comment: 0
   config: 0
   contact: 0
+  ctools: 0
   datetime: 0
   dblog: 0
   dynamic_page_cache: 0
@@ -32,19 +35,29 @@ module:
   link: 0
   locale: 0
   mailsystem: 0
+  media: 0
+  media_library: 0
   menu_link_content: 0
   menu_ui: 0
+  mysql: 0
   node: 0
   ohano_account: 0
+  ohano_appearance: 0
   ohano_core: 0
   ohano_mail: 0
+  ohano_notification: 0
+  ohano_profile: 0
+  ohano_search: 0
+  ohano_stats: 0
   options: 0
   page_cache: 0
   path: 0
   path_alias: 0
+  quick_node_clone: 0
   rdf: 0
   rest: 0
   restui: 0
+  scheduler: 0
   search: 0
   serialization: 0
   shortcut: 0
@@ -52,12 +65,19 @@ module:
   system: 0
   taxonomy: 0
   text: 0
+  token: 0
   toolbar: 0
   tour: 0
   update: 0
   user: 0
   views_ui: 0
   webform: 0
+  webform_access: 0
+  webform_node: 0
+  webform_submission_export_import: 0
+  webform_submission_log: 0
+  webform_ui: 0
+  pathauto: 1
   views: 10
   standard: 1000
   eu_cookie_compliance: 1001
@@ -70,4 +90,6 @@ theme:
   classy: 0
   bootstrap5: 0
   ohano_base: 0
+  olivero: 0
+  ohano: 0
 profile: standard

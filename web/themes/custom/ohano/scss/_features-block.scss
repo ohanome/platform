@@ -1,0 +1,24 @@
+.features-block {
+  padding: .5rem;
+  background-color: var(--background-primary);
+  border-radius: .5rem;
+
+  .feature {
+    padding: .5rem;
+    margin: .5rem;
+    background-color: transparent;
+    border-radius: .3rem;
+    display: flex;
+    color: var(--text-color-primary);
+    text-decoration: none;
+
+    &:hover {
+      background-color: var(--text-color-primary);
+      color: var(--background-secondary);
+    }
+
+    .icon {
+      margin-right: 1rem;
+    }
+  }
+}

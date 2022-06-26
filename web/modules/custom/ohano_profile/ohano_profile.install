@@ -1,0 +1,67 @@
+<?php
+
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\ohano_profile\Entity\CodingProfile;
+use Drupal\ohano_profile\Entity\GamingProfile;
+use Drupal\ohano_profile\Entity\SocialMediaProfile;
+use Drupal\ohano_profile\Entity\UserProfile;
+use Drupal\ohano_profile\Option\ProfileType;
+
+/**
+ * Installs the profile_name field on the UserProfile entity.
+ */
+function ohano_profile_update_9001(&$sandbox) {
+  $field = BaseFieldDefinition::create('string');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('profile_name', UserProfile::ENTITY_ID, UserProfile::ENTITY_ID, $field);
+
+  foreach (UserProfile::loadMultiple() as $userProfile) {
+    $userProfile->set('profile_name', $userProfile->getAccount()->getUser()->getAccountName());
+    $userProfile->save();
+  }
+}
+
+/**
+ * Installs the codepen field on the CodingProfile entity.
+ */
+function ohano_profile_update_9002() {
+  $field = BaseFieldDefinition::create('string');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('codepen', CodingProfile::ENTITY_ID, CodingProfile::ENTITY_ID, $field);
+}
+
+/**
+ * Installs the twitch field on the GamingProfile entity.
+ */
+function ohano_profile_update_9003() {
+  $field = BaseFieldDefinition::create('string');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('twitch', GamingProfile::ENTITY_ID, GamingProfile::ENTITY_ID, $field);
+}
+
+/**
+ * Re-installs the twitch field on the SocialMediaProfile entity.
+ */
+function ohano_profile_update_9004() {
+  $field = BaseFieldDefinition::create('string');
+  $update_manager = Drupal::service('entity.definition_update_manager');
+  $definition = $update_manager->getFieldStorageDefinition('twitch', GamingProfile::ENTITY_ID);
+  \Drupal::entityDefinitionUpdateManager()
+    ->uninstallFieldStorageDefinition($definition);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('twitch', SocialMediaProfile::ENTITY_ID, SocialMediaProfile::ENTITY_ID, $field);
+}
+
+/**
+ * Installs the type field on the UserProfile entity.
+ */
+function ohano_profile_update_9005(&$sandbox) {
+  $field = BaseFieldDefinition::create('string');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('type', UserProfile::ENTITY_ID, UserProfile::ENTITY_ID, $field);
+
+  foreach (UserProfile::loadMultiple() as $userProfile) {
+    $userProfile->set('type', ProfileType::Personal->value);
+    $userProfile->save();
+  }
+}

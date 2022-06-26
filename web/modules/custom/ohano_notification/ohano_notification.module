@@ -1,0 +1,61 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\ohano_account\Entity\Account;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function ohano_notification_theme($existing, $type, $theme, $path) {
+  return [
+    'notification_list' => [
+      'template' => 'notification-list',
+      'variables' => [
+        'notifications' => NULL,
+      ],
+    ],
+    'notification' => [
+      'template' => 'notification',
+      'variables' => [
+        'link' => NULL,
+        'content' => NULL,
+        'type' => NULL,
+        'timestamp' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_create().
+ */
+function ohano_notification_entity_create(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == Account::entityTypeId()) {
+    /** @var Account $entity */
+    /** @var \Drupal\ohano_notification\Service\NotificationService $notificationService */
+    $notificationService = \Drupal::service('ohano_notification.notification');
+    $notificationService->createNotificationSettingsForAccount($entity);
+  }
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function ohano_notification_user_login(UserInterface $account) {
+  if (\Drupal::currentUser()->isAuthenticated()) {
+    $ohanoAccount = Account::forActive();
+    /** @var \Drupal\ohano_notification\Service\NotificationService $notificationService */
+    $notificationService = \Drupal::service('ohano_notification.notification');
+    $notificationService->createNotificationSettingsForAccount($ohanoAccount);
+  }
+}
+
+/**
+ * Implements hook_features_alter().
+ */
+function ohano_notification_features_alter(&$features) {
+  if (\Drupal::currentUser()->hasPermission('ohano access developer mode')) {
+    $features[] = \Drupal\ohano_notification\Feature\Notifications::class;
+  }
+}

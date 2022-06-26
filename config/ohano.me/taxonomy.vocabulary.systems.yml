@@ -1,0 +1,8 @@
+uuid: 8dc3d51c-da64-4e3b-92eb-7a27eb79eeeb
+langcode: de
+status: true
+dependencies: {  }
+name: Systeme
+vid: systems
+description: ''
+weight: 0

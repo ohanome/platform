@@ -145,7 +145,7 @@ settings:
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
   confirmation_type: url_message
-  confirmation_url: '&lt;front&gt;'
+  confirmation_url: /
   confirmation_title: ''
   confirmation_message: 'Your message has been sent.'
   confirmation_attributes: {  }

@@ -1,0 +1,9 @@
+<div class="notification-list">
+  {% if notifications %}
+    {% for i, n in notifications %}
+      {{ n }}
+    {% endfor %}
+  {% else %}
+    <i>{{ "No notifications" }}</i>
+  {% endif %}
+</div>

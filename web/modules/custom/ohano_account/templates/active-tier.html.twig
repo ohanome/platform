@@ -1,0 +1,26 @@
+<div class="active-tier">
+  {% if tier %}
+    <div>
+      {{ "Active tier"|trans }}<br />
+      {{ tier }}
+    </div>
+  {% endif %}
+  {% if date %}
+    <div>
+      {{ "Date"|trans }}<br />
+      {{ date }}
+    </div>
+  {% endif %}
+  {% if timestamp %}
+    <div>
+      {{ "Timestamp"|trans }}<br />
+      {{ timestamp }}
+    </div>
+  {% endif %}
+  {% if days_left %}
+    <div>
+      {{ "Days left"|trans }}<br />
+      {{ days_left }}
+    </div>
+  {% endif %}
+</div>

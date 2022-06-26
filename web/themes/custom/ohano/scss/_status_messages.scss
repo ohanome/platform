@@ -1,0 +1,46 @@
+div[data-drupal-messages] {
+  .message {
+    background-color: var(--background-primary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 0.5rem 0.5rem 1rem;
+
+    &.message-type-status {
+      background-color: var(--emerald400)
+    }
+
+    &.message-type-error {
+      background-color: var(--rose400)
+    }
+
+    &.message-type-warning {
+      background-color: var(--yellow300)
+    }
+
+    pre {
+      font-family: monospace;
+      padding: 1rem;
+      background: var(--background-primary);
+      color: var(--text-color-primary);
+      border-radius: .33rem;
+      overflow: auto;
+      max-height: 16rem;
+    }
+  }
+}
+
+html.color-mode-dark {
+  div[data-drupal-messages] {
+    .message-type-status {
+      background-color: var(--emerald700)
+    }
+
+    .message-type-error {
+      background-color: var(--rose700)
+    }
+
+    .message-type-warning {
+      background-color: var(--yellow700)
+    }
+  }
+}

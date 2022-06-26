@@ -1,0 +1,18 @@
+<?php
+
+function ohano_appearance_theme() {
+  return [
+    'block__color_mode' => [
+      'template' => 'block--color-mode',
+      'base hook' => 'block'
+    ],
+    'block__color_shade' => [
+      'template' => 'block--color-shade',
+      'base hook' => 'block'
+    ],
+    'block__font_size' => [
+      'template' => 'block--font-size',
+      'base hook' => 'block'
+    ],
+  ];
+}

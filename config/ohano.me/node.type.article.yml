@@ -1,7 +1,28 @@
 uuid: ecdc0d29-a7b7-47c4-ae5d-f73012c07fed
 langcode: de
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - menu_ui
+    - scheduler
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: true
+    publish_past_date: publish
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: true
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
 _core:
   default_config_hash: AeW1SEDgb1OTQACAWGhzvMknMYAJlcZu0jljfeU3oso
 name: Artikel
@@ -10,4 +31,4 @@ description: 'Benutzen Sie <em>Artikel</em> für zeitkritische Inhalte wie Nachr
 help: ''
 new_revision: true
 preview_mode: 1
-display_submitted: true
+display_submitted: false

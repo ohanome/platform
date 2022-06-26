@@ -8,7 +8,7 @@ dependencies:
 _core:
   default_config_hash: vBKWYGGDoAX-tFd1JErB8tZLSxx3lJ0foouVsgpcbB4
 id: content
-label: Inhalt
+label: Content
 module: node
 description: 'Inhalte finden und verwalten.'
 tag: default
@@ -17,11 +17,11 @@ base_field: nid
 display:
   default:
     id: default
-    display_title: Standard
+    display_title: Default
     display_plugin: default
     position: 0
     display_options:
-      title: Inhalt
+      title: Content
       fields:
         node_bulk_form:
           id: node_bulk_form
@@ -69,7 +69,7 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: field
-          label: Inhaltstyp
+          label: 'Content type'
           exclude: false
           alter:
             alter_text: false
@@ -132,7 +132,7 @@ display:
           entity_type: user
           entity_field: name
           plugin_id: field
-          label: Autor
+          label: Author
           exclude: false
           alter:
             alter_text: false
@@ -163,7 +163,7 @@ display:
           type: boolean
           settings:
             format: custom
-            format_custom_false: 'Nicht veröffentlicht'
+            format_custom_false: Unpublished
             format_custom_true: Published
         changed:
           id: changed
@@ -172,7 +172,7 @@ display:
           entity_type: node
           entity_field: changed
           plugin_id: field
-          label: Aktualisiert
+          label: Updated
           exclude: false
           alter:
             alter_text: false
@@ -242,8 +242,8 @@ display:
         options:
           items_per_page: 50
           tags:
-            next: 'Nächste Seite ›'
-            previous: '‹ Vorherige Seite'
+            next: 'Next ›'
+            previous: '‹ Previous'
             first: '« First'
             last: 'Last »'
       exposed_form:
@@ -331,7 +331,7 @@ display:
           exposed: true
           expose:
             operator_id: type_op
-            label: Inhaltstyp
+            label: 'Content type'
             description: ''
             use_operator: false
             operator: type_op
@@ -388,7 +388,7 @@ display:
               authenticated: authenticated
           is_grouped: true
           group_info:
-            label: Veröffentlichungsstatus
+            label: 'Published status'
             description: ''
             identifier: status
             optional: true
@@ -403,7 +403,7 @@ display:
                 operator: '='
                 value: '1'
               2:
-                title: 'Nicht veröffentlicht'
+                title: Unpublished
                 operator: '='
                 value: '0'
         langcode:
@@ -593,14 +593,14 @@ display:
       path: admin/content/node
       menu:
         type: 'default tab'
-        title: Inhalt
+        title: Content
         description: ''
         weight: -10
         menu_name: admin
         context: ''
       tab_options:
         type: normal
-        title: Inhalt
+        title: Content
         description: 'Inhalte finden und verwalten'
         weight: -10
         menu_name: admin
