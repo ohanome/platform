@@ -130,7 +130,7 @@
     },
     "scripts": {
         "post-drupal-scaffold-cmd": [
-            "cd web/themes/custom/ohano_base && npm install && npm run scss",
+            "patch -d ./web < ./patches/redirect_before_launch.patch",
             "cd web/themes/custom/ohano && npm install && npm run scss"
         ]
     },

@@ -2,3 +2,7 @@ admin-theme:
   css:
     theme:
       css/admin.css: {}
+
+matomo:
+  js:
+    js/matomo.js: {}

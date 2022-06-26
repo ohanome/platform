@@ -53,12 +53,12 @@ cookie_name: ''
 exclude_uid_1: false
 better_support_for_screen_readers: false
 method: opt_in
-disabled_javascripts: ''
+disabled_javascripts: modules/custom/ohano_core/js/matomo.js
 automatic_cookies_removal: true
 allowed_cookies: ''
 consent_storage_method: do_not_store
 withdraw_message:
-  value: "<h2>Wir verwenden Cookies auf dieser Website, um das Nutzungserlebnis zu verbessern</h2>\r\n\r\n<p>Du haben uns deine Zustimmung gegeben, Cookies zu setzen.</p>\r\n"
+  value: "<h2>Wir verwenden Cookies auf dieser Website, um das Nutzungserlebnis zu verbessern</h2>\r\n\r\n<p>Du hast uns deine Zustimmung gegeben, Cookies zu setzen.</p>\r\n"
   format: full_html
 withdraw_tab_button_label: Datenschutzeinstellungen
 withdraw_action_button_label: 'Zustimmung zurückziehen'
@@ -74,4 +74,4 @@ cookie_policy_version: 1.0.0
 cookie_value_disagreed: '0'
 cookie_value_agreed_show_thank_you: '1'
 cookie_value_agreed: '2'
-accessibility_focus: false
+accessibility_focus: true
