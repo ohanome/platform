@@ -1,0 +1,13 @@
+ohano access registration form:
+  title: 'Access registration form'
+ohano access verification form:
+  title: 'Access verification form'
+ohano access verification overview:
+  title: 'Access verification overview'
+  restrict access: true
+ohano administer verification requests:
+  title: 'Administer verification requests'
+  restrict access: true
+ohano account cleanup:
+  title: 'Cleanup messy account related entities'
+  restrict access: true

@@ -1,0 +1,21 @@
+uuid: af5cc6ce-d9d2-43c0-be56-7ea626e3e52f
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_other
+    - node.type.update
+  module:
+    - text
+id: node.update.field_other
+field_name: field_other
+entity_type: node
+bundle: update
+label: Sonstiges
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,19 @@
+uuid: fe9299a1-aee9-41ae-bdf0-634b8744d0f6
+langcode: de
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_preface
+field_name: field_preface
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

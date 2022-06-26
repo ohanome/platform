@@ -1,0 +1,20 @@
+uuid: d24dad31-9d57-4bcc-8207-12f02830a05f
+langcode: de
+status: true
+dependencies:
+  module:
+    - ohano_appearance
+  theme:
+    - ohano
+id: fontsizeblock
+theme: ohano
+region: sidebar_left
+weight: -6
+provider: null
+plugin: ohano_appearance__font_size_block
+settings:
+  id: ohano_appearance__font_size_block
+  label: Schriftgröße
+  label_display: '0'
+  provider: ohano_appearance
+visibility: {  }

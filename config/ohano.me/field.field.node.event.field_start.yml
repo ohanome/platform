@@ -1,0 +1,21 @@
+uuid: 2ba46627-177b-4f37-92d3-8d130e05c21d
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_start
+    - node.type.event
+id: node.event.field_start
+field_name: field_start
+entity_type: node
+bundle: event
+label: Start
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 1649095395
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

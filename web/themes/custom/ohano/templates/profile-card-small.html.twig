@@ -1,0 +1,229 @@
+<div class="profile-card">
+  <div{% if profile.base.profile_banner_url %} class="banner" style="background-image: url('{{ profile.base.profile_banner_url }}')"{% endif %}>
+    {% if profile.base.profile_picture_url %}
+      {{ profile.base.profile_picture }}
+    {% endif %}
+  </div>
+  <div class="info">
+    <div id="basic" class="section base active">
+      <h1>{{ profile.user.profile_name }}</h1>
+      {% if profile.base.profile_text %}
+        <p>
+          <b>{{ "About me"|trans }}</b><br />
+          {{ profile.base.profile_text }}
+        </p>
+      {% endif %}
+      <div class="col">
+        {% if profile.base.has_general_info %}
+          <div class="ohano-table">
+            <div class="ohano-table-row">
+              {% if profile.base.birthday_formatted %}<div class="ohano-table-cell"><b>{{ "Birthday"|trans }}</b></div>{% endif %}
+              {% if profile.base.gender_value %}<div class="ohano-table-cell"><b>{{ "Gender"|trans }}</b></div>{% endif %}
+              {% if profile.base.city %}<div class="ohano-table-cell"><b>{{ "City"|trans }}</b></div>{% endif %}
+              {% if profile.base.province %}<div class="ohano-table-cell"><b>{{ "State / District"|trans }}</b></div>{% endif %}
+              {% if profile.base.country %}<div class="ohano-table-cell"><b>{{ "Country"|trans }}</b></div>{% endif %}
+            </div>
+            <div class="ohano-table-row">
+              {% if profile.base.birthday_formatted %}<div class="ohano-table-cell">{{ profile.base.birthday_formatted }}</div>{% endif %}
+              {% if profile.base.gender_value %}<div class="ohano-table-cell">{{ profile.base.gender_value }}</div>{% endif %}
+              {% if profile.base.city %}<div class="ohano-table-cell">{{ profile.base.city }}</div>{% endif %}
+              {% if profile.base.province %}<div class="ohano-table-cell">{{ profile.base.province }}</div>{% endif %}
+              {% if profile.base.country %}<div class="ohano-table-cell">{{ profile.base.country }}</div>{% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% if profile.social is not null %}
+          <div class="socials">
+{#            <h5>{{ "Socials"|trans }}</h5>#}
+            <ul>
+              {% if profile.social.twitter %}
+                <li>
+                  <a href="//twitter.com/{{ profile.social.twitter }}" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+                </li>
+              {% endif %}
+              {% if profile.social.instagram %}
+                <li>
+                  <a href="//instagram.com/{{ profile.social.instagram }}" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+                </li>
+              {% endif %}
+              {% if profile.social.twitch %}
+                <li>
+                  <a href="//twitch.com/{{ profile.social.twitch }}" target="_blank" title="Twitch"><i class="fa fa-twitch"></i></a>
+                </li>
+              {% endif %}
+              {% if profile.social.discord %}
+                <li>
+                  <a href="//discordapp.com/users/{{ profile.social.discord }}" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+                </li>
+              {% endif %}
+              {% if profile.social.facebook %}
+                <li>
+                  <a href="{{ profile.social.facebook }}" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a>
+                </li>
+              {% endif %}
+              {% if profile.social.xing %}
+                <li>
+                  <a href="{{ profile.social.xing }}" target="_blank" title="Xing"><i class="fa fa-xing"></i></a>
+                </li>
+              {% endif %}
+              {% if profile.social.linkedin %}
+                <li>
+                  <a href="{{ profile.social.linkedin }}" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                </li>
+              {% endif %}
+              {% if profile.social.pinterest %}
+                <li>
+                  <a href="//www.pinterest.com/{{ profile.social.pinterest }}" target="_blank" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                </li>
+              {% endif %}
+              {% if profile.social.behance %}
+                <li>
+                  <a href="//behance.net/{{ profile.social.behance }}" target="_blank" title="Behance"><i class="fa fa-behance"></i></a>
+                </li>
+              {% endif %}
+              {% if profile.social.dribbble %}
+                <li>
+                  <a href="//dribbble.com/{{ profile.social.dribbble }}" target="_blank" title="dribbble"><i class="fa fa-dribbble"></i></a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if profile.gaming is not null %}
+      <div id="gaming" class="section gaming">
+        <h3>{{ "Gaming"|trans }}</h3>
+        <div class="ohano-table">
+          {% if profile.gaming.minecraft_name %}
+            <div class="ohano-table-row"><b>{{ "Minecraft name"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.gaming.minecraft_name }}</div>
+          {% endif %}
+          {% if profile.gaming.valorant %}
+            <div class="ohano-table-row"><b>{{ "VALORANT"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.gaming.valorant }}</div>
+          {% endif %}
+          {% if profile.gaming.league_of_legends %}
+            <div class="ohano-table-row"><b>{{ "League of Legends"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.gaming.league_of_legends }}</div>
+          {% endif %}
+          {% if profile.gaming.battle_net %}
+            <div class="ohano-table-row"><b>{{ "Battle.net"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.gaming.battle_net }}</div>
+          {% endif %}
+          {% if profile.gaming.ubisoft_connect %}
+            <div class="ohano-table-row"><b>{{ "Ubisoft Connect"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.gaming.ubisoft_connect }}</div>
+          {% endif %}
+          {% if profile.gaming.steam %}
+            <div class="ohano-table-row"><b>{{ "Steam"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.gaming.steam }}</div>
+          {% endif %}
+          {% if profile.gaming.ea_origin %}
+            <div class="ohano-table-row"><b>{{ "EA Origin"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.gaming.ea_origin }}</div>
+          {% endif %}
+          {% if profile.gaming.games %}
+            <div class="ohano-table-row"><b>{{ "Games"|trans }}</b></div>
+            <div class="ohano-table-row">
+              {% for value in profile.gaming.games %}
+                <span class="tag game">{{ value.name }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% if profile.gaming.platforms %}
+            <div class="ohano-table-row"><b>{{ "Platforms"|trans }}</b></div>
+            <div class="ohano-table-row">
+              {% for value in profile.gaming.platforms %}
+                <span class="tag platform">{{ value.name }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    {% if profile.relationship is not null %}
+      <div id="relationship" class="section relationship">
+        <h3>{{ "Relationship"|trans }}</h3>
+        <div class="ohano-table">
+          {% if profile.relationship.relationship_status %}
+            <div class="ohano-table-row"><b>{{ "Relationship status"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.relationship.relationship_status_value }}</div>
+          {% endif %}
+          {% if profile.relationship.relationship_type %}
+            <div class="ohano-table-row"><b>{{ "Preferred relationship type"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.relationship.relationship_type_value }}</div>
+          {% endif %}
+          {% if profile.relationship.sexuality %}
+            <div class="ohano-table-row"><b>{{ "Sexuality"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.relationship.sexuality_value }}</div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    {% if profile.job is not null %}
+      <div id="job" class="section job">
+        <h3>{{ "Job"|trans }}</h3>
+        <div class="ohano-table">
+          {% if profile.job.employment_status %}
+            <div class="ohano-table-row"><b>{{ "Employment status"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.job.employment_status_value }}</div>
+          {% endif %}
+          {% if profile.job.education_degree %}
+            <div class="ohano-table-row"><b>{{ "Education degree"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.job.education_degree_value }}</div>
+          {% endif %}
+          {% if profile.job.employer %}
+            <div class="ohano-table-row"><b>{{ "Employer"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.job.employer }}</div>
+          {% endif %}
+          {% if profile.job.industry %}
+            <div class="ohano-table-row"><b>{{ "Industry"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.job.industry }}</div>
+          {% endif %}
+          {% if profile.job.position %}
+            <div class="ohano-table-row"><b>{{ "Position"|trans }}</b></div>
+            <div class="ohano-table-row">{{ profile.job.position }}</div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    {% if profile.coding is not null %}
+      <div id="coding" class="section coding">
+        <h3>{{ "Coding"|trans }}</h3>
+        <div class="ohano-table">
+          <div class="socials">
+            <ul>
+              {% if profile.coding.github %}
+                <li><a href="//github.com/{{ profile.coding.github }}" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></li>
+              {% endif %}
+              {% if profile.coding.gitlab %}
+                <li><a href="//gitlab.com/{{ profile.coding.gitlab }}" target="_blank"><i class="fa fa-gitlab"></i></a></li>
+              {% endif %}
+              {% if profile.coding.bitbucket %}
+                <li><a href="//bitbucket.com/{{ profile.coding.bitbucket }}" target="_blank"><i class="fa fa-bitbucket"></i></a></li>
+              {% endif %}
+            </ul>
+          </div>
+          {% if profile.coding.programming_languages %}
+            <div class="ohano-table-row"><b>{{ "Programming languages"|trans }}</b></div>
+            <div class="ohano-table-row">
+              {% for value in profile.coding.programming_languages %}
+                <span class="tag programming-language">{{ value.name }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% if profile.coding.systems %}
+            <div class="ohano-table-row"><b>{{ "Systems"|trans }}</b></div>
+            <div class="ohano-table-row">
+              {% for value in profile.coding.systems %}
+                <span class="tag system">{{ value.name }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  {{ attach_library('ohano_profile/profile-card') }}
+</div>

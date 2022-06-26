@@ -1,0 +1,7 @@
+name: Profile
+package: ohano
+description: 'Handling everything profile relevant'
+core_version_requirement: ^9 || ^10
+type: module
+dependencies:
+  - ohano_core

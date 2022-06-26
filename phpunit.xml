@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  bootstrap="web/core/tests/bootstrap.php"
+  colors="true"
+  beStrictAboutTestsThatDoNotTestAnything="true"
+  beStrictAboutOutputDuringTests="true"
+  beStrictAboutChangesToGlobalState="true"
+  printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory suffix=".php">web/modules/custom</directory>
+    </include>
+  </coverage>
+  <php>
+    <ini name="error_reporting" value="32767"/>
+    <ini name="memory_limit" value="-1"/>
+    <env name="SIMPLETEST_BASE_URL" value="http://127.0.0.1:8080"/>
+    <!-- SIMPLETEST_DB has been removed to be able to add it as env var before the command -->
+    <env name="XDEBUG_MODE" value="coverage" />
+    <env name="MINK_DRIVER_ARGS_WEBDRIVER" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu", "--headless", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://127.0.0.1:9515"]'/>
+  </php>
+</phpunit>

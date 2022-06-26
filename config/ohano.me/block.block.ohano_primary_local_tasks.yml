@@ -1,0 +1,22 @@
+uuid: d77f5aa3-bf53-466a-b7d3-4531fcd1bd65
+langcode: de
+status: true
+dependencies:
+  theme:
+    - ohano
+_core:
+  default_config_hash: nGE3EoPQQaQCuqTUtZgw0-KIzmrqdKDzdNQf2JyPUt4
+id: ohano_primary_local_tasks
+theme: ohano
+region: content
+weight: -5
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

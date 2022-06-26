@@ -1,0 +1,25 @@
+aside {
+  .well {
+    border-radius: 1.5rem;
+    box-shadow: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+
+    .nav {
+      &> li {
+        &> a:hover {
+          border-radius: .75rem;
+        }
+      }
+    }
+  }
+}
+
+.region-sidebar-first,
+.region-sidebar-second {
+  padding: 1rem;
+  border-radius: .5rem;
+  box-shadow: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}

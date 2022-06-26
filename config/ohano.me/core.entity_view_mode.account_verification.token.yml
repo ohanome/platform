@@ -1,0 +1,10 @@
+uuid: 1d452ea5-54b5-421b-924d-9320349641bc
+langcode: de
+status: true
+dependencies:
+  module:
+    - ohano_account
+id: account_verification.token
+label: Token
+targetEntityType: account_verification
+cache: true

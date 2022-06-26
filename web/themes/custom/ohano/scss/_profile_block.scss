@@ -1,0 +1,45 @@
+.profile-block {
+  .profile-block-inner {
+    width: 100%;
+    position: relative;
+
+    .profile-info-wrapper {
+      width: 100%;
+
+      .profile-name-outer {
+        .profile-name {
+          font-family: "Poppins", sans-serif;
+          font-weight: bold;
+          font-size: 1.75rem;
+        }
+      }
+    }
+
+    &.has-profile-picture {
+      .profile-row {
+        display: flex;
+
+        .profile-info-wrapper {
+          margin-left: 1rem;
+        }
+
+        .profile-picture-wrapper {
+          width: 33%;
+
+          .profile-picture {
+            width: 5rem;
+            height: 5rem;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: .5rem;
+          }
+        }
+      }
+    }
+
+    .profile-actions-wrapper {
+      margin-top: 1rem;
+    }
+  }
+}

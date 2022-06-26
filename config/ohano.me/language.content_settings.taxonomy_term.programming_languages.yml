@@ -1,0 +1,11 @@
+uuid: 6759c1ce-7ae6-4c03-bb7f-3a7ef7eb1917
+langcode: de
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.programming_languages
+id: taxonomy_term.programming_languages
+target_entity_type_id: taxonomy_term
+target_bundle: programming_languages
+default_langcode: site_default
+language_alterable: false

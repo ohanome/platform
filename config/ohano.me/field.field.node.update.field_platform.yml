@@ -1,0 +1,21 @@
+uuid: 699fa4b7-bff7-4826-ae0c-44da6719662a
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_platform
+    - node.type.update
+  module:
+    - text
+id: node.update.field_platform
+field_name: field_platform
+entity_type: node
+bundle: update
+label: Plattform
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

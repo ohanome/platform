@@ -11,6 +11,8 @@
 /web/profiles/contrib
 /web/profiles/README.txt
 !/web/profiles/.gitkeep
+/web/libraries/*
+!/web/libraries/.gitkeep
 /web/tmp/*
 !/web/tmp/.gitkeep
 /web/sites/*/settings.*.php
@@ -39,6 +41,9 @@
 /web/README.md
 /.idea
 *.sql
+*.sql.gz
+/db/*
+!/db/base.sql.gz
 !bigcitymc.com.sql
 /.editorconfig
 /.gitattributes

@@ -1,0 +1,13 @@
+uuid: 323b9713-cc23-430f-b73f-4e702bfcc99d
+langcode: de
+status: true
+dependencies:
+  module:
+    - webform
+_core:
+  default_config_hash: begZ0-RmTzO_zDAwEKA2lKvtGYw1vbFOzbQOJzUbZX0
+id: webform_submission_make_unlock_action
+label: 'Eingabe freigeben'
+type: webform_submission
+plugin: webform_submission_make_unlock_action
+configuration: {  }

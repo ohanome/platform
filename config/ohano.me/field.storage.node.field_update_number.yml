@@ -1,0 +1,153 @@
+uuid: 7632275a-5dee-4abd-9408-38c392fcfe7d
+langcode: de
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_update_number
+field_name: field_update_number
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '09.21'
+      label: '09.21'
+    -
+      value: '10.21'
+      label: '10.21'
+    -
+      value: '11.21'
+      label: '11.21'
+    -
+      value: '12.21'
+      label: '12.21'
+    -
+      value: '01.22'
+      label: '01.22'
+    -
+      value: '02.22'
+      label: '02.22'
+    -
+      value: '03.22'
+      label: '03.22'
+    -
+      value: '04.22'
+      label: '04.22'
+    -
+      value: '05.22'
+      label: '05.22'
+    -
+      value: '06.22'
+      label: '06.22'
+    -
+      value: '07.22'
+      label: '07.22'
+    -
+      value: '10.22'
+      label: '10.22'
+    -
+      value: '01.23'
+      label: '01.23'
+    -
+      value: '04.23'
+      label: '04.23'
+    -
+      value: '07.23'
+      label: '07.23'
+    -
+      value: '10.23'
+      label: '10.23'
+    -
+      value: '01.24'
+      label: '01.24'
+    -
+      value: '04.24'
+      label: '04.24'
+    -
+      value: '07.24'
+      label: '07.24'
+    -
+      value: '10.24'
+      label: '10.24'
+    -
+      value: '01.25'
+      label: '01.25'
+    -
+      value: '04.25'
+      label: '04.25'
+    -
+      value: '07.25'
+      label: '07.25'
+    -
+      value: '10.25'
+      label: '10.25'
+    -
+      value: '01.26'
+      label: '01.26'
+    -
+      value: '04.26'
+      label: '04.26'
+    -
+      value: '07.26'
+      label: '07.26'
+    -
+      value: '10.26'
+      label: '10.26'
+    -
+      value: '01.27'
+      label: '01.27'
+    -
+      value: '04.27'
+      label: '04.27'
+    -
+      value: '07.27'
+      label: '07.27'
+    -
+      value: '10.27'
+      label: '10.27'
+    -
+      value: '01.28'
+      label: '01.28'
+    -
+      value: '04.28'
+      label: '04.28'
+    -
+      value: '07.28'
+      label: '07.28'
+    -
+      value: '10.28'
+      label: '10.28'
+    -
+      value: '01.29'
+      label: '01.29'
+    -
+      value: '04.29'
+      label: '04.29'
+    -
+      value: '07.29'
+      label: '07.29'
+    -
+      value: '10.29'
+      label: '10.29'
+    -
+      value: '01.30'
+      label: '01.30'
+    -
+      value: '04.30'
+      label: '04.30'
+    -
+      value: '07.30'
+      label: '07.30'
+    -
+      value: '10.30'
+      label: '10.30'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

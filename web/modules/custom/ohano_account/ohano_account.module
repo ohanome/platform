@@ -1,0 +1,53 @@
+<?php
+
+use Drupal\ohano_account\Entity\Account;
+
+/**
+ * Implements hook_theme().
+ */
+function ohano_account_theme($existing, $type, $theme, $path) {
+  return [
+    'account_verification_list' => [
+      'variables' => [
+        'verifications' => NULL,
+      ],
+      'template' => 'account-verification-list',
+    ],
+    'active_tier' => [
+      'variables' => [
+        'tier' => NULL,
+        'date' => NULL,
+        'timestamp' => NULL,
+        'days_left' => NULL,
+      ],
+      'template' => 'active-tier',
+    ],
+  ];
+}
+
+function ohano_account_preprocess_html(&$variables) {
+  $authenticated = \Drupal::currentUser()->isAuthenticated();
+  $variables['attributes']['class'][] = $authenticated ? 'authenticated' : 'anonymous';
+
+  if ($authenticated && $account = Account::forActive()) {
+    $fontSize = $account->get('font_size')->value;
+    $colorMode = $account->get('color_mode')->value;
+    $colorShade = $account->get('color_shade')->value;
+
+    $variables['html_attributes']->addClass('font-size-' . strtolower($fontSize));
+    $variables['html_attributes']->addClass('color-mode-' . strtolower($colorMode));
+    $variables['html_attributes']->addClass('color-shade-' . strtolower($colorShade));
+    $variables['#cache'] = [
+      'max-age' => '0',
+    ];
+  }
+}
+
+/**
+ * Implements hook_features_alter().
+ */
+function ohano_account_features_alter(&$features) {
+  if (\Drupal::currentUser()->hasPermission('ohano access account settings')) {
+    $features[] = \Drupal\ohano_account\Feature\Settings::class;
+  }
+}

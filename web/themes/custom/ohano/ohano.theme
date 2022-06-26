@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * Implements hook_preprocess().
+ */
+function ohano_preprocess(&$variables, $hook) {
+  $variables['attributes']['class'][] = $hook;
+}
+
+function ohano_preprocess_node(&$variables) {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $variables['node'];
+
+  $variables['attributes']['class'][] = 'view-mode--' . $variables['view_mode'];
+  $variables['attributes']['class'][] = 'node-' . $variables['view_mode'];
+
+  $variables['attributes']['class'][] = 'node-type--' . $node->bundle();
+}
+
+function ohano_preprocess_node__teaser(&$variables) {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $variables['node'];
+  $variables['text'] = $node->get('field_teaser_text')->value;
+}
+
+function ohano_preprocess_field(&$variables) {
+  $variables['attributes']['class'][] = 'field--' . str_replace('_', '-', $variables['field_name']);
+  $variables['attributes']['class'][] = 'field-type--' . str_replace('_', '-', $variables['field_type']);
+}
+
+function ohano_preprocess_node__update__full(&$variables) {
+  #dd($variables['content']);
+}

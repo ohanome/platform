@@ -12,13 +12,44 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "harvesthq/chosen",
+                "version": "1.8.7",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/harvesthq/chosen/releases/download/v1.8.7/chosen_v1.8.7.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
+    "platform": {
+        "php": "^8.1"
+    },
     "require": {
+        "ext-curl": "*",
         "composer/installers": "^1.9",
+        "drupal/admin_toolbar": "^3.1",
+        "drupal/bootstrap5": "^1.1",
+        "drupal/chosen": "^3.0",
         "drupal/core-composer-scaffold": "^9.3",
         "drupal/core-project-message": "^9.3",
         "drupal/core-recommended": "^9.3",
+        "drupal/eu_cookie_compliance": "^1.19",
+        "drupal/gin": "^3.0@alpha",
+        "drupal/gin_login": "^1.0",
+        "drupal/gutenberg": "^2.4",
+        "drupal/mailsystem": "^4.3",
+        "drupal/pathauto": "^1.9",
+        "drupal/quick_node_clone": "^1.14",
+        "drupal/restui": "^1.20",
+        "drupal/scheduler": "^1.4",
+        "drupal/smtp": "^1.0",
+        "drupal/webform": "^6.1",
+        "harvesthq/chosen": "^1.8",
         "vlucas/phpdotenv": "^5.4"
     },
     "conflict": {
@@ -27,7 +58,13 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "drupal/core-composer-scaffold": true,
+            "drupal/core-project-message": true
+        }
     },
     "autoload": {
         "files": [
@@ -91,9 +128,19 @@
             ]
         }
     },
+    "scripts": {
+        "post-drupal-scaffold-cmd": [
+            "patch -d ./web < ./patches/redirect_before_launch.patch",
+            "cd web/themes/custom/ohano && npm install && npm run scss"
+        ]
+    },
     "require-dev": {
+        "behat/mink-goutte-driver": "^2.0",
         "deployer/dist": "^6.8",
-        "drupal/coder": "^8.2",
-        "drush/drush": "^11.0"
+        "drupal/coder": "^8.3",
+        "drush/drush": "^11.0",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpunit/phpunit": "^9.5",
+        "symfony/phpunit-bridge": "^6.0"
     }
 }

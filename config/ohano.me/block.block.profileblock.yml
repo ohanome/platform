@@ -1,0 +1,30 @@
+uuid: a4d8053c-5a80-4d36-af65-b0bb7adcd23e
+langcode: de
+status: true
+dependencies:
+  module:
+    - ohano_profile
+    - user
+  theme:
+    - ohano_base
+id: profileblock
+theme: ohano_base
+region: sidebar_first
+weight: 0
+provider: null
+plugin: ohano_profile__profile_block
+settings:
+  id: ohano_profile__profile_block
+  label: 'Profile Block'
+  label_display: '0'
+  provider: ohano_profile
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated
+      content_editor: content_editor
+      administrator: administrator

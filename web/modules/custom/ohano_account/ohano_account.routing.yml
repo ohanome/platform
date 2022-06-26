@@ -1,0 +1,164 @@
+# Registration
+ohano_account.registration:
+  path: '/account/register'
+  defaults:
+    _form: Drupal\ohano_account\Form\RegistrationForm
+    _title: 'Register'
+  requirements:
+    _permission: 'ohano access registration form'
+ohano_account.registration.alt1:
+  # Override Drupal core register path
+  path: '/user/register'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToRegisterPage
+  requirements:
+    _permission: 'access content'
+ohano_account.registration.alt2:
+  path: '/register'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToRegisterPage
+  requirements:
+    _permission: 'access content'
+ohano_account.registration.alt3:
+  # Provide alternative german path
+  path: '/registrieren'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToRegisterPage
+  requirements:
+    _permission: 'access content'
+
+# Logout
+ohano_account.logout:
+  path: '/logout'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLogoutPage
+  requirements:
+    _permission: 'access content'
+ohano_account.logout.alt1:
+  # Route with default account prefix
+  path: '/account/logout'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLogoutPage
+  requirements:
+    _permission: 'access content'
+
+# Login
+ohano_account.login:
+  # Route with default account prefix
+  path: '/account/login'
+  defaults:
+    _form: Drupal\ohano_account\Form\LoginForm
+    _title: 'Login'
+  requirements:
+    _permission: 'access content'
+ohano_account.login.alt1:
+  path: '/login'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLoginPage
+  requirements:
+    _permission: 'access content'
+ohano_account.login.alt2:
+  path: '/user/login'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\AccountController::redirectToLoginPage
+  requirements:
+    _permission: 'access content'
+
+
+# Verification
+ohano_account.verification:
+  path: '/account/verify'
+  defaults:
+    _form: Drupal\ohano_account\Form\VerificationForm
+    _title: 'Verification'
+  requirements:
+    _permission: 'ohano access verification form'
+
+# Settings
+ohano_account.settings:
+  path: '/account/settings'
+  defaults:
+    _form: Drupal\ohano_account\Form\SettingsForm
+    _title: 'Manage account'
+  requirements:
+    _permission: 'ohano access account settings form'
+
+# Activation
+ohano_account.activate:
+  path: '/account/activate/{code}'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\ActivationController::activateAccount
+    _title: 'Account activation'
+  requirements:
+    _permission: 'access content'
+
+# Admin links
+ohano_account.admin.account:
+  path: '/admin/ohano/account'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Account'
+  requirements:
+    _permission: 'ohano access account administration'
+ohano_account.admin.account.verification:
+  path: '/admin/ohano/account/verification'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\Admin\VerificationController::index
+    _title: 'Verification'
+  requirements:
+    _permission: 'ohano access verification overview'
+ohano_account.admin.account.verification.detail:
+  path: '/admin/ohano/account/verification/{id}'
+  defaults:
+    _form: Drupal\ohano_account\Form\Admin\VerificationForm
+    _title: 'Review Verification'
+  requirements:
+    _permission: 'ohano administer verification requests'
+ohano_account.admin.account.cleanup:
+  path: '/admin/ohano/account/cleanup'
+  defaults:
+    _form: Drupal\ohano_account\Form\Admin\CleanupForm
+    _title: 'Cleanup messy account entities'
+  requirements:
+    _permission: 'ohano account cleanup'
+
+# Configuration
+ohano_account.config:
+  path: '/admin/config/ohano/account'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Account'
+  requirements:
+    _permission: 'ohano access account configuration'
+ohano_account.config.registration:
+  path: '/admin/config/ohano/account/registration'
+  defaults:
+    _form: Drupal\ohano_account\Form\Config\RegistrationConfigForm
+    _title: 'Registration'
+  requirements:
+    _permission: 'ohano account configure registration'
+
+ohano_account.api.set_font_size:
+  path: '/api/account/set/font-size/{fontSize}'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\Api\AccountController::setFontSize
+  requirements:
+    _permission: 'access content'
+ohano_account.api.set_color_mode:
+  path: '/api/account/set/color-mode/{colorMode}'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\Api\AccountController::setColorMode
+  requirements:
+    _permission: 'access content'
+ohano_account.api.set_color_shade:
+  path: '/api/account/set/color-shade/{colorShade}'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\Api\AccountController::setColorShade
+  requirements:
+    _permission: 'access content'
+ohano_account.api.validate_username:
+  path: '/api/account/validate/username/{username}'
+  defaults:
+    _controller: Drupal\ohano_account\Controller\Api\ValidatorController::validateUsername
+  requirements:
+    _permission: 'access content'

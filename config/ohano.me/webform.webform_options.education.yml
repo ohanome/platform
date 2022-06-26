@@ -1,0 +1,14 @@
+uuid: 70ef621c-183c-4c9b-a785-b6575115b56d
+langcode: de
+status: true
+dependencies:
+  enforced:
+    module:
+      - webform
+_core:
+  default_config_hash: mII4acOv33s-j8PINywrCag4OITbeJGxdPO373dnHHw
+id: education
+label: Bildung
+category: Demographisch
+likert: false
+options: "High School: High School\r\nAssociate Degree: Associate Degree\r\nHochschulabschluss oder Berufsabschluss: Hochschulabschluss oder Berufsabschluss\r\nIrgendein College: Irgendein College\n"

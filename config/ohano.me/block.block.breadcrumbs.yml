@@ -1,0 +1,20 @@
+uuid: 8a74ddcb-99ca-4807-a841-78b47d39979d
+langcode: de
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ohano_base
+id: breadcrumbs
+theme: ohano_base
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

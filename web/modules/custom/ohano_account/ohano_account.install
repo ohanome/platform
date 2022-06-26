@@ -1,0 +1,147 @@
+<?php
+
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\ohano_account\Entity\Account;
+use Drupal\ohano_account\Entity\AccountActivation;
+use Drupal\ohano_account\Entity\AccountVerification;
+use Drupal\ohano_account\Option\ColorMode;
+use Drupal\ohano_account\Option\ColorShade;
+use Drupal\ohano_account\Option\FontSize;
+use Drupal\ohano_account\Option\SubscriptionTier;
+use Drupal\ohano_profile\Entity\UserProfile;
+
+function ohano_account_install() {
+  Account::install();
+  AccountActivation::install();
+}
+
+function ohano_account_uninstall() {
+  Account::uninstall();
+  AccountActivation::uninstall();
+}
+
+function ohano_account_update_9003() {
+  Account::install();
+  AccountActivation::install();
+}
+
+/**
+ * Installs the account_verification entity.
+ */
+function ohano_account_update_9004() {
+  AccountVerification::install();
+}
+
+/**
+ * Installs the active_profile filed on the Account entity.
+ */
+function ohano_account_update_9005() {
+  $field = BaseFieldDefinition::create('entity_reference')
+    ->setSetting('target_type', 'user_profile')
+    ->setSetting('handler', 'default');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('active_profile', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('active_profile', UserProfile::loadByUser($account->getUser()));
+    $account->save();
+  }
+}
+
+/**
+ * Installs the font_size field on the Account entity.
+ */
+function ohano_account_update_9006() {
+  $field = BaseFieldDefinition::create('list_string')
+    ->setSetting('allowed_values', FontSize::translatableFormOptions())
+    ->setDefaultValue(FontSize::M->value);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('font_size', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('font_size', FontSize::M->value);
+    $account->save();
+  }
+}
+
+/**
+ * Installs the color_mode field on the Account entity.
+ */
+function ohano_account_update_9007() {
+  $field = BaseFieldDefinition::create('list_string')
+    ->setSetting('allowed_values', ColorMode::translatableFormOptions())
+    ->setDefaultValue(ColorMode::Light->value);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('color_mode', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('color_mode', ColorMode::Light->value);
+    $account->save();
+  }
+}
+
+/**
+ * Installs the color_shade field on the Account entity.
+ */
+function ohano_account_update_9008() {
+  $field = BaseFieldDefinition::create('list_string')
+    ->setSetting('allowed_values', FontSize::translatableFormOptions())
+    ->setDefaultValue(ColorShade::Neutral->value);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('color_shade', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('color_shade', ColorShade::Neutral->value);
+    $account->save();
+  }
+}
+
+/**
+ * Installs the developer_mode field on the Account entity.
+ */
+function ohano_account_update_9009() {
+  $field = BaseFieldDefinition::create('boolean');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('developer_mode', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('developer_mode', FALSE);
+    $account->save();
+  }
+}
+
+/**
+ * Installs the subscription_tier field on the Account entity.
+ */
+function ohano_account_update_9010() {
+  $field = BaseFieldDefinition::create('list_string')
+    ->setSetting('allowed_values', SubscriptionTier::translatableFormOptions())
+    ->setDefaultValue(SubscriptionTier::None->name);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('subscription_tier', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    if ($account->getUser()->id() == 1) {
+      $tier = SubscriptionTier::Pro;
+    } else {
+      $tier = SubscriptionTier::None;
+    }
+
+    $account->set('subscription_tier', $tier->name);
+    $account->save();
+  }
+}
+
+/**
+ * Installs the subscription_active field on the Account entity.
+ */
+function ohano_account_update_9011() {
+  $field = BaseFieldDefinition::create('datetime');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('subscription_active', Account::ENTITY_ID, Account::ENTITY_ID, $field);
+
+  foreach (Account::loadMultiple() as $account) {
+    $account->set('subscription_active', (new \Drupal\Core\Datetime\DrupalDateTime())->format('Y-m-d'));
+    $account->save();
+  }
+}

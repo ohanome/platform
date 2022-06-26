@@ -35,8 +35,6 @@ set('clear_paths', [
   'export',
   '.gitattributes',
   '.gitignore',
-  'composer.json',
-  'composer.lock',
   'phpunit.xml.dist',
   '.env.example',
   '.lando.yml',

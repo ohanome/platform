@@ -1,0 +1,20 @@
+uuid: 116f0ac4-b973-47ba-9a50-a6ece3360710
+langcode: de
+status: true
+dependencies:
+  theme:
+    - ohano
+_core:
+  default_config_hash: 6aOgWsNTXjqrDm98TXSAjP6qd2nCijD1xw45MrnbK-Y
+id: ohano_page_title
+theme: ohano
+region: content
+weight: -3
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

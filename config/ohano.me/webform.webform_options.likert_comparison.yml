@@ -1,0 +1,14 @@
+uuid: 3bf4e60b-4d6a-4e5d-8440-54bb7f712c60
+langcode: de
+status: true
+dependencies:
+  enforced:
+    module:
+      - webform
+_core:
+  default_config_hash: DMG4TKTHEXtHN8ho_sG_GiZHgweZ6nrRm6BAjk0LZ_Y
+id: likert_comparison
+label: 'Likert: Vergleich'
+category: Likert
+likert: true
+options: "1: Deutlich schlechter\r\n2: Etwas schlechter\r\n3: Ungefähr gleich\r\n4: Etwas besser\r\n5: Deutlich besser\n"

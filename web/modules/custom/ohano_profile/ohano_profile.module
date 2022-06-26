@@ -1,0 +1,74 @@
+<?php
+
+use Drupal\ohano_account\Entity\Account;
+use Drupal\ohano_profile\Entity\BaseProfile;
+use Drupal\ohano_profile\Entity\UserProfile;
+
+/**
+ * Implements hook_theme().
+ */
+function ohano_profile_theme($existing, $type, $theme, $path): array {
+  return [
+    'profile_page' => [
+      'template' => 'profile-page',
+      'variables' => [
+        'profile' => NULL,
+        'options' => NULL,
+        'feed' => NULL,
+      ],
+    ],
+    'profile_options' => [
+      'template' => 'profile-options',
+      'variables' => [
+        'name' => NULL,
+        'own' => NULL,
+        'is_follower' => NULL,
+        'following' => NULL,
+        'can_be_followed' => NULL,
+        'blocked' => NULL,
+        'can_send_message' => NULL,
+        'can_be_shared' => NULL,
+      ],
+    ],
+    'profile_card_large' => [
+      'template' => 'profile-card-large',
+      'variables' => [
+        'profile' => NULL,
+      ],
+    ],
+    'profile_card_small' => [
+      'template' => 'profile-card-small',
+      'variables' => [
+        'profile' => NULL,
+      ],
+    ],
+    'profile_picture' => [
+      'template' => 'profile-picture',
+      'variables' => [
+        'image_url' => NULL,
+        'username' => NULL,
+      ],
+    ],
+    'profile_list' => [
+      'template' => 'profile-list',
+      'variables' => [
+        'profiles' => NULL,
+        'form' => NULL,
+      ],
+    ],
+    'profile_block' => [
+      'template' => 'profile-block',
+      'variables' => [
+        'profile_picture' => NULL,
+        'other_profiles' => NULL,
+        'profile_name' => NULL,
+      ],
+    ],
+    'profile_card_list' => [
+      'template' => 'profile-card-list',
+      'variables' => [
+        'profiles' => NULL,
+      ]
+    ]
+  ];
+}

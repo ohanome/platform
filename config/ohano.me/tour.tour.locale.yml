@@ -1,0 +1,69 @@
+uuid: c39d7bcf-0a2f-4cf0-b7c9-714cd46d6d0e
+langcode: de
+status: true
+dependencies:
+  module:
+    - locale
+_core:
+  default_config_hash: Kcx1PIw-KgGbTo5_tOkbI6TWJiP_0Sr7t5T9SuMV2hA
+id: locale
+label: Übersetzung
+module: locale
+routes:
+  -
+    route_name: locale.translate_page
+tips:
+  locale-overview:
+    id: locale-overview
+    plugin: text
+    label: 'Benutzeroberfläche übersetzen'
+    weight: 1
+    body: 'Diese Seite erlaubt es die Benutzeroberfläche zu übersetzen oder bestehende Übersetzungen zu abzuändern. Falls die Website eingangs in Englisch installiert wurde, muss zuerst eine weitere Sprache auf der <a href="[site:url]admin/config/regional/language">Sprachen-Seite</a> hinzugefügt werden, um diese Seite nutzen zu können.'
+  locale-language:
+    id: locale-language
+    plugin: text
+    label: Übersetzungssprache
+    weight: 2
+    selector: '#edit-langcode'
+    body: 'Die Sprache, die übersetzt werden soll, auswählen.'
+  locale-search:
+    id: locale-search
+    plugin: text
+    label: Search
+    weight: 3
+    selector: '#edit-string'
+    body: 'Eingabe eines bestimmten Wortes oder Satzes, das übersetzt werden soll. Es kann auch nur ein Teil eines Wortes angegeben werden.'
+  locale-filter:
+    id: locale-filter
+    plugin: text
+    label: 'Die Suche eingrenzen'
+    weight: 4
+    selector: '#edit-translation'
+    body: 'Es kann nach nicht übersetzten Zeichenketten gesucht werden, um etwas zu übersetzen, was bisher noch nicht übersetzt worden ist. Falls eine bereits bestehende Übersetzung abgeändert werden soll, dann sollte besser nur nach bereits übersetzten Zeichenketten gesucht werden.'
+  locale-submit:
+    id: locale-submit
+    plugin: text
+    label: 'Suchkriterien anwenden'
+    weight: 5
+    selector: '#edit-submit'
+    body: 'Um die Suchkriterien anzuwenden, auf den <em>Filter</em>-Button klicken.'
+  locale-translate:
+    id: locale-translate
+    plugin: text
+    label: Übersetzen
+    weight: 6
+    selector: .js-form-type-textarea
+    body: 'Die eigene Übersetzung kann in die Textfelder in der rechten Spalte eingegeben werden. Es sollte versucht werden herauszufinden in welchem Kontext der Text verwendet werden soll, um ihn sachgemäß zu übersetzen.'
+  locale-validate:
+    id: locale-validate
+    plugin: text
+    label: 'Die Übersetzungen prüfen und speichern'
+    weight: 7
+    selector: '#edit-submit--2'
+    body: 'Sobald die Übersetzungen abgeschlossen sind, werden diese über einen Klick auf den Button </em>Übersetzungen speichern</em> abgespeichert. Die Übersetzungen müssen immer abgespeichert werden, bevor Änderungen an der Seite vorgenommen werden oder eine neue Suche durchgeführt wird. Andernfalls gehen die vorgenommenen Änderungen verloren.'
+  locale-continue:
+    id: locale-continue
+    plugin: text
+    label: 'Übersetzungen wiederverwenden'
+    weight: 8
+    body: "Hier erstellte Übersetzungen werden in der Benutzeroberfläche der vorliegenden Website verwendet. Sollen diese auf einer weiteren Website verwendet oder in einem externen Übersetzungseditor abgeändert werden, kann eine .po Datei \r\n<a href=\"[site:url]admin/config/regional/translate/export\">exportiert</a> und im Anschluss <a href=\"[site:url]admin/config/regional/translate/import\">importiert</a> werden."

@@ -1,0 +1,20 @@
+uuid: 35807c72-1911-4bc9-accf-fc742dfba630
+langcode: de
+status: true
+dependencies:
+  module:
+    - ohano_appearance
+  theme:
+    - ohano
+id: brightnessblock
+theme: ohano
+region: sidebar_left
+weight: -5
+provider: null
+plugin: ohano_appearance__brightness_block
+settings:
+  id: ohano_appearance__brightness_block
+  label: Helligkeit
+  label_display: '0'
+  provider: ohano_appearance
+visibility: {  }

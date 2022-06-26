@@ -1,0 +1,7 @@
+{% extends '@ohano_mail/mail.html.twig' %}
+
+{% block body %}
+  Hey {{ username }},<br />
+  <br />
+  {{ 'your account verification failed. The moderator has added a new comment. Please review it and try to verify your account again.'|trans }}
+{% endblock body %}

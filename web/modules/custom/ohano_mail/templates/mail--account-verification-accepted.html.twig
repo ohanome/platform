@@ -1,0 +1,7 @@
+{% extends '@ohano_mail/mail.html.twig' %}
+
+{% block body %}
+  Hey {{ username }},<br />
+  <br />
+  {{ 'your account has been verified and unlocked. You can now login using your username and password.'|trans }}
+{% endblock body %}

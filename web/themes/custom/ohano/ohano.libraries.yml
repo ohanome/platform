@@ -1,0 +1,25 @@
+global-styling:
+  version: 1.0.0
+  css:
+    theme:
+      css/main.css: {}
+  js:
+    js/main.js: {}
+    js/dropdown.js: {}
+    js/fontawesome.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - ohano/source-serif
+
+source-serif:
+  version: 1.0.0
+  css:
+    theme:
+      node_modules/source-serif/source-serif-text.css: {}
+
+highlight.js:
+  version: 11.5.1
+  js:
+    node_modules/highlight.js
