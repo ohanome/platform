@@ -32,6 +32,25 @@ elements: |-
       Okay: Okay
       'Nicht gut': 'Nicht gut'
       'Gar nicht gut': 'Gar nicht gut'
+  sonstiges:
+    '#type': textarea
+    '#title': Sonstiges
+  verwendung_meines_feedbacks:
+    '#type': checkbox
+    '#title': 'Verwendung meines Feedbacks'
+    '#description': 'Ich bin damit einverstanden, dass mein Feedback ver&ouml;ffentlicht und kommentiert wird'
+  kontakt:
+    '#type': email
+    '#title': Kontakt
+    '#description': 'Falls Fragen zu deinem Feedback sind, k&ouml;nnen wir dich hier&uuml;ber kontaktieren. Auch wenn du dein Feedback zur&uuml;ckziehen m&ouml;chtest, k&ouml;nnen wir dein Feedback &uuml;ber deine E-Mail-Adresse zuordnen und l&ouml;schen.'
+    '#unique': true
+    '#unique_entity': true
+  datenschutz:
+    '#type': checkbox
+    '#title': Datenschutz
+    '#description': 'Ich habe die <a href="https://ohano.me/datenschutz" target="_blank">Datenschutzerkl&auml;rung</a> gelesen und akzeptiere diese'
+    '#required': true
+    '#required_error': 'Leider können wir dein Feedback nicht verarbeiten, wenn du unserer Datenschutzbestimmung nicht zustimmst.'
 css: ''
 javascript: ''
 settings:
@@ -58,14 +77,14 @@ settings:
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
-  form_unsaved: false
+  form_unsaved: true
   form_disable_back: false
   form_submit_back: false
   form_disable_autocomplete: false
   form_novalidate: false
   form_disable_inline_errors: false
-  form_required: false
-  form_autofocus: false
+  form_required: true
+  form_autofocus: true
   form_details_toggle: false
   form_reset: false
   form_access_denied: default
