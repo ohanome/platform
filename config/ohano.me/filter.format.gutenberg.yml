@@ -9,7 +9,7 @@ dependencies:
       - gutenberg
 _core:
   default_config_hash: iFvfKZXNYG-BpoPlJpBs6KLWM9FqhHbEvbBAntWemjA
-name: 'Gutenberg Blocks text format'
+name: 'Text format für Gutenberg-Blöcke'
 format: gutenberg
 weight: 0
 filters:

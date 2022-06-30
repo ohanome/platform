@@ -15,7 +15,7 @@ dependencies:
 _core:
   default_config_hash: ni-_Kxw7KXFA5blHyKmjWD7pHbGb6O69qNRbFrB1S7k
 id: reusable_blocks
-label: 'Reusable Blocks'
+label: 'Wiederverwendbar Blöcke'
 module: views
 description: ''
 tag: ''
@@ -28,7 +28,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Reusable Blocks'
+      title: 'Wiederverwendbar Blöcke'
       fields:
         block_content_bulk_form:
           id: block_content_bulk_form
@@ -256,7 +256,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'No blocks found.'
+            value: 'Keine Blöcke gefunden.'
             format: basic_html
           tokenize: false
       sorts: {  }
@@ -410,7 +410,7 @@ display:
       path: admin/content/reusable-blocks
       menu:
         type: tab
-        title: 'Reusable Blocks'
+        title: 'Wiederverwendbar Blöcke'
         description: ''
         weight: 0
         expanded: false

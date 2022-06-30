@@ -8,6 +8,6 @@ dependencies:
 _core:
   default_config_hash: r3t6MLUWkQk97pf7x3OiHCBZanFJKsKLS3uuQbmw-Yo
 id: reusable_block
-label: 'Reusable block'
+label: 'Wiederverwendbarer Block'
 revision: 0
-description: 'Build your block on Gutenberg editor and re-use it everywhere!'
+description: 'Erstellen Sie Ihren eigenen Block mit dem Gutenberg_Editor und verwenden Sie diesen überall wieder.'

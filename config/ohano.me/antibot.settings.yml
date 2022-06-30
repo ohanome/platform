@@ -1,0 +1,8 @@
+_core:
+  default_config_hash: 7QwhifH5gAzkdFMMDFV6XQRrcx4PAvtROZO8rs19nTo
+langcode: de
+form_ids:
+  - 'feedback_*'
+  - 'user_*'
+  - 'comment_*'
+show_form_ids: false
