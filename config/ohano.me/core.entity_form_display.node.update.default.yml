@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.update.field_events
+    - field.field.node.update.field_meta_tags
     - field.field.node.update.field_other
     - field.field.node.update.field_platform
     - field.field.node.update.field_preface
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.update.field_update_number
     - node.type.update
   module:
+    - metatag
     - path
     - scheduler
     - text
@@ -35,6 +37,14 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_meta_tags:
+    type: metatag_firehose
+    weight: 29
+    region: content
+    settings:
+      sidebar: true
+      use_details: true
     third_party_settings: {  }
   field_other:
     type: text_textarea
@@ -110,6 +120,11 @@ content:
     third_party_settings: {  }
   scheduler_settings:
     weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }

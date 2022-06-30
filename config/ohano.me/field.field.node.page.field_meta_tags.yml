@@ -1,0 +1,23 @@
+uuid: adecbf99-d738-4573-a75f-4eb0b32e7260
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_tags
+    - node.type.page
+  module:
+    - metatag
+id: node.page.field_meta_tags
+field_name: field_meta_tags
+entity_type: node
+bundle: page
+label: Meta-Tags
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 'a:1:{s:9:"mask_icon";a:2:{s:4:"href";s:27:"/static/icons/mask-icon.svg";s:5:"color";s:7:"#000000";}}'
+default_value_callback: ''
+settings: {  }
+field_type: metatag
