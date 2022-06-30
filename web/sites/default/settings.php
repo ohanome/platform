@@ -704,6 +704,14 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  * will allow the site to run off of all variants of example.com and
  * example.org, with all subdomains included.
  */
+$settings['trusted_host_patterns'] = [
+  // Production domain.
+  '^ohano\.me$',
+  // Subdomains including alpha, beta, and early-access.
+  '^.+\.ohano\.me$',
+  // Local development domain. Only for use with Lando.
+  '^ohano\.lndo\.site$',
+];
 
 /**
  * The default list of directories that will be ignored by Drupal's file API.
