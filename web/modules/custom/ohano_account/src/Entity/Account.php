@@ -13,6 +13,7 @@ use Drupal\ohano_account\Option\SubscriptionTier;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\ohano_core\Entity\EntityInterface;
 use Drupal\ohano_profile\Entity\UserProfile;
+use Laminas\Diactoros\Response\RedirectResponse;
 
 /**
  * Defines the Account entity.
@@ -236,6 +237,10 @@ class Account extends EntityBase implements EntityInterface {
     $accountId = \Drupal::entityQuery('account')
       ->condition('user', $user->id())
       ->execute();
+
+    if (empty($accountId)) {
+      return NULL;
+    }
 
     return Account::load(array_values($accountId)[0]);
   }
