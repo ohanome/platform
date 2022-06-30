@@ -1,0 +1,8 @@
+_core:
+  default_config_hash: 33gg8hVdxE7nTswwBBOY_d2rH3XjAbBa4rw0XyMRh6Y
+langcode: de
+enabled: false
+submission_interval: 24
+index_now_enabled: false
+index_now_preferred_engine: ''
+index_now_on_entity_save: false
