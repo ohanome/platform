@@ -85,6 +85,9 @@ class Account extends EntityBase implements EntityInterface {
 
   public static function isInDeveloperMode(): bool {
     $account = Account::forActive();
+    if (empty($account)) {
+      return FALSE;
+    }
     return (bool) $account->get('developer_mode')->value;
   }
 

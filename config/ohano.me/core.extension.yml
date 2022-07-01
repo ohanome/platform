@@ -63,6 +63,7 @@ module:
   ohano_profile: 0
   ohano_search: 0
   ohano_stats: 0
+  ohano_tracker: 0
   options: 0
   page_cache: 0
   path: 0
