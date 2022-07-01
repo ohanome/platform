@@ -44,18 +44,19 @@ content:
     region: content
   field_tags:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   links:
+    settings: {  }
+    third_party_settings: {  }
     weight: 100
     region: content
 hidden:
   field_feedback_form: true
   field_meta_tags: true
-  field_tags: true
   field_teaser_text: true
   langcode: true
