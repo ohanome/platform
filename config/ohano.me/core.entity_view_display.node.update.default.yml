@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.update.field_other
     - field.field.node.update.field_platform
     - field.field.node.update.field_preface
+    - field.field.node.update.field_tags
     - field.field.node.update.field_team
     - field.field.node.update.field_teaser_text
     - field.field.node.update.field_update_number
@@ -57,6 +58,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_team:
     type: text_default
