@@ -1,8 +1,1 @@
 <?php
-
-/**
- * Installs the path_request entity type.
- */
-function ohano_tracker_update_9001() {
-  \Drupal\ohano_tracker\Entity\PathRequest::install();
-}

@@ -15,7 +15,6 @@ function ohano_tracker_developer_mode_info_alter(&$developer_mode_info) {
   $developer_mode_info['ohano_tracker'] = [
     'route' => $url,
     'views' => $views,
-    'query' => (string) $viewsQuery,
   ];
 
 }
