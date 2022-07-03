@@ -1,46 +1,26 @@
 .statistic-container {
   display: flex;
   flex-wrap: wrap;
-}
 
+  table {
+    width: 100%;
+    background-color: var(--background-primary);
+    margin: .5rem;
+    border-radius: .5rem;
 
+    tr {
+      &:hover {
+        color: var(--text-color-secondary);
+        cursor: pointer;
+      }
 
-.statistic-link {
-  min-width: calc((100% - 10rem) / 5);
-  margin: .5rem;
-  background-color: var(--background-primary);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  color: var(--text-color-primary);
-  text-decoration: none;
-  transition: all ease-in-out var(--transition-duration);
+      td {
+        padding: 1rem;
 
-  &:hover {
-    color: var(--text-color-primary);
-    transition: all ease-in-out var(--transition-duration);
-  }
-
-  .head {
-    text-align: center;
-  }
-
-  .body {
-
-    .value {
-      font-family: "Poppins", sans-serif;
-      font-size: 4rem;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    .before,
-    .after {
-      font-size: .8rem;
-      font-weight: 300;
-      font-style: italic;
-      text-align: center;
+        &:last-of-type {
+          text-align: right;
+        }
+      }
     }
   }
 }

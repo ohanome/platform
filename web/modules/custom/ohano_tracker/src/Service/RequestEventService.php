@@ -3,9 +3,14 @@
 namespace Drupal\ohano_tracker\Service;
 
 use Drupal\Core\Entity\EntityStorageException;
+use Drupal\ohano_tracker\Entity\Day;
+use Drupal\ohano_tracker\Entity\Month;
 use Drupal\ohano_tracker\Entity\PathRequest;
 use Drupal\ohano_tracker\Entity\Platform;
+use Drupal\ohano_tracker\Entity\RequestTime;
 use Drupal\ohano_tracker\Entity\UserAgent;
+use Drupal\ohano_tracker\Entity\Weekday;
+use Drupal\ohano_tracker\Entity\Year;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class RequestEventService {
@@ -44,6 +49,27 @@ class RequestEventService {
       $platformEntity = Platform::loadOrCreateByPlatform($platform);
       $platformEntity->setCount($platformEntity->getCount() + 1);
       $platformEntity->save();
+
+      $now = new \DateTime('now', new \DateTimeZone('UTC'));
+      $requestTimeEntity = RequestTime::loadOrCreateByTime($now);
+      $requestTimeEntity->setCount($requestTimeEntity->getCount() + 1);
+      $requestTimeEntity->save();
+
+      $weekdayEntity = Weekday::loadOrCreateByWeekday($now);
+      $weekdayEntity->setCount($weekdayEntity->getCount() + 1);
+      $weekdayEntity->save();
+
+      $yearEntity = Year::loadOrCreateByYear($now);
+      $yearEntity->setCount($yearEntity->getCount() + 1);
+      $yearEntity->save();
+
+      $monthEntity = Month::loadOrCreateByMonth($now);
+      $monthEntity->setCount($monthEntity->getCount() + 1);
+      $monthEntity->save();
+
+      $dayEntity = Day::loadOrCreateByDay($now);
+      $dayEntity->setCount($dayEntity->getCount() + 1);
+      $dayEntity->save();
     });
 
     try {

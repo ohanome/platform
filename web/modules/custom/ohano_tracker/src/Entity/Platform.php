@@ -5,8 +5,8 @@ namespace Drupal\ohano_tracker\Entity;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 
-/*
- * Defines the PathRequest entity.
+/**
+ * Defines the Platform entity.
  *
  * @package Drupal\ohano_account\Entity
  *

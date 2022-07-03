@@ -1,5 +1,10 @@
 <div class="statistic-container">
-  {% for statistic in statistics %}
-    {{ statistic }}
-  {% endfor %}
+  <table>
+    {% for statistic in statistics %}
+      <tr class="statistic-row">
+        <td title="{{ statistic.after }}" class="name">{{ statistic.name }}</td>
+        <td class="value">{{ statistic.value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
 </div>

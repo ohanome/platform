@@ -8,14 +8,12 @@ use Drupal\Core\Field\BaseFieldDefinition;
 /**
  * Defines the PathRequest entity.
  *
- * FIXME: Table name should start with "ohano_tracker_" instead of "ohano_".
- *
  * @package Drupal\ohano_account\Entity
  *
  * @ContentEntityType(
  *   id = "path_request",
  *   label = @Translation("Path request"),
- *   base_table = "ohano_path_request",
+ *   base_table = "ohano_tracker_path_request",
  *   entity_keys = {
  *     "id" = "id",
  *     "uuid" = "uuid",
