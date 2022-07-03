@@ -40,12 +40,12 @@ class RequestEventService {
       $pathRequestEntity->setCount($pathRequestEntity->getCount() + 1);
       $pathRequestEntity->save();
 
-      $userAgent = $request->headers->get('user-agent');
+      $userAgent = $request->headers->get('user-agent') ?? 'unknown';
       $userAgentEntity = UserAgent::loadOrCreateByUserAgent($userAgent);
       $userAgentEntity->setCount($userAgentEntity->getCount() + 1);
       $userAgentEntity->save();
 
-      $platform = $request->headers->get('sec-ch-ua-platform');
+      $platform = $request->headers->get('sec-ch-ua-platform') ?? 'unknown';
       $platformEntity = Platform::loadOrCreateByPlatform($platform);
       $platformEntity->setCount($platformEntity->getCount() + 1);
       $platformEntity->save();
