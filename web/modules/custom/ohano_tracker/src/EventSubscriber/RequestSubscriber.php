@@ -40,18 +40,9 @@ class RequestSubscriber implements EventSubscriberInterface {
    *   The event object.
    */
   public function onRequest(RequestEvent $event): void {
-    if (!(\Drupal::currentUser()->isAnonymous() || (\Drupal::currentUser()->isAuthenticated() && count(\Drupal::currentUser()->getRoles()) === 1))) {
-      return;
-    }
-    $path = $event->getRequest()->getPathInfo();
-    $pathRequestEntity = PathRequest::create([
-      'path' => $path,
-    ]);
-    try {
-      $pathRequestEntity->save();
-    } catch (EntityStorageException $e) {
-      \Drupal::logger('ohano_tracker')->error($e->getMessage());
-    }
+    /** @var \Drupal\ohano_tracker\Service\RequestEventService $service */
+    $service = \Drupal::service('ohano_tracker.request_event');
+    $service->handleEvent($event);
   }
 
 }

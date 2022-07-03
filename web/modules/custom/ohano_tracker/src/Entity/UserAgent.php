@@ -5,30 +5,28 @@ namespace Drupal\ohano_tracker\Entity;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 
-/**
+/*
  * Defines the PathRequest entity.
- *
- * FIXME: Table name should start with "ohano_tracker_" instead of "ohano_".
  *
  * @package Drupal\ohano_account\Entity
  *
  * @ContentEntityType(
- *   id = "path_request",
- *   label = @Translation("Path request"),
- *   base_table = "ohano_path_request",
+ *   id = "user_agent",
+ *   label = @Translation("User agent"),
+ *   base_table = "ohano_tracker_user_agent",
  *   entity_keys = {
  *     "id" = "id",
  *     "uuid" = "uuid",
  *     "created" = "created",
  *     "updated" = "updated",
  *     "count" = "count",
- *     "path" = "path",
+ *     "user_agent" = "user_agent",
  *   }
  * )
  */
-class PathRequest extends TrackerEntityBase {
+class UserAgent extends TrackerEntityBase {
 
-  const ENTITY_ID = 'path_request';
+  const ENTITY_ID = 'user_agent';
 
   /**
    * {@inheritdoc}
@@ -43,9 +41,9 @@ class PathRequest extends TrackerEntityBase {
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['path'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Path'))
-      ->setDescription(t('The path of the request.'))
+    $fields['user_agent'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('User agent'))
+      ->setDescription(t('The user agent of the request.'))
       ->setRequired(TRUE)
       ->setSetting('max_length', 255)
       ->setDisplayOptions('form', [
@@ -58,15 +56,15 @@ class PathRequest extends TrackerEntityBase {
     return $fields;
   }
 
-  public static function loadByPath($path): ?PathRequest {
-    /** @var \Drupal\ohano_tracker\Entity\PathRequest $entity */
-    $entity = self::loadByField('path', $path);
+  public static function loadByUserAgent($userAgent): ?UserAgent {
+    /** @var \Drupal\ohano_tracker\Entity\UserAgent $entity */
+    $entity = self::loadByField('user_agent', $userAgent);
     return $entity;
   }
 
-  public static function loadOrCreateByPath($path): PathRequest {
-    /** @var \Drupal\ohano_tracker\Entity\PathRequest $entity */
-    $entity = self::loadOrCreateByField('path', $path);
+  public static function loadOrCreateByUserAgent($userAgent): UserAgent {
+    /** @var \Drupal\ohano_tracker\Entity\UserAgent $entity */
+    $entity = self::loadOrCreateByField('user_agent', $userAgent);
     if ($entity->get('count')->value == NULL) {
       $entity->set('count', 0);
     }
@@ -74,25 +72,17 @@ class PathRequest extends TrackerEntityBase {
   }
 
   /**
-   * Gets the path of the request.
-   *
-   * @return string
-   *   The path of the request.
+   * Gets the user agent of the request.
    */
-  public function getPath(): string {
-    return $this->get('path')->value;
+  public function getUserAgent(): string {
+    return $this->get('user_agent')->value;
   }
 
   /**
-   * Sets the path of the request.
-   *
-   * @param string $path
-   *   The path of the request.
-   *
-   * @return $this
+   * Sets the user agent of the request.
    */
-  public function setPath(string $path): PathRequest {
-    $this->set('path', $path);
+  public function setUserAgent(string $user_agent): UserAgent {
+    $this->set('user_agent', $user_agent);
     return $this;
   }
 

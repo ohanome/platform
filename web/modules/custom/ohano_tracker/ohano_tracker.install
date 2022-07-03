@@ -1,1 +1,11 @@
 <?php
+
+/**
+ * (Re-)installs all tracker entities.
+ */
+function ohano_tracker_update_9001() {
+  \Drupal\ohano_tracker\Entity\PathRequest::uninstall();
+  \Drupal\ohano_tracker\Entity\PathRequest::install();
+  \Drupal\ohano_tracker\Entity\UserAgent::install();
+  \Drupal\ohano_tracker\Entity\Platform::install();
+}
