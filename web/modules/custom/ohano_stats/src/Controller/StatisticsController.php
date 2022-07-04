@@ -3,6 +3,7 @@
 namespace Drupal\ohano_stats\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Url;
 use Drupal\ohano_stats\Service\StatisticsService;
 use Drupal\ohano_tracker\Entity\Day;
 use Drupal\ohano_tracker\Entity\Month;
@@ -16,6 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class StatisticsController extends ControllerBase {
 
+  const LIMIT = 10;
+
   protected StatisticsService $statisticService;
 
   public function __construct(StatisticsService $statisticsService) {
@@ -28,33 +31,9 @@ class StatisticsController extends ControllerBase {
     );
   }
 
-  public function getStatistics() {
+  public function getPagesStatistics() {
     $currentUser = \Drupal::currentUser();
     $statistics = [];
-
-    if ($currentUser->hasPermission('ohano stats access user stats')) {
-      $statistics[] = [
-        '#theme' => 'statistics_row',
-        '#row_name' => $this->t('User Statistics'),
-        '#statistic_container' => $this->getUserStatistics(),
-      ];
-    }
-
-    if ($currentUser->hasPermission('ohano stats access profile stats')) {
-      $statistics[] = [
-        '#theme' => 'statistics_row',
-        '#row_name' => $this->t('Profile Statistics'),
-        '#statistic_container' => $this->getProfileStatistics(),
-      ];
-    }
-
-    if ($currentUser->hasPermission('ohano stats access subprofile stats')) {
-      $statistics[] = [
-        '#theme' => 'statistics_row',
-        '#row_name' => $this->t('Sub-Profile Statistics'),
-        '#statistic_container' => $this->getSubProfileStatistics(),
-      ];
-    }
 
     if ($currentUser->hasPermission('ohano stats access route stats')) {
       $statistics[] = [
@@ -64,58 +43,103 @@ class StatisticsController extends ControllerBase {
       ];
     }
 
-    if ($currentUser->hasPermission('ohano stats access useragent stats')) {
+    return [
+      '#theme' => 'statistics_page',
+      '#statistic_rows' => $statistics,
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
+  }
+
+  public function getStatistics($stat_type = 'all') {
+    $currentUser = \Drupal::currentUser();
+    $statistics = [];
+
+    if (($stat_type == 'all' || $stat_type == 'user') && $currentUser->hasPermission('ohano stats access user stats')) {
+      $statistics[] = [
+        '#theme' => 'statistics_row',
+        '#row_name' => $this->t('User Statistics'),
+        '#statistic_container' => $this->getUserStatistics(),
+      ];
+    }
+
+    if (($stat_type == 'all' || $stat_type == 'profile') && $currentUser->hasPermission('ohano stats access profile stats')) {
+      $statistics[] = [
+        '#theme' => 'statistics_row',
+        '#row_name' => $this->t('Profile Statistics'),
+        '#statistic_container' => $this->getProfileStatistics(),
+      ];
+    }
+
+    if (($stat_type == 'all' || $stat_type == 'subprofile') && $currentUser->hasPermission('ohano stats access subprofile stats')) {
+      $statistics[] = [
+        '#theme' => 'statistics_row',
+        '#row_name' => $this->t('Sub-Profile Statistics'),
+        '#statistic_container' => $this->getSubProfileStatistics(),
+      ];
+    }
+
+    if (($stat_type == 'all' || $stat_type == 'visited-pages') && $currentUser->hasPermission('ohano stats access route stats')) {
+      $statistics[] = [
+        '#theme' => 'statistics_row',
+        '#row_name' => $this->t('Visited Pages Statistics'),
+        '#statistic_container' => $this->getVisitedPagesStatistics($stat_type != 'visited-pages'),
+      ];
+    }
+
+    if (($stat_type == 'all' || $stat_type == 'user-agent') && $currentUser->hasPermission('ohano stats access useragent stats')) {
       $statistics[] = [
         '#theme' => 'statistics_row',
         '#row_name' => $this->t('User Agent Statistics'),
-        '#statistic_container' => $this->getUserAgentStatistics(),
+        '#statistic_container' => $this->getUserAgentStatistics($stat_type != 'user-agent'),
       ];
     }
 
-    if ($currentUser->hasPermission('ohano stats access platform stats')) {
+    if (($stat_type == 'all' || $stat_type == 'client-platform') && $currentUser->hasPermission('ohano stats access platform stats')) {
       $statistics[] = [
         '#theme' => 'statistics_row',
         '#row_name' => $this->t('Client Platform Statistics'),
-        '#statistic_container' => $this->getPlatformStatistics(),
+        '#statistic_container' => $this->getPlatformStatistics($stat_type != 'client-platform'),
       ];
     }
 
-    if ($currentUser->hasPermission('ohano stats access request time stats')) {
+    if (($stat_type == 'all' || $stat_type == 'request-time') && $currentUser->hasPermission('ohano stats access request time stats')) {
       $statistics[] = [
         '#theme' => 'statistics_row',
         '#row_name' => $this->t('Request Time Statistics'),
-        '#statistic_container' => $this->getRequestTimeStatistics(),
+        '#statistic_container' => $this->getRequestTimeStatistics($stat_type != 'request-time'),
       ];
     }
 
-    if ($currentUser->hasPermission('ohano stats access request day stats')) {
+    if (($stat_type == 'all' || $stat_type == 'request-day') && $currentUser->hasPermission('ohano stats access request day stats')) {
       $statistics[] = [
         '#theme' => 'statistics_row',
-        '#row_name' => $this->t('Request Time Statistics'),
-        '#statistic_container' => $this->getRequestDayStatistics(),
+        '#row_name' => $this->t('Request Day Statistics'),
+        '#statistic_container' => $this->getRequestDayStatistics($stat_type != 'request-day'),
       ];
     }
 
-    if ($currentUser->hasPermission('ohano stats access request weekday stats')) {
+    if (($stat_type == 'all' || $stat_type == 'request-weekday') && $currentUser->hasPermission('ohano stats access request weekday stats')) {
       $statistics[] = [
         '#theme' => 'statistics_row',
-        '#row_name' => $this->t('Request Time Statistics'),
+        '#row_name' => $this->t('Request Weekday Statistics'),
         '#statistic_container' => $this->getRequestWeekdayStatistics(),
       ];
     }
 
-    if ($currentUser->hasPermission('ohano stats access request month stats')) {
+    if (($stat_type == 'all' || $stat_type == 'request-month') && $currentUser->hasPermission('ohano stats access request month stats')) {
       $statistics[] = [
         '#theme' => 'statistics_row',
-        '#row_name' => $this->t('Request Time Statistics'),
+        '#row_name' => $this->t('Request Month Statistics'),
         '#statistic_container' => $this->getRequestMonthStatistics(),
       ];
     }
 
-    if ($currentUser->hasPermission('ohano stats access request year stats')) {
+    if (($stat_type == 'all' || $stat_type == 'request-year') && $currentUser->hasPermission('ohano stats access request year stats')) {
       $statistics[] = [
         '#theme' => 'statistics_row',
-        '#row_name' => $this->t('Request Time Statistics'),
+        '#row_name' => $this->t('Request Year Statistics'),
         '#statistic_container' => $this->getRequestYearStatistics(),
       ];
     }
@@ -177,36 +201,53 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getVisitedPagesStatistics() {
+  public function getVisitedPagesStatistics($limited = TRUE) {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(PathRequest::entityTypeId())
       ->sort('count', 'DESC');
     $trackerResult = $trackerQuery->execute();
+    $count = 0;
     foreach ($trackerResult as $pathRequestId) {
       $pathRequest = PathRequest::load($pathRequestId);
       $statistics[] = [
         'name' => $pathRequest->getPath(),
         'value' => $pathRequest->getCount(),
       ];
+      if (++$count >= self::LIMIT && $limited) {
+        $statistics[] = [
+          'link' => Url::fromRoute('ohano_stats.index', ['stat_type' => 'visited-pages'])->toString(),
+        ];
+        break;
+      }
     }
 
     return [
       '#theme' => 'statistic_container',
       '#statistics' => $statistics,
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 
-  public function getUserAgentStatistics() {
+  public function getUserAgentStatistics($limited = TRUE) {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(UserAgent::entityTypeId())
       ->sort('count', 'DESC');
     $trackerResult = $trackerQuery->execute();
+    $count = 0;
     foreach ($trackerResult as $pathRequestId) {
       $pathRequest = UserAgent::load($pathRequestId);
       $statistics[] = [
         'name' => $pathRequest->getUserAgent(),
         'value' => $pathRequest->getCount(),
       ];
+      if (++$count >= self::LIMIT && $limited) {
+        $statistics[] = [
+          'link' => Url::fromRoute('ohano_stats.index', ['stat_type' => 'user-agent'])->toString(),
+        ];
+        break;
+      }
     }
 
     return [
@@ -215,17 +256,24 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getPlatformStatistics() {
+  public function getPlatformStatistics($limited = TRUE) {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(Platform::entityTypeId())
       ->sort('count', 'DESC');
     $trackerResult = $trackerQuery->execute();
+    $count = 0;
     foreach ($trackerResult as $pathRequestId) {
       $pathRequest = Platform::load($pathRequestId);
       $statistics[] = [
         'name' => $pathRequest->getPlatform(),
         'value' => $pathRequest->getCount(),
       ];
+      if (++$count >= self::LIMIT && $limited) {
+        $statistics[] = [
+          'link' => Url::fromRoute('ohano_stats.index', ['stat_type' => 'client-platform'])->toString(),
+        ];
+        break;
+      }
     }
 
     return [
@@ -234,17 +282,24 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getRequestTimeStatistics() {
+  public function getRequestTimeStatistics($limited = TRUE) {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(RequestTime::entityTypeId())
-      ->sort('time');
+      ->sort($limited ? 'count' : 'time', $limited ? 'DESC' : 'ASC');
     $trackerResult = $trackerQuery->execute();
+    $count = 0;
     foreach ($trackerResult as $pathRequestId) {
       $pathRequest = RequestTime::load($pathRequestId);
       $statistics[] = [
         'name' => $pathRequest->get('time')->value,
         'value' => $pathRequest->getCount(),
       ];
+      if (++$count >= self::LIMIT && $limited) {
+        $statistics[] = [
+          'link' => Url::fromRoute('ohano_stats.index', ['stat_type' => 'request-time'])->toString(),
+        ];
+        break;
+      }
     }
 
     return [
@@ -253,17 +308,24 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getRequestDayStatistics() {
+  public function getRequestDayStatistics($limited = TRUE) {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(Day::entityTypeId())
-      ->sort('day');
+      ->sort($limited ? 'count' : 'day', $limited ? 'DESC' : 'ASC');
     $trackerResult = $trackerQuery->execute();
+    $count = 0;
     foreach ($trackerResult as $pathRequestId) {
       $pathRequest = Day::load($pathRequestId);
       $statistics[] = [
         'name' => $pathRequest->get('day')->value,
         'value' => $pathRequest->getCount(),
       ];
+      if (++$count >= self::LIMIT && $limited) {
+        $statistics[] = [
+          'link' => Url::fromRoute('ohano_stats.index', ['stat_type' => 'request-day'])->toString(),
+        ];
+        break;
+      }
     }
 
     return [

@@ -1,5 +1,5 @@
 ohano_stats.index:
-  path: '/ohano/stats'
+  path: '/ohano/stats/{stat_type}'
   defaults:
     _controller: Drupal\ohano_stats\Controller\StatisticsController::getStatistics
     _title: 'Statistics'
