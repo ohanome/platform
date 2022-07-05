@@ -15,6 +15,15 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class RequestEventService {
 
+  const IGNORED_USER_AGENTS = [
+    'Uptime-Kuma',
+    'UptimeRobot',
+    'Plesk',
+    'SiteMonitor',
+    'SiteSeal',
+    'kulana',
+  ];
+
   public function userShouldBeTracked() {
     if (\Drupal::currentUser()->isAnonymous()) {
       return TRUE;
@@ -31,9 +40,15 @@ class RequestEventService {
     if (!$this->userShouldBeTracked()) {
       return;
     }
+    $request = $event->getRequest();
+    $userAgent = $request->headers->get('user-agent') ?? 'unknown';
+    foreach (self::IGNORED_USER_AGENTS as $ignoredUserAgent) {
+      if (str_contains($userAgent, $ignoredUserAgent)) {
+        return;
+      }
+    }
 
-    $fiber = new \Fiber(function () use ($event) {
-      $request = $event->getRequest();
+    $fiber = new \Fiber(function () use ($request) {
 
       $path = $request->getPathInfo();
       $pathRequestEntity = PathRequest::loadOrCreateByPath($path);
