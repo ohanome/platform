@@ -244,13 +244,13 @@ class AccountVerification extends EntityBase {
   /**
    * Sets the video.
    *
-   * @param \Drupal\file\Entity\File $video
+   * @param \Drupal\file\Entity\File|null $video
    *   The video to set.
    *
    * @return \Drupal\ohano_account\Entity\AccountVerification
    *   The active instance of this class.
    */
-  public function setVideo(File $video): AccountVerification {
+  public function setVideo(File $video = NULL): AccountVerification {
     $this->set('video', $video);
     return $this;
   }

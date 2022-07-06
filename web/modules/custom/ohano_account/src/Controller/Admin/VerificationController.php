@@ -26,15 +26,14 @@ class VerificationController extends ControllerBase {
       ->getStorage('account_verification')
       ->getQuery()
       ->sort('created', 'DESC')
-      ->sort('verified')
       ->execute();
     $verificationIds = array_values($verificationIds);
-    /** @var \Drupal\ohano_account\Entity\AccountVerification[] $verifications */
-    $verifications = AccountVerification::loadMultiple($verificationIds);
-
     $renderedVerifications = [];
-    foreach ($verifications as $verification) {
-      $renderedVerifications[] = $verification->render();
+    foreach ($verificationIds as $key => $verificationId) {
+      $verification = AccountVerification::load($verificationId);
+      if (!$verification->isVerified()) {
+        $renderedVerifications[] = $verification->render();
+      }
     }
 
     return [
