@@ -16,7 +16,9 @@ use Drupal\Core\Block\BlockBase;
 class BrightnessModeBlock extends BlockBase {
 
   public function build() {
-    return [];
+    return [
+      '#theme' => 'block__color_mode',
+    ];
   }
 
 }

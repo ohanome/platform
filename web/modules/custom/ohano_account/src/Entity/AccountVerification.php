@@ -94,7 +94,7 @@ class AccountVerification extends EntityBase {
    *   The user.
    */
   public function getUser(): AccountInterface {
-    return $this->get('user')->referencedEntities()[0];
+    return $this->get('user')->entity;
   }
 
   /**
