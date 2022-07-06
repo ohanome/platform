@@ -11,3 +11,5 @@ ohano administer verification requests:
 ohano account cleanup:
   title: 'Cleanup messy account related entities'
   restrict access: true
+ohano access account settings:
+  title: 'Access personal account settings'
