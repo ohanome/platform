@@ -170,10 +170,10 @@ class RegistrationForm extends FormBase {
     }
 
     try {
-      Account::create()
+      $account = Account::create()
         ->setUser($user)
-        ->setBits(0)
-        ->save();
+        ->setBits(0);
+      $account->save();
     }
     catch (EntityStorageException $e) {
       \Drupal::messenger()->addError($this->t('Something went wrong when creating your account. Please try again.'));
@@ -245,6 +245,8 @@ class RegistrationForm extends FormBase {
     }
 
     \Drupal::messenger()->addMessage('Welcome to ohano! We have sent an email with instructions on how to activate your account.');
+
+    \Drupal::moduleHandler()->invokeAll('ohano_post_register', [$account]);
   }
 
 }

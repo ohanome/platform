@@ -13,6 +13,7 @@ class DeveloperModeController extends ControllerBase {
     $developerMode = (bool) $account->get('developer_mode')->value;
     $account->set('developer_mode', !$developerMode);
     $account->save();
+    drupal_flush_all_caches();
 
     return new RedirectResponse(\Drupal::request()->headers->get('referer'));
   }

@@ -94,7 +94,7 @@ class AccountVerification extends EntityBase {
    *   The user.
    */
   public function getUser(): AccountInterface {
-    return $this->get('user')->referencedEntities()[0];
+    return $this->get('user')->entity;
   }
 
   /**
@@ -244,13 +244,13 @@ class AccountVerification extends EntityBase {
   /**
    * Sets the video.
    *
-   * @param \Drupal\file\Entity\File $video
+   * @param \Drupal\file\Entity\File|null $video
    *   The video to set.
    *
    * @return \Drupal\ohano_account\Entity\AccountVerification
    *   The active instance of this class.
    */
-  public function setVideo(File $video): AccountVerification {
+  public function setVideo(File $video = NULL): AccountVerification {
     $this->set('video', $video);
     return $this;
   }

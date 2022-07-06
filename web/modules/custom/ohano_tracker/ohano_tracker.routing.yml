@@ -1,0 +1,15 @@
+# Admin links
+ohano_tracker.admin.tracker:
+  path: '/admin/ohano/tracker'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Tracker'
+  requirements:
+    _permission: 'ohano access tracker administration'
+ohano_tracker.admin.tracker.clear_stats:
+  path: '/admin/ohano/tracker/clear-stats'
+  defaults:
+    _form: Drupal\ohano_tracker\Form\Admin\ClearStatsForm
+    _title: 'Clear Tracker Statistics'
+  requirements:
+    _permission: 'ohano clear tracker statistics'

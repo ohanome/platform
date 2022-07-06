@@ -242,10 +242,10 @@ display:
         options:
           items_per_page: 50
           tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
-            first: '« First'
-            last: 'Last »'
+            next: 'Nächste ›'
+            previous: '‹ Vorherige'
+            first: '« Erste'
+            last: 'Letzte »'
       exposed_form:
         type: basic
         options:

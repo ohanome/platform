@@ -33,6 +33,36 @@ interface EntityInterface {
   public static function deleteAll(): void;
 
   /**
+   * Loads an entity by its given field name and field value.
+   *
+   * @param $field
+   *   The field name.
+   * @param $value
+   *   The field value.
+   *
+   * @return \Drupal\ohano_core\Entity\EntityBase|null
+   *   The entity or NULL if no entity was found.
+   */
+  public static function loadByField($field, $value): ?EntityBase;
+
+  /**
+   * Loads or creates an entity by its given field name and field value.
+   *
+   * The method will always return an entity that implements EntityInterface
+   * because if no entity was found, it will be created with the given field
+   * value set.
+   *
+   * @param $field
+   *   The field name.
+   * @param $value
+   *   The field value.
+   *
+   * @return \Drupal\ohano_core\Entity\EntityBase
+   *   The entity.
+   */
+  public static function loadOrCreateByField($field, $value): EntityBase;
+
+  /**
    * Converts the whole entity to an array that can be rendered.
    *
    * @return array

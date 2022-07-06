@@ -1,0 +1,10 @@
+ohano_tracker.admin.tracker:
+  title: Tracker
+  description: 'Do some magic stuff with the tracker'
+  route_name: ohano_tracker.admin.tracker
+  parent: ohano.admin
+ohano_tracker.admin.tracker.clear_stats:
+  title: Clear Stats
+  description: 'Clears all tracker statistics'
+  route_name: ohano_tracker.admin.tracker.clear_stats
+  parent: ohano_tracker.admin.tracker

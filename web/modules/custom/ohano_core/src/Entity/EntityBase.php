@@ -6,6 +6,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ohano_core\OhanoCore;
+use Drupal\ohano_tracker\Entity\UserAgent;
 
 /**
  * Base class for every entity.
@@ -54,6 +55,31 @@ abstract class EntityBase extends ContentEntityBase implements EntityInterface {
     OhanoCore::createEntityDefaultFields($fields);
 
     return $fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function loadByField($field, $value): ?EntityBase {
+    $query = \Drupal::entityQuery(static::entityTypeId());
+    $query->condition($field, $value);
+    $ids = $query->execute();
+    if (count($ids) > 0) {
+      return static::load(array_shift($ids));
+    }
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function loadOrCreateByField($field, $value): EntityBase {
+    $entity = static::loadByField($field, $value);
+    if ($entity === NULL) {
+      $entity = static::create([$field => $value]);
+    }
+
+    return $entity;
   }
 
   /**

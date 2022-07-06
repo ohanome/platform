@@ -16,7 +16,6 @@ function ohano_core_preprocess_html(&$variables) {
   $variables['page']['#attached']['library'][] = 'ohano_core/admin-theme';
   if (
     count(\Drupal::currentUser()->getRoles()) == 1 &&
-    \Drupal::currentUser()->getRoles()[0] == "authenticated" &&
     \Drupal::currentUser()->id() != 1
   ) {
     if ((int) (new \DateTime())->format("m") < 8) {

@@ -245,7 +245,10 @@ class UserProfile extends EntityBase {
     if (empty($account)) {
       return NULL;
     }
+    return self::loadMultipleByAccount($account);
+  }
 
+  public static function loadMultipleByAccount(Account $account) {
     $userProfileId = \Drupal::entityQuery(UserProfile::ENTITY_ID)
       ->condition('account', $account->id())
       ->execute();

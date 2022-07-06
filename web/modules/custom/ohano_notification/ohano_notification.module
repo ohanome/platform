@@ -28,18 +28,6 @@ function ohano_notification_theme($existing, $type, $theme, $path) {
 }
 
 /**
- * Implements hook_entity_create().
- */
-function ohano_notification_entity_create(EntityInterface $entity) {
-  if ($entity->getEntityTypeId() == Account::entityTypeId()) {
-    /** @var Account $entity */
-    /** @var \Drupal\ohano_notification\Service\NotificationService $notificationService */
-    $notificationService = \Drupal::service('ohano_notification.notification');
-    $notificationService->createNotificationSettingsForAccount($entity);
-  }
-}
-
-/**
  * Implements hook_user_login().
  */
 function ohano_notification_user_login(UserInterface $account) {
@@ -55,7 +43,16 @@ function ohano_notification_user_login(UserInterface $account) {
  * Implements hook_features_alter().
  */
 function ohano_notification_features_alter(&$features) {
-  if (\Drupal::currentUser()->hasPermission('ohano access developer mode')) {
+  if (\Drupal::currentUser()->hasPermission('ohano notification access notification center')) {
     $features[] = \Drupal\ohano_notification\Feature\Notifications::class;
   }
+}
+
+/**
+ * Implements hook_ohano_post_register().
+ */
+function ohano_notification_ohano_post_register(Account $account) {
+  /** @var \Drupal\ohano_notification\Service\NotificationService $notificationService */
+  $notificationService = \Drupal::service('ohano_notification.notification');
+  $notificationService->createNotificationSettingsForAccount($account);
 }

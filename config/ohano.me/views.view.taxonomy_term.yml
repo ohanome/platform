@@ -11,7 +11,7 @@ dependencies:
 _core:
   default_config_hash: YKgw0f77GEmCu6_6Om9Mbig0mON9JdfVuMxTtd0WQaI
 id: taxonomy_term
-label: Taxonomie-Begriff
+label: 'Taxonomy term'
 module: taxonomy
 description: 'Inhalt, der zu einem bestimmten Taxonomie-Begriff gehört.'
 tag: default
@@ -40,7 +40,7 @@ display:
             items_per_page_label: 'Items per page'
             items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: '- Alle -'
             offset: false
             offset_label: Offset
       exposed_form:

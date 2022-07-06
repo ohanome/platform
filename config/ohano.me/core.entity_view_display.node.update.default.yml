@@ -4,14 +4,17 @@ status: true
 dependencies:
   config:
     - field.field.node.update.field_events
+    - field.field.node.update.field_meta_tags
     - field.field.node.update.field_other
     - field.field.node.update.field_platform
     - field.field.node.update.field_preface
+    - field.field.node.update.field_tags
     - field.field.node.update.field_team
     - field.field.node.update.field_teaser_text
     - field.field.node.update.field_update_number
     - node.type.update
   module:
+    - metatag
     - text
     - user
 id: node.update.default
@@ -27,6 +30,13 @@ content:
       link: false
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_meta_tags:
+    type: metatag_empty_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
     region: content
   field_other:
     type: text_default
@@ -48,6 +58,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_team:
     type: text_default

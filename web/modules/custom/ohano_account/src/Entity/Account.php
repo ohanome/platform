@@ -84,6 +84,9 @@ class Account extends EntityBase implements EntityInterface {
 
   public static function isInDeveloperMode(): bool {
     $account = Account::forActive();
+    if (empty($account)) {
+      return FALSE;
+    }
     return (bool) $account->get('developer_mode')->value;
   }
 
@@ -236,6 +239,10 @@ class Account extends EntityBase implements EntityInterface {
     $accountId = \Drupal::entityQuery('account')
       ->condition('user', $user->id())
       ->execute();
+
+    if (empty($accountId)) {
+      return NULL;
+    }
 
     return Account::load(array_values($accountId)[0]);
   }

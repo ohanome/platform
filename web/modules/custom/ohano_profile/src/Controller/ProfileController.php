@@ -57,9 +57,9 @@ class ProfileController extends ControllerBase {
   }
 
   public function profile($username = NULL) {
-    if (empty($username)) {
-      $account = Account::forActive();
-      $username = $account->getActiveProfile()->getProfileName();
+    $activeAccount = Account::forActive();
+    if (empty($username) && !empty($activeAccount)) {
+      $username = $activeAccount->getActiveProfile()->getProfileName();
       return new RedirectResponse("/user/$username");
     }
 
@@ -110,6 +110,17 @@ class ProfileController extends ControllerBase {
       $renderedCodingProfile = $codingProfile->render();
     }
 
+    $isOwnProfile = FALSE;
+    if (!empty($activeAccount)) {
+      $profilesForAccount = UserProfile::loadMultipleByAccount($activeAccount);
+      foreach ($profilesForAccount as $profile) {
+        if ($profile->getProfileName() === $username) {
+          $isOwnProfile = TRUE;
+          break;
+        }
+      }
+    }
+
     $build = [
       '#theme' => 'profile_page',
       '#profile' => [
@@ -126,9 +137,12 @@ class ProfileController extends ControllerBase {
       ],
       '#options' => [
         '#theme' => 'profile_options',
-        '#own' => TRUE,
+        '#own' => $isOwnProfile,
         '#name' => $userProfile->getProfileName(),
-      ]
+      ],
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
 
     #dd($build);

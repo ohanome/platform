@@ -1,0 +1,7 @@
+services:
+  ohano_tracker.subscriber.request:
+    class: Drupal\ohano_tracker\EventSubscriber\RequestSubscriber
+    tags:
+      - { name: 'event_subscriber' }
+  ohano_tracker.request_event:
+    class: Drupal\ohano_tracker\Service\RequestEventService
