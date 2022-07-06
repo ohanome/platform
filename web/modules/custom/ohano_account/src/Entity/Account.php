@@ -13,7 +13,6 @@ use Drupal\ohano_account\Option\SubscriptionTier;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\ohano_core\Entity\EntityInterface;
 use Drupal\ohano_profile\Entity\UserProfile;
-use Laminas\Diactoros\Response\RedirectResponse;
 
 /**
  * Defines the Account entity.
