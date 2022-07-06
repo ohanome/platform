@@ -22,4 +22,4 @@ source-serif:
 highlight.js:
   version: 11.5.1
   js:
-    node_modules/highlight.js
+    node_modules/highlight.js: {}
