@@ -41,7 +41,7 @@ class FeaturesBlock extends BlockBase {
         $renderable['#icon_class'] = $iconClass;
       }
       if ($path = $feature::getPath()) {
-        $renderable['#path'] = $path->getRouteName();
+        $renderable['#path'] = $path->toString();
       }
       if ($weight = $feature::getWeight()) {
         $renderable['#weight'] = $weight;

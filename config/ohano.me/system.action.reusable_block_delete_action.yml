@@ -10,7 +10,7 @@ dependencies:
 _core:
   default_config_hash: 6Nffs0f0augGItO21H-DDIcPxIBbB5txCgVuY_3xY8k
 id: reusable_block_delete_action
-label: 'Delete reusable block'
+label: 'Wiederverwendbaren Block löschen'
 type: block_content
 plugin: reusable_block_delete_action
 configuration: {  }

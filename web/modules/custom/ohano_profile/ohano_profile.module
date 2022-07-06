@@ -72,3 +72,25 @@ function ohano_profile_theme($existing, $type, $theme, $path): array {
     ]
   ];
 }
+
+/**
+ * Implements hook_ohano_post_register().
+ */
+function ohano_profile_ohano_post_register(Account $account) {
+  /** @var \Drupal\ohano_profile\Entity\UserProfile $profile */
+  $profile = UserProfile::create()
+    ->setAccount($account)
+    ->setProfileName($account->getUser()->getAccountName())
+    ->setType(\Drupal\ohano_profile\Option\ProfileType::Personal->value)
+    ->setIsExcludedFromSearch(TRUE)
+    ->setStatus(1);
+  $profile->save();
+
+  $account->setActiveProfile($profile);
+  $account->save();
+
+  $baseProfile = BaseProfile::create()
+    ->setProfile($profile)
+    ->setUsername($account->getUser()->getAccountName());
+  $baseProfile->save();
+}

@@ -18,7 +18,7 @@ class Statistics implements FeatureInterface {
   }
 
   public static function getPath(): Url {
-    return Url::fromRoute('ohano_stats.index');
+    return Url::fromRoute('ohano_stats.index', ['stat_type' => 'all']);
   }
 
   public static function getWeight(): int {

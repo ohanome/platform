@@ -1,0 +1,20 @@
+uuid: 2dfd5b1d-ee99-492c-8117-049d8c88ea9f
+langcode: de
+status: true
+dependencies:
+  module:
+    - ohano_account
+  theme:
+    - ohano
+id: developermodeblock
+theme: ohano
+region: content
+weight: 0
+provider: null
+plugin: ohano_account__devmode_block
+settings:
+  id: ohano_account__devmode_block
+  label: 'Developer mode'
+  label_display: visible
+  provider: ohano_account
+visibility: {  }

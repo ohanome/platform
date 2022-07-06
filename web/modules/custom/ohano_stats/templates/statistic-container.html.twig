@@ -1,5 +1,15 @@
 <div class="statistic-container">
-  {% for statistic in statistics %}
-    {{ statistic }}
-  {% endfor %}
+  <table>
+    {% for statistic in statistics %}
+      <tr class="statistic-row">
+        {% if statistic.name %}
+          <td title="{{ statistic.after }}" class="name">{{ statistic.name }}</td>
+        {% endif %}
+        {% if statistic.link %}
+          <td title="{{ statistic.after }}" class="link"><a href="{{ statistic.link }}">{{ "More..."|trans }}</a></td>
+        {% endif %}
+        <td class="value">{{ statistic.value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
 </div>

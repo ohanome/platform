@@ -5,9 +5,11 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.update.field_events
+    - field.field.node.update.field_meta_tags
     - field.field.node.update.field_other
     - field.field.node.update.field_platform
     - field.field.node.update.field_preface
+    - field.field.node.update.field_tags
     - field.field.node.update.field_team
     - field.field.node.update.field_teaser_text
     - field.field.node.update.field_update_number
@@ -19,13 +21,22 @@ targetEntityType: node
 bundle: update
 mode: teaser
 content:
+  field_tags:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
   field_events: true
+  field_meta_tags: true
   field_other: true
   field_platform: true
   field_preface: true

@@ -9,6 +9,7 @@ set('git_tty', false);
 //Drupal 8 shared dirs
 set('shared_dirs', [
   'web/sites/{{drupal_site}}/files',
+  'private',
 ]);
 
 //Drupal 8 shared files

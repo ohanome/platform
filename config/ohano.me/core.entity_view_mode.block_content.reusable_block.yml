@@ -10,6 +10,6 @@ dependencies:
 _core:
   default_config_hash: 0nRdlyXwWiWvI4FdhHFKcKfOGaW3sirwqY0dUr5JIlg
 id: block_content.reusable_block
-label: 'Reusable block'
+label: 'Wiederverwendbarer Block'
 targetEntityType: block_content
 cache: true

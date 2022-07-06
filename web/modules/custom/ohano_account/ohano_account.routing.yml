@@ -108,10 +108,17 @@ ohano_account.admin.account.verification:
   requirements:
     _permission: 'ohano access verification overview'
 ohano_account.admin.account.verification.detail:
-  path: '/admin/ohano/account/verification/{id}'
+  path: '/admin/ohano/account/verification/{id}/view'
   defaults:
     _form: Drupal\ohano_account\Form\Admin\VerificationForm
     _title: 'Review Verification'
+  requirements:
+    _permission: 'ohano administer verification requests'
+ohano_account.admin.account.verification.archive:
+  path: '/admin/ohano/account/verification/{id}/archive'
+  defaults:
+    _form: Drupal\ohano_account\Form\Admin\VerificationArchiveForm
+    _title: 'Archive Verification'
   requirements:
     _permission: 'ohano administer verification requests'
 ohano_account.admin.account.cleanup:

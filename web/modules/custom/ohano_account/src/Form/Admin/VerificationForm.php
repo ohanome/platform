@@ -72,7 +72,7 @@ class VerificationForm extends FormBase {
       $form['video'] = [
         '#type' => 'markup',
         '#title' => $this->t("Video"),
-        '#markup' => $this->t('Video file: <a href="@url" target="_blank">@url</a><br />', ['url' => $url]),
+        '#markup' => $this->t('Video file: <a href="@url" target="_blank">@url</a><br />', ['@url' => $url]),
       ];
     }
     else {

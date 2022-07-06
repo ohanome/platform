@@ -442,7 +442,7 @@ class BaseProfile extends SubProfileBase {
       '#type' => 'select',
       '#title' => t('Gender'),
       '#options' => [NULL => t('-')] + Gender::translatableFormOptions(),
-      '#default_value' => $subProfile->getGender()->value,
+      '#default_value' => $subProfile->getGender()?->value,
     ];
 
     $form['city'] = [
