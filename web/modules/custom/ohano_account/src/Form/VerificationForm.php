@@ -32,12 +32,12 @@ class VerificationForm extends FormBase {
     return [
       '#type' => 'managed_file',
       '#title' => $this->t('Video file'),
-      '#description' => $this->t('Additionally to the above mentioned restrictions there are also technical requirements and limit: The video must be under 5MB and you must upload is as .mp4 file.'),
+      '#description' => $this->t('Additionally to the above mentioned restrictions there are also technical requirements and limit: The video must be under 5MB and you must upload is as .mp4, .mov or .avi file.'),
       '#upload_location' => 'public://verification/' . md5(\Drupal::currentUser()
         ->getAccountName()),
       '#upload_validators' => [
         'file_validate_extensions' => [
-          'mp4',
+          'mp4 mov avi',
         ],
         'file_validate_size' => [
           50000000,
