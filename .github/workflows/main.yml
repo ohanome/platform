@@ -6,15 +6,11 @@ on:
       - main
       - beta
       - alpha
-      - feature/*
-      - fix/*
   pull_request:
     branches:
       - main
       - beta
       - alpha
-      - feature/*
-      - fix/*
 
   workflow_dispatch:
 
@@ -39,36 +35,22 @@ jobs:
       - uses: actions/checkout@v2
       - name: Check all custom parts against the Drupal coding standard
         run: composer install && bin/phpcs
-  check-phpstan:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Check all custom parts by PHPStan
-        run: composer install && bin/phpcs
-  check-psalm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Check all custom parts by Psalm
-        run: composer install && bin/phpcs
   check-phpcpd:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Check all custom parts by PHP Copy/Paste Detector
-        run: composer install && bin/phpcs
+        run: composer install && bin/phpcpd
   run-unit-tests:
-    needs: [check-phpcs, check-phpstan, check-psalm, check-phpcpd]
+    needs: [check-phpcs, check-phpcpd]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Runs all unit tests
         run: composer install && bin/test -u
   run-functional-tests:
-    needs: [check-phpcs, check-phpstan, check-psalm, check-phpcpd]
+    needs: [check-phpcs, check-phpcpd]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
