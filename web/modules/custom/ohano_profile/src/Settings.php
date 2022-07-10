@@ -2,8 +2,9 @@
 
 namespace Drupal\ohano_profile;
 
-use Drupal\ohano_profile\Option\ProfileType;
-
+/**
+ * Provides static settings for the ohano_profile module.
+ */
 class Settings {
   const PROFILE_TYPE_ICONS = [
     'personal' => 'fas fa-user',
@@ -13,4 +14,5 @@ class Settings {
     'artist' => 'fas fa-palette',
     'streamer' => 'fas fa-gamepad',
   ];
+
 }

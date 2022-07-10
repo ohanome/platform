@@ -2,14 +2,10 @@
 
 namespace Drupal\ohano_notification\EventSubscriber;
 
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\Url;
 use Drupal\ohano_account\Entity\Account;
-use Drupal\ohano_account\Entity\AccountVerification;
 use Drupal\ohano_notification\Entity\NotificationSettings;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 

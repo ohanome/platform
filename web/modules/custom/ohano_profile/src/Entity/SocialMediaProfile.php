@@ -4,7 +4,6 @@ namespace Drupal\ohano_profile\Entity;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
-use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the SocialProfile entity.
@@ -327,9 +326,20 @@ class SocialMediaProfile extends SubProfileBase {
     ];
   }
 
+  /**
+   * Renders the job profile form.
+   *
+   * @param \Drupal\ohano_profile\Entity\SubProfileBase $subProfile
+   *   The sub profile to render the form for.
+   *
+   * @return array
+   *   The render array for the form.
+   *
+   * @throws \Exception
+   */
   public static function renderForm(SubProfileBase $subProfile): array {
     if (!$subProfile instanceof SocialMediaProfile) {
-      throw new InvalidArgumentException('Parameter must be of type SocialMediaProfile');
+      throw new \Exception('Parameter must be of type SocialMediaProfile');
     }
     /** @var \Drupal\ohano_profile\Entity\SocialMediaProfile $subProfile */
 

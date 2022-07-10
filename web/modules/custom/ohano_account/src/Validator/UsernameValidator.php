@@ -18,13 +18,22 @@ class UsernameValidator {
 
   const SIMILARITY_PERCENTAGE_LIMIT = 50.0;
 
+  /**
+   * Checks if the given username is in the blocklist.
+   *
+   * @param string $username
+   *   The username to check.
+   *
+   * @return bool
+   *   TRUE if the username is in the blocklist, FALSE otherwise.
+   */
   public function isInBlockList(string $username): bool {
     if (in_array(strtolower($username), Blocklist::USERNAME)) {
       return TRUE;
     }
 
     foreach (Blocklist::USERNAME as $blockedUsername) {
-      $perc = null;
+      $perc = NULL;
       similar_text($username, $blockedUsername, $perc);
 
       if ($perc >= self::SIMILARITY_PERCENTAGE_LIMIT) {

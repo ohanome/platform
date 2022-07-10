@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:ignoreFile
+
 namespace Drupal\ohano_core\Error;
 
 enum Error: string {

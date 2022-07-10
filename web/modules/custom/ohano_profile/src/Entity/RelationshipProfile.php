@@ -7,7 +7,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\ohano_profile\Option\RelationshipStatus;
 use Drupal\ohano_profile\Option\RelationshipType;
 use Drupal\ohano_profile\Option\Sexuality;
-use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the RelationshipProfile entity.
@@ -142,17 +141,31 @@ class RelationshipProfile extends SubProfileBase {
   public function render(): array {
     return parent::render() + [
       'relationship_status' => $this->getRelationshipStatus()?->value,
+        // phpcs:ignore
       'relationship_status_value' => $this->getRelationshipStatus() ? t($this->getRelationshipStatus()->value) : NULL,
       'relationship_type' => $this->getRelationshipType()?->value,
+        // phpcs:ignore
       'relationship_type_value' => $this->getRelationshipType() ? t($this->getRelationshipType()->value) : NULL,
       'sexuality' => $this->getSexuality()?->value,
+        // phpcs:ignore
       'sexuality_value' => $this->getSexuality() ? t($this->getSexuality()->value) : NULL,
     ];
   }
 
+  /**
+   * Renders the relationship profile form.
+   *
+   * @param \Drupal\ohano_profile\Entity\SubProfileBase $subProfile
+   *   The sub profile to render to form for.
+   *
+   * @return array
+   *   The form array.
+   *
+   * @throws \Exception
+   */
   public static function renderForm(SubProfileBase $subProfile): array {
     if (!$subProfile instanceof RelationshipProfile) {
-      throw new InvalidArgumentException('Parameter must be of type RelationshipProfile');
+      throw new \Exception('Parameter must be of type RelationshipProfile');
     }
     /** @var \Drupal\ohano_profile\Entity\RelationshipProfile $subProfile */
 

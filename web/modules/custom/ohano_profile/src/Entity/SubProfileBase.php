@@ -7,10 +7,22 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\taxonomy\Entity\Term;
-use phpDocumentor\Reflection\Types\Static_;
 
+/**
+ * Defines a base class fpr use with sub-profile entities.
+ *
+ * @package Drupal\ohano_profile\Entity
+ */
 abstract class SubProfileBase extends EntityBase implements SubProfileInterface {
 
+  /**
+   * Sets the field value from taxonomy terms.
+   *
+   * @param string $fieldName
+   *   The field name.
+   * @param \Drupal\taxonomy\Entity\Term[]|null $termValues
+   *   The term values.
+   */
   protected function setTermValues(string $fieldName, array $termValues = NULL) {
     $valuesToSave = [];
     if (!empty($termValues)) {
@@ -20,7 +32,7 @@ abstract class SubProfileBase extends EntityBase implements SubProfileInterface 
             'target_id' => $termValue->id(),
           ];
         }
-        else if (isset($termValue['target_id']) && !empty(Term::load($termValue['target_id']))) {
+        elseif (isset($termValue['target_id']) && !empty(Term::load($termValue['target_id']))) {
           $valuesToSave[] = $termValue;
         }
       }
@@ -72,9 +84,13 @@ abstract class SubProfileBase extends EntityBase implements SubProfileInterface 
   }
 
   /**
+   * Loads a sub-profile entity by a user.
+   *
    * @param \Drupal\Core\Session\AccountInterface $user
+   *   The user to load the sub-profile for.
    *
    * @return \Drupal\ohano_profile\Entity\SubProfileBase|null
+   *   The sub-profile entity or NULL if not found.
    */
   public static function loadByUser(AccountInterface $user): ?SubProfileBase {
     $userProfile = UserProfile::loadByUser($user);
@@ -82,9 +98,13 @@ abstract class SubProfileBase extends EntityBase implements SubProfileInterface 
   }
 
   /**
+   * Loads a sub-profile entity by a user profile entity.
+   *
    * @param \Drupal\ohano_profile\Entity\UserProfile $userProfile
+   *   The user profile to load the sub-profile for.
    *
    * @return \Drupal\ohano_profile\Entity\SubProfileBase|null
+   *   The sub-profile entity or NULL if not found.
    */
   public static function loadByProfile(UserProfile $userProfile): ?SubProfileBase {
     $profileId = \Drupal::entityQuery(static::ENTITY_ID)
@@ -92,4 +112,5 @@ abstract class SubProfileBase extends EntityBase implements SubProfileInterface 
       ->execute();
     return empty($profileId) ? NULL : static::load(array_values($profileId)[0]);
   }
+
 }

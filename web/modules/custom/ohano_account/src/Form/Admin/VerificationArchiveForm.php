@@ -9,13 +9,22 @@ use Drupal\Core\Url;
 use Drupal\ohano_account\Entity\AccountVerification;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+/**
+ * Provides a form archiving verifications.
+ */
 class VerificationArchiveForm extends FormBase {
 
-  public function getFormId() {
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
     return 'ohano_account_admin_verification_archive';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state, int $id = NULL) {
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state, int $id = NULL): array {
     if ($id === NULL) {
       $this->messenger()->addError($this->t('Verification id is empty.'));
       (new RedirectResponse(Url::fromRoute('ohano_account.admin.account.verification')->toString()))->send();
@@ -36,10 +45,13 @@ class VerificationArchiveForm extends FormBase {
       'submit' => [
         '#type' => 'submit',
         '#value' => $this->t('Archive'),
-      ]
+      ],
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $verificationId = $form_state->getValue('verification_id');
     /** @var \Drupal\ohano_account\Entity\AccountVerification $verification */

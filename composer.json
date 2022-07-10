@@ -417,6 +417,7 @@
         "drush/drush": "^11.0",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.5",
+        "sebastian/phpcpd": "^6.0",
         "symfony/phpunit-bridge": "^6.0"
     }
 }

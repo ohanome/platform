@@ -15,6 +15,9 @@ use Drupal\Core\Block\BlockBase;
  */
 class FontSizeBlock extends BlockBase {
 
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
     return [
       '#theme' => 'block__font_size',

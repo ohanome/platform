@@ -8,7 +8,6 @@ use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\ohano_profile\Option\RelationshipType;
 
 /**
  * Defines the UserProfile entity.
@@ -66,6 +65,9 @@ class UserProfile extends EntityBase {
     return $fields;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function delete() {
     if ($baseProfile = BaseProfile::loadByProfile($this)) {
       $baseProfile->delete();
@@ -94,6 +96,12 @@ class UserProfile extends EntityBase {
     parent::delete();
   }
 
+  /**
+   * Gets the profile URL based on the profile name.
+   *
+   * @return \Drupal\Core\Url
+   *   The profile URL.
+   */
   public function getProfileUrl(): Url {
     return Url::fromRoute('ohano_profile.profile.other', ['username' => $this->getProfileName()]);
   }
@@ -223,23 +231,36 @@ class UserProfile extends EntityBase {
    */
   public function render(): array {
     return parent::render() + [
-        'status' => $this->getStatus(),
-        'account' => $this->getAccount()->render(),
-        'exclude_from_search' => $this->isExcludedFromSearch(),
-        'profile_name' => $this->getProfileName(),
-        'type' => $this->getType(),
-      ];
+      'status' => $this->getStatus(),
+      'account' => $this->getAccount()->render(),
+      'exclude_from_search' => $this->isExcludedFromSearch(),
+      'profile_name' => $this->getProfileName(),
+      'type' => $this->getType(),
+    ];
   }
 
   /**
+   * Loads a user profile by a user.
+   *
    * @param \Drupal\Core\Session\AccountInterface $user
+   *   The user.
    *
    * @return \Drupal\ohano_profile\Entity\UserProfile|null
+   *   The user profile or NULL if not found.
    */
   public static function loadByUser(AccountInterface $user): ?UserProfile {
     return self::loadMultipleByUser($user)[0];
   }
 
+  /**
+   * Loads multiple profiles by a user.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $user
+   *   The user.
+   *
+   * @return \Drupal\ohano_profile\Entity\UserProfile[]|null
+   *   The user profiles or NULL if not found.
+   */
   public static function loadMultipleByUser(AccountInterface $user): ?array {
     $account = Account::getByUser($user);
     if (empty($account)) {
@@ -248,7 +269,16 @@ class UserProfile extends EntityBase {
     return self::loadMultipleByAccount($account);
   }
 
-  public static function loadMultipleByAccount(Account $account) {
+  /**
+   * Loads multiple profiles by an account.
+   *
+   * @param \Drupal\ohano_account\Entity\Account $account
+   *   The account.
+   *
+   * @return \Drupal\ohano_profile\Entity\UserProfile[]|null
+   *   The user profiles or NULL if not found.
+   */
+  public static function loadMultipleByAccount(Account $account): ?array {
     $userProfileId = \Drupal::entityQuery(UserProfile::ENTITY_ID)
       ->condition('account', $account->id())
       ->execute();
@@ -261,6 +291,15 @@ class UserProfile extends EntityBase {
     return $loaded;
   }
 
+  /**
+   * Loads a user profile by a profile name.
+   *
+   * @param string $profileName
+   *   The profile name.
+   *
+   * @return \Drupal\ohano_profile\Entity\UserProfile|null
+   *   The user profile or NULL if not found.
+   */
   public static function loadByName(string $profileName): ?Userprofile {
     $userProfileId = \Drupal::entityQuery(UserProfile::ENTITY_ID)
       ->condition('profile_name', $profileName)

@@ -6,13 +6,11 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\file\Entity\File;
 use Drupal\ohano_account\Blocklist;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_core\Error\Error;
 use Drupal\ohano_core\Form\FormTrait;
-use Drupal\ohano_core\OhanoCore;
 use Drupal\ohano_profile\Entity\BaseProfile;
 use Drupal\ohano_profile\Entity\CodingProfile;
 use Drupal\ohano_profile\Entity\GamingProfile;
@@ -30,14 +28,27 @@ use Drupal\ohano_profile\Option\Sexuality;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+/**
+ * Form for editing a profile.
+ *
+ * @package Drupal\ohano_profile\Form
+ *
+ * @noinspection PhpUnused
+ */
 class ProfileForm extends FormBase {
   use FormTrait;
 
-  public function getFormId() {
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
     return 'ohano_profile_profile';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state, string $profileName = NULL) {
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state, string $profileName = NULL): array {
     $form = [];
 
     if (empty($profileName)) {
@@ -59,7 +70,7 @@ class ProfileForm extends FormBase {
       (new RedirectResponse('/user/' . $userProfile->getProfileName()))->send();
     }
 
-    /** @var BaseProfile $baseProfile */
+    /** @var \Drupal\ohano_profile\Entity\BaseProfile $baseProfile */
     $baseProfile = BaseProfile::loadByProfile($userProfile);
     if (empty($baseProfile)) {
       $this->messenger()->addError($this->t("Oops, that looks wrong. We're sorry about that. Please contact the support with the following error code: @error", ['@error' => Error::BaseProfileNotFound->value]));
@@ -104,12 +115,26 @@ class ProfileForm extends FormBase {
     ];
 
     $form['base_profile'] = $this->buildDefaultContainer($this->t('Base Profile'), TRUE);
-    $form['base_profile'] += BaseProfile::renderForm($baseProfile);
+    try {
+      $form['base_profile'] += BaseProfile::renderForm($baseProfile);
+    }
+    catch (\Exception $e) {
+      $this->messenger()->addError($this->t("Oops, that didn't work. We're sorry about that. Please try again later."));
+      $this->logger('ohano_profile')->error($e->getMessage());
+      return [];
+    }
 
     $form['social_profile'] = $this->buildDefaultContainer($this->t('Social media Profile'));
-    /** @var SocialMediaProfile $socialProfile */
+    /** @var \Drupal\ohano_profile\Entity\SocialMediaProfile $socialProfile */
     if ($socialProfile = SocialMediaProfile::loadByProfile($userProfile)) {
-      $form['social_profile'] += SocialMediaProfile::renderForm($socialProfile);
+      try {
+        $form['social_profile'] += SocialMediaProfile::renderForm($socialProfile);
+      }
+      catch (\Exception $e) {
+        $this->messenger()->addError($this->t("Oops, that didn't work. We're sorry about that. Please try again later."));
+        $this->logger('ohano_profile')->error($e->getMessage());
+        return [];
+      }
       $form['social_profile']['delete'] = [
         '#type' => 'submit',
         '#value' => $this->t('Delete social media profile'),
@@ -118,7 +143,7 @@ class ProfileForm extends FormBase {
         ],
         '#attributes' => [
           'onclick' => [
-            'return confirm("' . $confirmationDelete->render() . '");'
+            'return confirm("' . $confirmationDelete->render() . '");',
           ],
           'class' => [
             'delete-button',
@@ -144,9 +169,16 @@ class ProfileForm extends FormBase {
 
     $form['relationship_profile'] = $this->buildDefaultContainer($this->t('Relationship Profile'));
 
-    /** @var RelationshipProfile $relationshipProfile */
+    /** @var \Drupal\ohano_profile\Entity\RelationshipProfile $relationshipProfile */
     if ($relationshipProfile = RelationshipProfile::loadByProfile($userProfile)) {
-      $form['relationship_profile'] += RelationshipProfile::renderForm($relationshipProfile);
+      try {
+        $form['relationship_profile'] += RelationshipProfile::renderForm($relationshipProfile);
+      }
+      catch (\Exception $e) {
+        $this->messenger()->addError($this->t("Oops, that didn't work. We're sorry about that. Please try again later."));
+        $this->logger('ohano_profile')->error($e->getMessage());
+        return [];
+      }
       $form['relationship_profile']['delete'] = [
         '#type' => 'submit',
         '#value' => $this->t('Delete relationship profile'),
@@ -155,7 +187,7 @@ class ProfileForm extends FormBase {
         ],
         '#attributes' => [
           'onclick' => [
-            'return confirm("' . $confirmationDelete->render() . '");'
+            'return confirm("' . $confirmationDelete->render() . '");',
           ],
           'class' => [
             'delete-button',
@@ -180,9 +212,16 @@ class ProfileForm extends FormBase {
 
     $form['job_profile'] = $this->buildDefaultContainer($this->t('Job Profile'));
 
-    /** @var JobProfile $jobProfile */
+    /** @var \Drupal\ohano_profile\Entity\JobProfile $jobProfile */
     if ($jobProfile = JobProfile::loadByProfile($userProfile)) {
-      $form['job_profile'] += JobProfile::renderForm($jobProfile);
+      try {
+        $form['job_profile'] += JobProfile::renderForm($jobProfile);
+      }
+      catch (\Exception $e) {
+        $this->messenger()->addError($this->t("Oops, that didn't work. We're sorry about that. Please try again later."));
+        $this->logger('ohano_profile')->error($e->getMessage());
+        return [];
+      }
       $form['job_profile']['delete'] = [
         '#type' => 'submit',
         '#value' => $this->t('Delete job profile'),
@@ -191,7 +230,7 @@ class ProfileForm extends FormBase {
         ],
         '#attributes' => [
           'onclick' => [
-            'return confirm("' . $confirmationDelete->render() . '");'
+            'return confirm("' . $confirmationDelete->render() . '");',
           ],
           'class' => [
             'delete-button',
@@ -216,9 +255,16 @@ class ProfileForm extends FormBase {
 
     $form['gaming_profile'] = $this->buildDefaultContainer($this->t('Gaming Profile'));
 
-    /** @var GamingProfile $gamingProfile */
+    /** @var \Drupal\ohano_profile\Entity\GamingProfile $gamingProfile */
     if ($gamingProfile = GamingProfile::loadByProfile($userProfile)) {
-      $form['gaming_profile'] += GamingProfile::renderForm($gamingProfile);
+      try {
+        $form['gaming_profile'] += GamingProfile::renderForm($gamingProfile);
+      }
+      catch (\Exception $e) {
+        $this->messenger()->addError($this->t("Oops, that didn't work. We're sorry about that. Please try again later."));
+        $this->logger('ohano_profile')->error($e->getMessage());
+        return [];
+      }
       $form['gaming_profile']['delete'] = [
         '#type' => 'submit',
         '#value' => $this->t('Delete gaming profile'),
@@ -227,7 +273,7 @@ class ProfileForm extends FormBase {
         ],
         '#attributes' => [
           'onclick' => [
-            'return confirm("' . $confirmationDelete->render() . '");'
+            'return confirm("' . $confirmationDelete->render() . '");',
           ],
           'class' => [
             'delete-button',
@@ -252,9 +298,16 @@ class ProfileForm extends FormBase {
 
     $form['coding_profile'] = $this->buildDefaultContainer($this->t('Coding Profile'));
 
-    /** @var CodingProfile $codingProfile */
+    /** @var \Drupal\ohano_profile\Entity\CodingProfile $codingProfile */
     if ($codingProfile = CodingProfile::loadByProfile($userProfile)) {
-      $form['coding_profile'] += CodingProfile::renderForm($codingProfile);
+      try {
+        $form['coding_profile'] += CodingProfile::renderForm($codingProfile);
+      }
+      catch (\Exception $e) {
+        $this->messenger()->addError($this->t("Oops, that didn't work. We're sorry about that. Please try again later."));
+        $this->logger('ohano_profile')->error($e->getMessage());
+        return [];
+      }
       $form['coding_profile']['delete'] = [
         '#type' => 'submit',
         '#value' => $this->t('Delete coding profile'),
@@ -263,7 +316,7 @@ class ProfileForm extends FormBase {
         ],
         '#attributes' => [
           'onclick' => [
-            'return confirm("' . $confirmationDelete->render() . '");'
+            'return confirm("' . $confirmationDelete->render() . '");',
           ],
           'class' => [
             'delete-button',
@@ -310,7 +363,7 @@ class ProfileForm extends FormBase {
         ],
         '#attributes' => [
           'onclick' => [
-            'return confirm("' . $confirmationDelete->render() . '");'
+            'return confirm("' . $confirmationDelete->render() . '");',
           ],
           'class' => [
             'delete-button',
@@ -328,7 +381,7 @@ class ProfileForm extends FormBase {
         ],
         '#attributes' => [
           'onclick' => [
-            'return confirm("' . $confirmationDelete->render() . '");'
+            'return confirm("' . $confirmationDelete->render() . '");',
           ],
           'class' => [
             'delete-button',
@@ -345,6 +398,9 @@ class ProfileForm extends FormBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $formValues = $form_state->getValues();
 
@@ -378,15 +434,18 @@ class ProfileForm extends FormBase {
       }
     }
 
-    parent::validateForm($form, $form_state); // TODO: Change the autogenerated stub
+    parent::validateForm($form, $form_state);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $currentUser = \Drupal::currentUser();
     $values = $form_state->getValues();
     $userProfile = UserProfile::loadByName($values['profile_name']);
 
-    /** @var BaseProfile $baseProfile */
+    /** @var \Drupal\ohano_profile\Entity\BaseProfile $baseProfile */
     $baseProfile = BaseProfile::loadByProfile($userProfile);
     $baseProfile->setRealname($values['base_profile']['real_name']);
     if (isset($values['base_profile']['profile_picture'][0]) && !empty($values['base_profile']['profile_picture'][0])) {
@@ -395,11 +454,13 @@ class ProfileForm extends FormBase {
       try {
         $file->save();
         $baseProfile->setProfilePicture($file);
-      } catch (EntityStorageException $e) {
+      }
+      catch (EntityStorageException $e) {
         \Drupal::messenger()->addError('Profile could not be saved due to technical errors.');
         \Drupal::logger('ohano_profile')->critical($e->getMessage());
       }
-    } else {
+    }
+    else {
       $baseProfile->setProfilePicture();
     }
     if (isset($values['base_profile']['profile_banner'][0]) && !empty($values['base_profile']['profile_banner'][0])) {
@@ -408,17 +469,20 @@ class ProfileForm extends FormBase {
       try {
         $file->save();
         $baseProfile->setProfileBanner($file);
-      } catch (EntityStorageException $e) {
+      }
+      catch (EntityStorageException $e) {
         \Drupal::messenger()->addError('Profile could not be saved due to technical errors.');
         \Drupal::logger('ohano_profile')->critical($e->getMessage());
       }
-    } else {
+    }
+    else {
       $baseProfile->setProfileBanner();
     }
     $baseProfile->setProfileText($values['base_profile']['profile_text']);
     if (!empty($values['base_profile']['birthday'])) {
       $birthday = DrupalDateTime::createFromFormat('Y-m-d', $values['base_profile']['birthday']);
-    } else {
+    }
+    else {
       $birthday = NULL;
     }
     $baseProfile->setBirthday($birthday);
@@ -427,10 +491,16 @@ class ProfileForm extends FormBase {
     $baseProfile->setProvince($values['base_profile']['province']);
     $baseProfile->setCountry($values['base_profile']['country']);
 
-    $baseProfile->save();
+    try {
+      $baseProfile->save();
+    }
+    catch (EntityStorageException $e) {
+      \Drupal::messenger()->addError('Profile could not be saved due to technical errors.');
+      \Drupal::logger('ohano_profile')->critical($e->getMessage());
+    }
 
     if (!isset($form['social_profile']['create'])) {
-      /** @var SocialMediaProfile $socialProfile */
+      /** @var \Drupal\ohano_profile\Entity\SocialMediaProfile $socialProfile */
       $socialProfile = SocialMediaProfile::loadByProfile($userProfile);
       $socialProfile->setTwitter($values['social_profile']['twitter']);
       $socialProfile->setTwitch($values['social_profile']['twitch']);
@@ -443,21 +513,33 @@ class ProfileForm extends FormBase {
       $socialProfile->setDribbble($values['social_profile']['dribbble']);
       $socialProfile->setPinterest($values['social_profile']['pinterest']);
 
-      $socialProfile->save();
+      try {
+        $socialProfile->save();
+      }
+      catch (EntityStorageException $e) {
+        \Drupal::messenger()->addError('Profile could not be saved due to technical errors.');
+        \Drupal::logger('ohano_profile')->critical($e->getMessage());
+      }
     }
 
     if (!isset($form['relationship_profile']['create'])) {
-      /** @var RelationshipProfile $relationshipProfile */
+      /** @var \Drupal\ohano_profile\Entity\RelationshipProfile $relationshipProfile */
       $relationshipProfile = RelationshipProfile::loadByProfile($userProfile);
       $relationshipProfile->setRelationshipStatus(RelationshipStatus::tryFrom($values['relationship_profile']['status']));
       $relationshipProfile->setRelationshipType(RelationshipType::tryFrom($values['relationship_profile']['type']));
       $relationshipProfile->setSexuality(Sexuality::tryFrom($values['relationship_profile']['sexuality']));
 
-      $relationshipProfile->save();
+      try {
+        $relationshipProfile->save();
+      }
+      catch (EntityStorageException $e) {
+        \Drupal::messenger()->addError('Profile could not be saved due to technical errors.');
+        \Drupal::logger('ohano_profile')->critical($e->getMessage());
+      }
     }
 
     if (!isset($form['job_profile']['create'])) {
-      /** @var JobProfile $jobProfile */
+      /** @var \Drupal\ohano_profile\Entity\JobProfile $jobProfile */
       $jobProfile = JobProfile::loadByProfile($userProfile);
       $jobProfile->setEducationDegree(EducationDegree::tryFrom($values['job_profile']['education_degree']));
       $jobProfile->setEmploymentStatus(EmploymentStatus::tryFrom($values['job_profile']['employment_status']));
@@ -465,11 +547,17 @@ class ProfileForm extends FormBase {
       $jobProfile->setIndustry($values['job_profile']['industry']);
       $jobProfile->setPosition($values['job_profile']['position']);
 
-      $jobProfile->save();
+      try {
+        $jobProfile->save();
+      }
+      catch (EntityStorageException $e) {
+        \Drupal::messenger()->addError('Profile could not be saved due to technical errors.');
+        \Drupal::logger('ohano_profile')->critical($e->getMessage());
+      }
     }
 
     if (!isset($form['gaming_profile']['create'])) {
-      /** @var GamingProfile $gamingProfile */
+      /** @var \Drupal\ohano_profile\Entity\GamingProfile $gamingProfile */
       $gamingProfile = GamingProfile::loadByProfile($userProfile);
       $gamingProfile->setMinecraftName($values['gaming_profile']['minecraft_name']);
       if (!empty($values['gaming_profile']['minecraft_name'])) {
@@ -478,10 +566,12 @@ class ProfileForm extends FormBase {
           $minecraftUuid = json_decode($minecraftUuid, TRUE);
           if (!empty($minecraftUuid['id'])) {
             $gamingProfile->setMinecraftUuid($minecraftUuid['id']);
-          } else {
+          }
+          else {
             $gamingProfile->setMinecraftUuid();
           }
-        } else {
+        }
+        else {
           $gamingProfile->setMinecraftUuid();
         }
       }
@@ -494,11 +584,17 @@ class ProfileForm extends FormBase {
       $gamingProfile->setGames(Term::loadMultiple($values['gaming_profile']['games']));
       $gamingProfile->setPlatforms(Term::loadMultiple($values['gaming_profile']['platforms']));
 
-      $gamingProfile->save();
+      try {
+        $gamingProfile->save();
+      }
+      catch (EntityStorageException $e) {
+        \Drupal::messenger()->addError('Profile could not be saved due to technical errors.');
+        \Drupal::logger('ohano_profile')->critical($e->getMessage());
+      }
     }
 
     if (!isset($form['coding_profile']['create'])) {
-      /** @var CodingProfile $codingProfile */
+      /** @var \Drupal\ohano_profile\Entity\CodingProfile $codingProfile */
       $codingProfile = CodingProfile::loadByProfile($userProfile);
       $codingProfile->setGithub($values['coding_profile']['github']);
       $codingProfile->setGitlab($values['coding_profile']['gitlab']);
@@ -506,16 +602,32 @@ class ProfileForm extends FormBase {
       $codingProfile->setProgrammingLanguages(Term::loadMultiple($values['coding_profile']['programming_languages']));
       $codingProfile->setSystems(Term::loadMultiple($values['coding_profile']['systems']));
 
-      $codingProfile->save();
+      try {
+        $codingProfile->save();
+      }
+      catch (EntityStorageException $e) {
+        \Drupal::messenger()->addError('Profile could not be saved due to technical errors.');
+        \Drupal::logger('ohano_profile')->critical($e->getMessage());
+      }
     }
 
     $this->messenger()->addMessage($this->t('Saved successfully!'));
   }
 
+  /**
+   * Deletes a complete profile with all its sub-profiles.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function deleteWholeProfile(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $profileName = $values['profile_name'];
-    /** @var UserProfile $userProfile */
+    /** @var \Drupal\ohano_profile\Entity\UserProfile $userProfile */
     $userProfile = UserProfile::loadByName($profileName);
     $currentUser = \Drupal::currentUser();
 
@@ -535,6 +647,14 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Creates all possible sub-profiles.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
   public function createAllProfiles(array &$form, FormStateInterface $form_state) {
     $this->createCodingProfile($form, $form_state);
     $this->createGamingProfile($form, $form_state);
@@ -543,6 +663,14 @@ class ProfileForm extends FormBase {
     $this->createSocialMediaProfile($form, $form_state);
   }
 
+  /**
+   * Deletes all sub-profiles.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
   public function deleteAllProfiles(array &$form, FormStateInterface $form_state) {
     $this->deleteCodingProfile($form, $form_state);
     $this->deleteGamingProfile($form, $form_state);
@@ -551,6 +679,16 @@ class ProfileForm extends FormBase {
     $this->deleteSocialMediaProfile($form, $form_state);
   }
 
+  /**
+   * Creates a social media profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function createSocialMediaProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);
@@ -563,6 +701,16 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Deletes the social media profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function deleteSocialMediaProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);
@@ -573,6 +721,16 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Creates a relationship profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function createRelationshipProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);
@@ -585,6 +743,16 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Deletes the relationship profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function deleteRelationshipProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);
@@ -595,6 +763,16 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Creates a job profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function createJobProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);
@@ -607,6 +785,16 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Deletes the job profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function deleteJobProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);
@@ -617,6 +805,16 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Creates a gaming profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function createGamingProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);
@@ -629,6 +827,16 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Deletes the gaming profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function deleteGamingProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);
@@ -639,6 +847,16 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Creates a coding profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function createCodingProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);
@@ -651,6 +869,16 @@ class ProfileForm extends FormBase {
     }
   }
 
+  /**
+   * Deletes the coding profile.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
   public function deleteCodingProfile(array &$form, FormStateInterface $form_state) {
     $profileName = $form_state->getValue('profile_name');
     $userProfile = UserProfile::loadByName($profileName);

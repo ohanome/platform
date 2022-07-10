@@ -35,15 +35,15 @@ interface EntityInterface {
   /**
    * Loads an entity by its given field name and field value.
    *
-   * @param $field
+   * @param string $field
    *   The field name.
-   * @param $value
+   * @param mixed $value
    *   The field value.
    *
    * @return \Drupal\ohano_core\Entity\EntityBase|null
    *   The entity or NULL if no entity was found.
    */
-  public static function loadByField($field, $value): ?EntityBase;
+  public static function loadByField(string $field, mixed $value): ?EntityBase;
 
   /**
    * Loads or creates an entity by its given field name and field value.
@@ -52,15 +52,15 @@ interface EntityInterface {
    * because if no entity was found, it will be created with the given field
    * value set.
    *
-   * @param $field
+   * @param string $field
    *   The field name.
-   * @param $value
+   * @param mixed $value
    *   The field value.
    *
    * @return \Drupal\ohano_core\Entity\EntityBase
    *   The entity.
    */
-  public static function loadOrCreateByField($field, $value): EntityBase;
+  public static function loadOrCreateByField(string $field, mixed $value): EntityBase;
 
   /**
    * Converts the whole entity to an array that can be rendered.

@@ -55,6 +55,15 @@ class Month extends TrackerEntityBase {
     return $fields;
   }
 
+  /**
+   * Loads a month entity by its month.
+   *
+   * @param \DateTime $month
+   *   The month.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Month|null
+   *   The month entity or NULL if not found.
+   */
   public static function loadByMonth(\DateTime $month): ?Month {
     $month = $month->setTimezone(new \DateTimeZone('UTC'))->format('F');
     /** @var \Drupal\ohano_tracker\Entity\Month $entity */
@@ -62,6 +71,15 @@ class Month extends TrackerEntityBase {
     return $entity;
   }
 
+  /**
+   * Loads or creates a month entity by its month.
+   *
+   * @param \DateTime $month
+   *   The month.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Month
+   *   The month entity.
+   */
   public static function loadOrCreateByMonth(\DateTime $month): Month {
     $month = $month->setTimezone(new \DateTimeZone('UTC'))->format('F');
     /** @var \Drupal\ohano_tracker\Entity\Month $entity */

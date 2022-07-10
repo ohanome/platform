@@ -56,13 +56,31 @@ class UserAgent extends TrackerEntityBase {
     return $fields;
   }
 
-  public static function loadByUserAgent($userAgent): ?UserAgent {
+  /**
+   * Loads a user agent entity by its user agent.
+   *
+   * @param string $userAgent
+   *   The user agent of the request.
+   *
+   * @return \Drupal\ohano_tracker\Entity\UserAgent|null
+   *   The user agent entity or NULL if not found.
+   */
+  public static function loadByUserAgent(string $userAgent): ?UserAgent {
     /** @var \Drupal\ohano_tracker\Entity\UserAgent $entity */
     $entity = self::loadByField('user_agent', $userAgent);
     return $entity;
   }
 
-  public static function loadOrCreateByUserAgent($userAgent): UserAgent {
+  /**
+   * Loads or creates a user agent entity by its user agent.
+   *
+   * @param string $userAgent
+   *   The user agent of the request.
+   *
+   * @return \Drupal\ohano_tracker\Entity\UserAgent
+   *   The user agent entity.
+   */
+  public static function loadOrCreateByUserAgent(string $userAgent): UserAgent {
     /** @var \Drupal\ohano_tracker\Entity\UserAgent $entity */
     $entity = self::loadOrCreateByField('user_agent', $userAgent);
     if ($entity->get('count')->value == NULL) {

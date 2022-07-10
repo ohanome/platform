@@ -56,13 +56,31 @@ class Platform extends TrackerEntityBase {
     return $fields;
   }
 
-  public static function loadByPlatform($platform): ?Platform {
+  /**
+   * Loads a platform entity by its platform.
+   *
+   * @param string $platform
+   *   The platform of the request.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Platform|null
+   *   The platform entity or NULL if not found.
+   */
+  public static function loadByPlatform(string $platform): ?Platform {
     /** @var \Drupal\ohano_tracker\Entity\Platform $entity */
     $entity = self::loadByField('platform', $platform);
     return $entity;
   }
 
-  public static function loadOrCreateByPlatform($platform): Platform {
+  /**
+   * Loads or creates a platform entity by its platform.
+   *
+   * @param string $platform
+   *   The platform of the request.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Platform
+   *   The platform entity.
+   */
+  public static function loadOrCreateByPlatform(string $platform): Platform {
     /** @var \Drupal\ohano_tracker\Entity\Platform $entity */
     $entity = self::loadOrCreateByField('platform', $platform);
     if ($entity->get('count')->value == NULL) {

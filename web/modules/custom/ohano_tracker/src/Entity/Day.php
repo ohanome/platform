@@ -55,6 +55,15 @@ class Day extends TrackerEntityBase {
     return $fields;
   }
 
+  /**
+   * Loads a day entity by its day.
+   *
+   * @param \DateTime $day
+   *   The day of the request.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Day|null
+   *   The day entity or NULL if not found.
+   */
   public static function loadByDay(\DateTime $day): ?Day {
     $day = $day->setTimezone(new \DateTimeZone('UTC'))->format('m/d');
     /** @var \Drupal\ohano_tracker\Entity\Day $entity */
@@ -62,6 +71,15 @@ class Day extends TrackerEntityBase {
     return $entity;
   }
 
+  /**
+   * Loads a day entity by its day.
+   *
+   * @param \DateTime $day
+   *   The day of the request.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Day
+   *   The day entity.
+   */
   public static function loadOrCreateByDay(\DateTime $day): Day {
     $day = $day->setTimezone(new \DateTimeZone('UTC'))->format('m/d');
     /** @var \Drupal\ohano_tracker\Entity\Day $entity */

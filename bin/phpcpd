@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+if [[ ! -f "vendor/bin/phpcpd" ]]; then
+  echo "PHP copy paste detector could not be found. Make sure you have installed sebastian/phpcpd."
+  exit 1
+fi
+
+if [[ -d web/modules/custom ]]; then
+  vendor/bin/phpcpd web/modules/custom
+else
+  echo "No custom modules found."
+fi
