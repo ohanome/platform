@@ -6,7 +6,6 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ohano_core\OhanoCore;
-use Drupal\ohano_tracker\Entity\UserAgent;
 
 /**
  * Base class for every entity.

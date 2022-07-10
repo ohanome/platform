@@ -13,12 +13,23 @@ use Drupal\ohano_tracker\Entity\UserAgent;
 use Drupal\ohano_tracker\Entity\Weekday;
 use Drupal\ohano_tracker\Entity\Year;
 
+/**
+ * Provides a form to clear the stats.
+ *
+ * @package Drupal\ohano_tracker\Form\Admin
+ */
 class ClearStatsForm extends FormBase {
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormId() {
     return 'ohano_tracker_clear_stats_form';
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['submit'] = [
       '#type' => 'submit',
@@ -28,6 +39,9 @@ class ClearStatsForm extends FormBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     Day::deleteAll();
     Month::deleteAll();

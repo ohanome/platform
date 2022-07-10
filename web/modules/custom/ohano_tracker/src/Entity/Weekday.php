@@ -4,7 +4,6 @@ namespace Drupal\ohano_tracker\Entity;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\ohano_core\Entity\EntityBase;
 
 /**
  * Defines the Weekday entity.
@@ -64,6 +63,15 @@ class Weekday extends TrackerEntityBase {
     return $fields;
   }
 
+  /**
+   * Loads a weekday entity by its weekday.
+   *
+   * @param \DateTime $weekday
+   *   The weekday.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Weekday|null
+   *   The weekday entity or NULL if not found.
+   */
   public static function loadByWeekday(\DateTime $weekday): ?Weekday {
     $weekday = $weekday->setTimezone(new \DateTimeZone('UTC'))->format('l');
     /** @var \Drupal\ohano_tracker\Entity\Weekday $entity */
@@ -71,6 +79,15 @@ class Weekday extends TrackerEntityBase {
     return $entity;
   }
 
+  /**
+   * Loads or creates a weekday entity by its weekday.
+   *
+   * @param \DateTime $weekday
+   *   The weekday.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Weekday
+   *   The weekday entity.
+   */
   public static function loadOrCreateByWeekday(\DateTime $weekday): Weekday {
     $weekday = $weekday->setTimezone(new \DateTimeZone('UTC'))->format('l');
     /** @var \Drupal\ohano_tracker\Entity\Weekday $entity */

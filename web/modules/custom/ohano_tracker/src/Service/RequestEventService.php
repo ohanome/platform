@@ -2,7 +2,6 @@
 
 namespace Drupal\ohano_tracker\Service;
 
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\ohano_tracker\Entity\Day;
 use Drupal\ohano_tracker\Entity\Month;
 use Drupal\ohano_tracker\Entity\PathRequest;
@@ -13,8 +12,16 @@ use Drupal\ohano_tracker\Entity\Weekday;
 use Drupal\ohano_tracker\Entity\Year;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
+/**
+ * Provides a service to handle request events.
+ */
 class RequestEventService {
 
+  /**
+   * User agents to ignore.
+   *
+   * @var array<string>
+   */
   const IGNORED_USER_AGENTS = [
     'Uptime-Kuma',
     'UptimeRobot',
@@ -24,7 +31,13 @@ class RequestEventService {
     'kulana',
   ];
 
-  public function userShouldBeTracked() {
+  /**
+   * Determines if the user should be tracked.
+   *
+   * @return bool
+   *   TRUE if the user should be tracked, FALSE otherwise.
+   */
+  public function userShouldBeTracked(): bool {
     if (\Drupal::currentUser()->isAnonymous()) {
       return TRUE;
     }
@@ -36,7 +49,13 @@ class RequestEventService {
     return FALSE;
   }
 
-  public function handleEvent(RequestEvent $event) {
+  /**
+   * Handles a request event.
+   *
+   * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+   *   The request event.
+   */
+  public function handleEvent(RequestEvent $event): void {
     if (!$this->userShouldBeTracked()) {
       return;
     }
@@ -89,7 +108,8 @@ class RequestEventService {
 
     try {
       $fiber->start();
-    } catch (\Throwable $e) {
+    }
+    catch (\Throwable $e) {
       \Drupal::logger('ohano_tracker')->error($e->getMessage());
     }
   }

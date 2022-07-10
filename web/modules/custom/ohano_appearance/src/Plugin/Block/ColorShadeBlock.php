@@ -15,6 +15,9 @@ use Drupal\Core\Block\BlockBase;
  */
 class ColorShadeBlock extends BlockBase {
 
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
     return [
       '#theme' => 'block__color_shade',

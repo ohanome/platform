@@ -55,6 +55,15 @@ class Year extends TrackerEntityBase {
     return $fields;
   }
 
+  /**
+   * Loads a year entity by its year.
+   *
+   * @param \DateTime $year
+   *   The year.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Year|null
+   *   The year entity or NULL if not found.
+   */
   public static function loadByYear(\DateTime $year): ?Year {
     $year = $year->setTimezone(new \DateTimeZone('UTC'))->format('Y');
     /** @var \Drupal\ohano_tracker\Entity\Year $entity */
@@ -62,6 +71,15 @@ class Year extends TrackerEntityBase {
     return $entity;
   }
 
+  /**
+   * Loads or creates a year entity by its year.
+   *
+   * @param \DateTime $year
+   *   The year.
+   *
+   * @return \Drupal\ohano_tracker\Entity\Year
+   *   The year entity.
+   */
   public static function loadOrCreateByYear(\DateTime $year): Year {
     $year = $year->setTimezone(new \DateTimeZone('UTC'))->format('Y');
     /** @var \Drupal\ohano_tracker\Entity\Year $entity */

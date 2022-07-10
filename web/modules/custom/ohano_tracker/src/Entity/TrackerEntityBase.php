@@ -57,4 +57,5 @@ abstract class TrackerEntityBase extends EntityBase {
     $this->set('count', $count);
     return $this;
   }
+
 }

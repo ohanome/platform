@@ -4,7 +4,6 @@ namespace Drupal\ohano_core\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\ohano_core\Feature\FeatureInterface;
-use ReflectionClass;
 
 /**
  * Provides the feature block with links to the main platform features.
@@ -17,20 +16,26 @@ use ReflectionClass;
  */
 class FeaturesBlock extends BlockBase {
 
-  public function build() {
+  /**
+   * {@inheritdoc}
+   */
+  public function build(): array {
     $features = [];
     \Drupal::moduleHandler()->alter('features', $features);
 
     $toRender = [];
     foreach ($features as $feature) {
       if (!class_implements($feature, FeatureInterface::class)) {
-        $warning = $this->t('Feature ' . (string) $feature . ' does not implement ' . FeatureInterface::class);
+        $warning = $this->t('Feature @feature does not implement @interface.', [
+          '@feature' => $feature,
+          '@interface' => FeatureInterface::class,
+        ]);
         \Drupal::logger('ohano_core')->warning($warning);
         \Drupal::messenger()->addWarning($warning);
         continue;
       }
 
-      /** @var FeatureInterface $feature */
+      /** @var \Drupal\ohano_core\Feature\FeatureInterface $feature */
       $renderable = [
         '#theme' => 'feature',
       ];
@@ -45,7 +50,8 @@ class FeaturesBlock extends BlockBase {
       }
       if ($weight = $feature::getWeight()) {
         $renderable['#weight'] = $weight;
-      } else {
+      }
+      else {
         $renderable['#weight'] = 0;
       }
 

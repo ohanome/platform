@@ -11,13 +11,22 @@ use Drupal\ohano_account\Entity\AccountVerification;
 use Drupal\ohano_core\Settings;
 use Drupal\user\Entity\User;
 
+/**
+ * Provides a form for cleaning up the account system.
+ */
 class CleanupForm extends FormBase {
 
-  public function getFormId() {
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
     return 'ohano_account_admin_account_create';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $form = [];
 
     $countUsers = count(\Drupal::entityQuery('user')->execute());
@@ -29,7 +38,7 @@ class CleanupForm extends FormBase {
     $form['found_users'] = [
       '#type' => 'textfield',
       '#attributes' => [
-        'disabled' => 'disabled'
+        'disabled' => 'disabled',
       ],
       '#title' => $this->t('Found users'),
       '#value' => $countUsers,
@@ -38,7 +47,7 @@ class CleanupForm extends FormBase {
     $form['found_accounts'] = [
       '#type' => 'textfield',
       '#attributes' => [
-        'disabled' => 'disabled'
+        'disabled' => 'disabled',
       ],
       '#title' => $this->t('Found account entities'),
       '#value' => $countAccounts,
@@ -47,7 +56,7 @@ class CleanupForm extends FormBase {
     $form['found_activations'] = [
       '#type' => 'textfield',
       '#attributes' => [
-        'disabled' => 'disabled'
+        'disabled' => 'disabled',
       ],
       '#title' => $this->t('Found activations'),
       '#value' => $countActivations,
@@ -56,7 +65,7 @@ class CleanupForm extends FormBase {
     $form['found_verifications'] = [
       '#type' => 'textfield',
       '#attributes' => [
-        'disabled' => 'disabled'
+        'disabled' => 'disabled',
       ],
       '#title' => $this->t('Found verifications'),
       '#value' => $countVerifications,
@@ -70,6 +79,9 @@ class CleanupForm extends FormBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $users = \Drupal::entityQuery('user')->execute();
     $accounts = \Drupal::entityQuery(Account::ENTITY_ID)->execute();
@@ -145,7 +157,8 @@ class CleanupForm extends FormBase {
             Account::load($aid)->delete();
           }
         }
-      } else if (count($accountId) < 1 && $userId != 0) {
+      }
+      elseif (count($accountId) < 1 && $userId != 0) {
         Account::create()
           ->setUser(User::load($userId))
           ->setBits(Settings::STARTING_BITS)

@@ -7,8 +7,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_core\Entity\EntityBase;
 use Drupal\ohano_notification\Option\NotificationChannel;
-use Drupal\ohano_notification\Option\NotificationState;
-use Drupal\ohano_notification\Option\NotificationType;
 
 /**
  * Defines the NotificationSettings entity.
@@ -39,10 +37,16 @@ class NotificationSettings extends EntityBase {
 
   const ENTITY_ID = 'notification_settings';
 
+  /**
+   * {@inheritdoc}
+   */
   public static function entityTypeId(): string {
     return self::ENTITY_ID;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -74,6 +78,15 @@ class NotificationSettings extends EntityBase {
     return $fields;
   }
 
+  /**
+   * Gets the notification settings for the given account.
+   *
+   * @param \Drupal\ohano_account\Entity\Account $account
+   *   The account to get the notification settings for.
+   *
+   * @return \Drupal\ohano_notification\Entity\NotificationSettings|null
+   *   The notification settings for the given account or NULL if none exist.
+   */
   public static function forAccount(Account $account): ?NotificationSettings {
     $query = \Drupal::entityQuery(self::entityTypeId())
       ->condition('account', $account->getId())

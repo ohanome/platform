@@ -18,7 +18,10 @@ use Drupal\ohano_profile\Entity\UserProfile;
  */
 class ProfileBlock extends BlockBase {
 
-  public function build() {
+  /**
+   * {@inheritdoc}
+   */
+  public function build(): array {
     if (\Drupal::currentUser()->isAnonymous()) {
       return [
         '#type' => 'markup',
@@ -29,7 +32,7 @@ class ProfileBlock extends BlockBase {
     $account = Account::forActive();
     $profile = $account->getActiveProfile();
 
-    /** @var BaseProfile $baseProfile */
+    /** @var \Drupal\ohano_profile\Entity\BaseProfile $baseProfile */
     $baseProfile = BaseProfile::loadByProfile($profile);
     $renderedBaseProfile = $baseProfile->render();
     $profilePicture = NULL;
@@ -64,7 +67,7 @@ class ProfileBlock extends BlockBase {
       '#profile_name' => $profile->getProfileName(),
       '#cache' => [
         'max-age' => 0,
-      ]
+      ],
     ];
   }
 

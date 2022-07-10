@@ -21,7 +21,7 @@ class VerificationController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function index() {
+  public function index(): array {
     $verificationIds = $this->entityTypeManager()
       ->getStorage('account_verification')
       ->getQuery()

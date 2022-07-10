@@ -56,13 +56,31 @@ class PathRequest extends TrackerEntityBase {
     return $fields;
   }
 
-  public static function loadByPath($path): ?PathRequest {
+  /**
+   * Loads a path request entity by its path.
+   *
+   * @param string $path
+   *   The path of the path request entity.
+   *
+   * @return \Drupal\ohano_tracker\Entity\PathRequest|null
+   *   The path request entity or NULL if not found.
+   */
+  public static function loadByPath(string $path): ?PathRequest {
     /** @var \Drupal\ohano_tracker\Entity\PathRequest $entity */
     $entity = self::loadByField('path', $path);
     return $entity;
   }
 
-  public static function loadOrCreateByPath($path): PathRequest {
+  /**
+   * Loads or creates a path request entity by its path.
+   *
+   * @param string $path
+   *   The path of the path request entity.
+   *
+   * @return \Drupal\ohano_tracker\Entity\PathRequest
+   *   The path request entity.
+   */
+  public static function loadOrCreateByPath(string $path): PathRequest {
     /** @var \Drupal\ohano_tracker\Entity\PathRequest $entity */
     $entity = self::loadOrCreateByField('path', $path);
     if ($entity->get('count')->value == NULL) {

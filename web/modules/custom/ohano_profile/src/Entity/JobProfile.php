@@ -6,7 +6,6 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\ohano_profile\Option\EducationDegree;
 use Drupal\ohano_profile\Option\EmploymentStatus;
-use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the JobProfile entity.
@@ -196,8 +195,10 @@ class JobProfile extends SubProfileBase {
   public function render(): array {
     return parent::render() + [
       'employment_status' => $this->getEmploymentStatus()?->value,
+        // phpcs:ignore
       'employment_status_value' => $this->getEmploymentStatus() ? t($this->getEmploymentStatus()->value) : NULL,
       'education_degree' => $this->getEducationDegree()?->value,
+        // phpcs:ignore
       'education_degree_value' => $this->getEducationDegree() ? t($this->getEducationDegree()->value) : NULL,
       'employer' => $this->getEmployer(),
       'industry' => $this->getIndustry(),
@@ -205,9 +206,20 @@ class JobProfile extends SubProfileBase {
     ];
   }
 
+  /**
+   * Renders the job profile form.
+   *
+   * @param \Drupal\ohano_profile\Entity\SubProfileBase $subProfile
+   *   The sub profile to render the form for.
+   *
+   * @return array
+   *   The form array.
+   *
+   * @throws \Exception
+   */
   public static function renderForm(SubProfileBase $subProfile): array {
     if (!$subProfile instanceof JobProfile) {
-      throw new InvalidArgumentException('Parameter must be of type JobProfile');
+      throw new \Exception('Parameter must be of type JobProfile');
     }
     /** @var \Drupal\ohano_profile\Entity\JobProfile $subProfile */
 

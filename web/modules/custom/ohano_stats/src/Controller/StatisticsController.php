@@ -15,23 +15,51 @@ use Drupal\ohano_tracker\Entity\Weekday;
 use Drupal\ohano_tracker\Entity\Year;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Provides a controller for the statistics page.
+ */
 class StatisticsController extends ControllerBase {
 
+  /**
+   * The limit of the number of items to display.
+   *
+   * @var int
+   */
   const LIMIT = 10;
 
+  /**
+   * The statistics service.
+   *
+   * @var \Drupal\ohano_stats\Service\StatisticsService
+   */
   protected StatisticsService $statisticService;
 
+  /**
+   * StatisticsController constructor.
+   *
+   * @param \Drupal\ohano_stats\Service\StatisticsService $statisticsService
+   *   The statistics service.
+   */
   public function __construct(StatisticsService $statisticsService) {
     $this->statisticService = $statisticsService;
   }
 
-  public static function create(ContainerInterface $container) {
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container): StatisticsController|static {
     return new static(
       $container->get('ohano_stats.statistic')
     );
   }
 
-  public function getPagesStatistics() {
+  /**
+   * Displays the statistics for visited pages.
+   *
+   * @return array
+   *   A render array for the statistics page.
+   */
+  public function getPagesStatistics(): array {
     $currentUser = \Drupal::currentUser();
     $statistics = [];
 
@@ -52,7 +80,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getStatistics($stat_type = 'all') {
+  /**
+   * Displays the statistics page.
+   *
+   * @return array
+   *   A render array for the statistics page.
+   */
+  public function getStatistics($stat_type = 'all'): array {
     $currentUser = \Drupal::currentUser();
     $statistics = [];
 
@@ -153,7 +187,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getUserStatistics() {
+  /**
+   * Displays the user statistics page.
+   *
+   * @return array
+   *   A render array for the user statistics page.
+   */
+  public function getUserStatistics(): array {
     $statistics = [];
 
     $statistics[] = $this->getRegisteredUserCount();
@@ -168,7 +208,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getProfileStatistics() {
+  /**
+   * Displays the profile statistics page.
+   *
+   * @return array
+   *   A render array for the profile statistics page.
+   */
+  public function getProfileStatistics(): array {
     $statistics = [];
 
     $statistics[] = $this->getAllUserProfiles();
@@ -185,7 +231,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getSubProfileStatistics() {
+  /**
+   * Displays the sub-profile statistics page.
+   *
+   * @return array
+   *   A render array for the sub-profile statistics page.
+   */
+  public function getSubProfileStatistics(): array {
     $statistics = [];
 
     $statistics[] = $this->getSubProfiles();
@@ -201,7 +253,16 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getVisitedPagesStatistics($limited = TRUE) {
+  /**
+   * Displays the visited pages statistics page.
+   *
+   * @param bool $limited
+   *   Whether to limit the results.
+   *
+   * @return array
+   *   A render array for the visited pages statistics page.
+   */
+  public function getVisitedPagesStatistics(bool $limited = TRUE): array {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(PathRequest::entityTypeId())
       ->sort('count', 'DESC');
@@ -230,7 +291,16 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getUserAgentStatistics($limited = TRUE) {
+  /**
+   * Displays the user agent statistics page.
+   *
+   * @param bool $limited
+   *   Whether to limit the results.
+   *
+   * @return array
+   *   A render array for the user agent statistics page.
+   */
+  public function getUserAgentStatistics(bool $limited = TRUE): array {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(UserAgent::entityTypeId())
       ->sort('count', 'DESC');
@@ -256,7 +326,16 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getPlatformStatistics($limited = TRUE) {
+  /**
+   * Displays the platform statistics page.
+   *
+   * @param bool $limited
+   *   Whether to limit the results.
+   *
+   * @return array
+   *   A render array for the platform statistics page.
+   */
+  public function getPlatformStatistics(bool $limited = TRUE): array {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(Platform::entityTypeId())
       ->sort('count', 'DESC');
@@ -282,7 +361,16 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getRequestTimeStatistics($limited = TRUE) {
+  /**
+   * Displays the request time statistics page.
+   *
+   * @param bool $limited
+   *   Whether to limit the results.
+   *
+   * @return array
+   *   A render array for the request time statistics page.
+   */
+  public function getRequestTimeStatistics(bool $limited = TRUE): array {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(RequestTime::entityTypeId())
       ->sort($limited ? 'count' : 'time', $limited ? 'DESC' : 'ASC');
@@ -308,7 +396,16 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getRequestDayStatistics($limited = TRUE) {
+  /**
+   * Displays the request day statistics page.
+   *
+   * @param bool $limited
+   *   Whether to limit the results.
+   *
+   * @return array
+   *   A render array for the request day statistics page.
+   */
+  public function getRequestDayStatistics(bool $limited = TRUE): array {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(Day::entityTypeId())
       ->sort($limited ? 'count' : 'day', $limited ? 'DESC' : 'ASC');
@@ -334,7 +431,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getRequestWeekdayStatistics() {
+  /**
+   * Displays the request weekday statistics page.
+   *
+   * @return array
+   *   A render array for the request weekday statistics page.
+   */
+  public function getRequestWeekdayStatistics(): array {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(Weekday::entityTypeId())
       ->sort('count');
@@ -353,7 +456,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getRequestMonthStatistics() {
+  /**
+   * Displays the request month statistics page.
+   *
+   * @return array
+   *   A render array for the request month statistics page.
+   */
+  public function getRequestMonthStatistics(): array {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(Month::entityTypeId())
       ->sort('count');
@@ -372,7 +481,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getRequestYearStatistics() {
+  /**
+   * Displays the request year statistics page.
+   *
+   * @return array
+   *   A render array for the request year statistics page.
+   */
+  public function getRequestYearStatistics(): array {
     $statistics = [];
     $trackerQuery = \Drupal::entityQuery(Year::entityTypeId())
       ->sort('count');
@@ -391,14 +506,26 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getRegisteredUserCount() {
+  /**
+   * Displays the registered user count.
+   *
+   * @return array
+   *   An array for the registered user count.
+   */
+  public function getRegisteredUserCount(): array {
     return [
       'name' => $this->t('Registered Users'),
       'value' => (string) $this->statisticService->countRegisteredUsers(),
     ];
   }
 
-  public function getDailyActiveUsers() {
+  /**
+   * Displays the daily active user count.
+   *
+   * @return array
+   *   An array for the daily active user count.
+   */
+  public function getDailyActiveUsers(): array {
     return [
       'name' => $this->t('Daily Active Users'),
       'value' => (string) $this->statisticService->countActiveUsersForPastDay(),
@@ -406,7 +533,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getWeeklyActiveUsers() {
+  /**
+   * Displays the weekly active user count.
+   *
+   * @return array
+   *   An array for the weekly active user count.
+   */
+  public function getWeeklyActiveUsers(): array {
     return [
       'name' => $this->t('Weekly Active Users'),
       'value' => (string) $this->statisticService->countActiveUsersForPastWeek(),
@@ -414,7 +547,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getMonthlyActiveUsers() {
+  /**
+   * Displays the monthly active user count.
+   *
+   * @return array
+   *   An array for the monthly active user count.
+   */
+  public function getMonthlyActiveUsers(): array {
     return [
       'name' => $this->t('Monthly Active Users'),
       'value' => (string) $this->statisticService->countActiveUsersForPastMonth(),
@@ -422,7 +561,13 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getYearlyActiveUsers() {
+  /**
+   * Displays the yearly active user count.
+   *
+   * @return array
+   *   An array for the yearly active user count.
+   */
+  public function getYearlyActiveUsers(): array {
     return [
       'name' => $this->t('Yearly Active Users'),
       'value' => (string) $this->statisticService->countActiveUsersForPastYear(),
@@ -430,91 +575,176 @@ class StatisticsController extends ControllerBase {
     ];
   }
 
-  public function getAllUserProfiles() {
+  /**
+   * Gets all user profiles.
+   *
+   * @return array
+   *   An array of user profiles.
+   */
+  public function getAllUserProfiles(): array {
     return [
       'name' => $this->t('All Profiles'),
       'value' => (string) $this->statisticService->countAllUserProfiles(),
     ];
   }
 
-  public function getPersonalUserProfiles() {
+  /**
+   * Gets all personal user profiles.
+   *
+   * @return array
+   *   An array of personal user profiles.
+   */
+  public function getPersonalUserProfiles(): array {
     return [
       'name' => $this->t('Personal Profiles'),
       'value' => (string) $this->statisticService->countPersonalUserProfiles(),
     ];
   }
 
-  public function getCompanyUserProfiles() {
+  /**
+   * Gets all company user profiles.
+   *
+   * @return array
+   *   An array of company user profiles.
+   */
+  public function getCompanyUserProfiles(): array {
     return [
       'name' => $this->t('Company Profiles'),
       'value' => (string) $this->statisticService->countCompanyUserProfiles(),
     ];
   }
 
-  public function getArtistUserProfiles() {
+  /**
+   * Gets all artist user profiles.
+   *
+   * @return array
+   *   An array of artist user profiles.
+   */
+  public function getArtistUserProfiles(): array {
     return [
       'name' => $this->t('Artist Profiles'),
       'value' => (string) $this->statisticService->countArtistUserProfiles(),
     ];
   }
 
-  public function getMusicianUserProfiles() {
+  /**
+   * Gets all musician user profiles.
+   *
+   * @return array
+   *   An array of musician user profiles.
+   */
+  public function getMusicianUserProfiles(): array {
     return [
       'name' => $this->t('Musician Profiles'),
       'value' => (string) $this->statisticService->countMusicianUserProfiles(),
     ];
   }
 
-  public function getInfluencerUserProfiles() {
+  /**
+   * Gets all influencer user profiles.
+   *
+   * @return array
+   *   An array of influencer user profiles.
+   */
+  public function getInfluencerUserProfiles(): array {
     return [
       'name' => $this->t('Influencer Profiles'),
       'value' => (string) $this->statisticService->countInfluencerUserProfiles(),
     ];
   }
 
-  public function getStreamerUserProfiles() {
+  /**
+   * Gets all streamer user profiles.
+   *
+   * @return array
+   *   An array of streamer user profiles.
+   */
+  public function getStreamerUserProfiles(): array {
     return [
       'name' => $this->t('Streamer Profiles'),
       'value' => (string) $this->statisticService->countStreamerUserProfiles(),
     ];
   }
 
-  public function getSubProfiles() {
+  /**
+   * Gets all sub-profiles.
+   *
+   * @return array
+   *   An array of sub-profiles.
+   */
+  public function getSubProfiles(): array {
     return [
       'name' => $this->t('All Sub-Profiles'),
-      'value' => (string) ($this->statisticService->countBaseProfiles() + $this->statisticService->countCodingProfiles() + $this->statisticService->countGamingProfiles() + $this->statisticService->countJobProfiles() + $this->statisticService->countRelationshipProfiles() + $this->statisticService->countSocialMediaProfiles()),
+      'value' => (string) (
+        $this->statisticService->countBaseProfiles() +
+        $this->statisticService->countCodingProfiles() +
+        $this->statisticService->countGamingProfiles() +
+        $this->statisticService->countJobProfiles() +
+        $this->statisticService->countRelationshipProfiles() +
+        $this->statisticService->countSocialMediaProfiles()
+      ),
     ];
   }
 
-  public function getBaseProfiles() {
+  /**
+   * Gets all base user profiles.
+   *
+   * @return array
+   *   An array of base user profiles.
+   */
+  public function getBaseProfiles(): array {
     return [
       'name' => $this->t('Sub-Profiles of type "Base"'),
       'value' => (string) $this->statisticService->countBaseProfiles(),
     ];
   }
 
-  public function getCodingProfiles() {
+  /**
+   * Gets all coding user profiles.
+   *
+   * @return array
+   *   An array of coding user profiles.
+   */
+  public function getCodingProfiles(): array {
     return [
       'name' => $this->t('Sub-Profiles of type "Coding"'),
       'value' => (string) $this->statisticService->countCodingProfiles(),
     ];
   }
 
-  public function getGamingProfiles() {
+  /**
+   * Gets all gaming user profiles.
+   *
+   * @return array
+   *   An array of gaming user profiles.
+   */
+  public function getGamingProfiles(): array {
     return [
       'name' => $this->t('Sub-Profiles of type "Gaming"'),
       'value' => (string) $this->statisticService->countGamingProfiles(),
     ];
   }
 
-  public function getJobProfiles() {
+  /**
+   * Gets all job user profiles.
+   *
+   * @return array
+   *   An array of job user profiles.
+   */
+  public function getJobProfiles(): array {
     return [
       'name' => $this->t('Sub-Profiles of type "Job"'),
       'value' => (string) $this->statisticService->countJobProfiles(),
     ];
   }
 
-  public function getRelationshipProfiles() {
+  /**
+   * Gets all relationship user profiles.
+   *
+   * @return array
+   *   An array of relationship user profiles.
+   */
+  public function getRelationshipProfiles(): array {
     return [
       'name' => $this->t('Sub-Profiles of type "Relationship"'),
       'value' => (string) $this->statisticService->countRelationshipProfiles(),

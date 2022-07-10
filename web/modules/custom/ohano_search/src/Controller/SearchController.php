@@ -7,9 +7,18 @@ use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_profile\Entity\UserProfile;
 use Drupal\ohano_search\Form\SearchForm;
 
+/**
+ * Provides a controller for the search page.
+ */
 class SearchController extends ControllerBase {
 
-  public function search() {
+  /**
+   * Handles the search page.
+   *
+   * @return array
+   *   A render array for the search page.
+   */
+  public function search(): array {
     $results = [];
 
     $query = \Drupal::request()->query->get('q');
@@ -19,7 +28,7 @@ class SearchController extends ControllerBase {
         ->execute();
 
       foreach ($profiles as $profileId => $profile) {
-        /** @var UserProfile $profileEntity */
+        /** @var \Drupal\ohano_profile\Entity\UserProfile $profileEntity */
         $profileEntity = UserProfile::load($profile);
         $score = NULL;
 

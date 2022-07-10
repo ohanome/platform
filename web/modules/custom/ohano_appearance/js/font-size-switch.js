@@ -13,7 +13,9 @@
     resetFontSize();
     document.getElementsByTagName('html')[0].classList.add('font-size-' + font_size);
     window.localStorage.setItem('ohano.font-size', font_size);
+    /** @phpcs:disable */
     $.post(`${window.location.origin}/api/account/set/font-size/${font_size}`).then(res => {
+      /** @phpcs:enable */
       console.debug('changed font size to ' + font_size + ': ' + res);
     });
   }
