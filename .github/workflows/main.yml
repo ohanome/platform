@@ -32,17 +32,46 @@ jobs:
       - uses: actions/checkout@v2
       - name: Builds the app by installing all dependencies
         run: composer install
-  check:
+  check-phpcs:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Check all custom parts against the Drupal coding standard
         run: composer install && bin/phpcs
+  check-phpstan:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check all custom parts by PHPStan
+        run: composer install && bin/phpcs
+  check-psalm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check all custom parts by Psalm
+        run: composer install && bin/phpcs
+  check-phpcpd:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check all custom parts by PHP Copy/Paste Detector
+        run: composer install && bin/phpcs
   run-unit-tests:
-    needs: check
+    needs: check-phpcs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Runs all unit tests
         run: composer install && bin/test -u
+  run-functional-tests:
+    needs: check-phpcs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Runs all functional tests
+        # TODO: Replace by actual functional tests
+        run: echo "Done."
