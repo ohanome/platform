@@ -7,12 +7,6 @@ if [[ ! -f "vendor/bin/phpcpd" ]]; then
   exit 1
 fi
 
-if [[ -d web/themes/custom ]]; then
-  vendor/bin/phpcpd web/themes/custom
-else
-  echo "No custom themes found."
-fi
-
 if [[ -d web/modules/custom ]]; then
   vendor/bin/phpcpd web/modules/custom
 else
