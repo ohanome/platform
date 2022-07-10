@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Validator\UsernameValidator;
-use Drupal\ohano_core\Form\FormTrait;
+use Ohanome\DrupalFormTrait\FormTrait;
 use Drupal\ohano_profile\Entity\BaseProfile;
 use Drupal\ohano_profile\Entity\UserProfile;
 use Drupal\ohano_profile\Option\ProfileType;

@@ -9,7 +9,7 @@ use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Option\ColorMode;
 use Drupal\ohano_account\Option\ColorShade;
 use Drupal\ohano_account\Option\FontSize;
-use Drupal\ohano_core\Form\FormTrait;
+use Ohanome\DrupalFormTrait\FormTrait;
 use Drupal\ohano_notification\Entity\NotificationSettings;
 use Drupal\ohano_notification\Option\NotificationChannel;
 use Drupal\ohano_profile\Entity\UserProfile;

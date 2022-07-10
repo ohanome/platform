@@ -10,7 +10,7 @@ use Drupal\file\Entity\File;
 use Drupal\ohano_account\Blocklist;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_core\Error\Error;
-use Drupal\ohano_core\Form\FormTrait;
+use Ohanome\DrupalFormTrait\FormTrait;
 use Drupal\ohano_profile\Entity\BaseProfile;
 use Drupal\ohano_profile\Entity\CodingProfile;
 use Drupal\ohano_profile\Entity\GamingProfile;

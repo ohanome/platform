@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "903b722c68813e74b4d8418c47f2104e",
+    "content-hash": "b376227570a16c19a6b4d23188a5515b",
     "packages": [
         {
             "name": "algolia/places",
@@ -3434,6 +3434,46 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.7.5"
             },
             "time": "2021-07-01T14:25:37+00:00"
+        },
+        {
+            "name": "ohanome/drupal-form-trait",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ohanome/drupal-form-trait.git",
+                "reference": "e6004adef054833b57a4db05fdbbe9c9e3483eba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ohanome/drupal-form-trait/zipball/e6004adef054833b57a4db05fdbbe9c9e3483eba",
+                "reference": "e6004adef054833b57a4db05fdbbe9c9e3483eba",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/core": ">=9.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ohanome\\DrupalFormTrait\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "boatware",
+                    "email": "boatware@ohano.me"
+                }
+            ],
+            "description": "Form trait providing useful form field generators for building Drupal forms",
+            "support": {
+                "issues": "https://github.com/ohanome/drupal-form-trait/issues",
+                "source": "https://github.com/ohanome/drupal-form-trait/tree/1.0.0"
+            },
+            "time": "2022-07-10T20:39:33+00:00"
         },
         {
             "name": "pear/archive_tar",

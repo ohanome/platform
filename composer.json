@@ -322,6 +322,7 @@
         "jquery/select2": "*",
         "jquery/textcounter": "*",
         "jquery/timepicker": "*",
+        "ohanome/drupal-form-trait": "^1.0",
         "progress-tracker/progress-tracker": "*",
         "signature_pad/signature_pad": "*",
         "tabby/tabby": "*",

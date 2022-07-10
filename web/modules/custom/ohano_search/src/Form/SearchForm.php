@@ -4,7 +4,7 @@ namespace Drupal\ohano_search\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\ohano_core\Form\FormTrait;
+use Ohanome\DrupalFormTrait\FormTrait;
 
 /**
  * Provides a basic search form.
