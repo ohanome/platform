@@ -5,7 +5,6 @@ namespace Drupal\ohano_profile\Entity;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\taxonomy\Entity\Term;
-use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the GamingProfile entity.
@@ -469,22 +468,33 @@ class GamingProfile extends SubProfileBase {
     }
 
     return parent::render() + [
-        'minecraft_name' => $this->getMinecraftName(),
-        'minecraft_uuid' => $this->getMinecraftUuid(),
-        'valorant' => $this->getValorant(),
-        'league_of_legends' => $this->getLeagueOfLegends(),
-        'battle_net' => $this->getBattleNet(),
-        'ubisoft_connect' => $this->getUbisoftConnect(),
-        'steam' => $this->getSteam(),
-        'ea_origin' => $this->getEaOrigin(),
-        'games' => $renderedGames,
-        'platforms' => $renderedPlatforms,
-      ];
+      'minecraft_name' => $this->getMinecraftName(),
+      'minecraft_uuid' => $this->getMinecraftUuid(),
+      'valorant' => $this->getValorant(),
+      'league_of_legends' => $this->getLeagueOfLegends(),
+      'battle_net' => $this->getBattleNet(),
+      'ubisoft_connect' => $this->getUbisoftConnect(),
+      'steam' => $this->getSteam(),
+      'ea_origin' => $this->getEaOrigin(),
+      'games' => $renderedGames,
+      'platforms' => $renderedPlatforms,
+    ];
   }
 
+  /**
+   * Renders the gaming profile form.
+   *
+   * @param \Drupal\ohano_profile\Entity\SubProfileBase $subProfile
+   *   The sub profile to render the form for.
+   *
+   * @return array
+   *   The render array for the gaming profile form.
+   *
+   * @throws \Exception
+   */
   public static function renderForm(SubProfileBase $subProfile): array {
     if (!$subProfile instanceof GamingProfile) {
-      throw new InvalidArgumentException('Parameter must be of type GamingProfile');
+      throw new \Exception('Parameter must be of type GamingProfile');
     }
     /** @var \Drupal\ohano_profile\Entity\GamingProfile $subProfile */
 

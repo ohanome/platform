@@ -4,6 +4,7 @@ namespace Drupal\ohano_profile\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_core\Form\FormTrait;
 use Drupal\ohano_profile\Entity\BaseProfile;
@@ -12,44 +13,53 @@ use Drupal\ohano_profile\Entity\GamingProfile;
 use Drupal\ohano_profile\Entity\JobProfile;
 use Drupal\ohano_profile\Entity\RelationshipProfile;
 use Drupal\ohano_profile\Entity\SocialMediaProfile;
-use Drupal\ohano_profile\Entity\UserProfile;
 use Drupal\ohano_profile\Option\EducationDegree;
 use Drupal\ohano_profile\Option\EmploymentStatus;
 use Drupal\ohano_profile\Option\Gender;
 use Drupal\ohano_profile\Option\RelationshipStatus;
 use Drupal\ohano_profile\Option\RelationshipType;
 use Drupal\ohano_profile\Option\Sexuality;
-use Drupal\taxonomy\Entity\Vocabulary;
 
+/**
+ * Provides an extended profile search form.
+ *
+ * @package Drupal\ohano_profile\Form
+ */
 class ProfileSearchForm extends FormBase {
   use FormTrait;
 
-  public function getFormId() {
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
     return 'ohano_profile_profile_search';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $account = Account::forActive();
 
     $userProfile = $account->getActiveProfile();
-    /** @var BaseProfile $baseProfile */
+    /** @var \Drupal\ohano_profile\Entity\BaseProfile $baseProfile */
     $baseProfile = BaseProfile::loadByProfile($userProfile);
-    /** @var CodingProfile $codingProfile */
+    /** @var \Drupal\ohano_profile\Entity\CodingProfile $codingProfile */
     $codingProfile = CodingProfile::loadByProfile($userProfile);
-    /** @var GamingProfile $gamingProfile */
+    /** @var \Drupal\ohano_profile\Entity\GamingProfile $gamingProfile */
     $gamingProfile = GamingProfile::loadByProfile($userProfile);
-    /** @var JobProfile $jobProfile */
+    /** @var \Drupal\ohano_profile\Entity\JobProfile $jobProfile */
     $jobProfile = JobProfile::loadByProfile($userProfile);
-    /** @var RelationshipProfile $relationshipProfile */
+    /** @var \Drupal\ohano_profile\Entity\RelationshipProfile $relationshipProfile */
     $relationshipProfile = RelationshipProfile::loadByProfile($userProfile);
-    /** @var SocialMediaProfile $socialMediaProfile */
+    /** @var \Drupal\ohano_profile\Entity\SocialMediaProfile $socialMediaProfile */
     $socialMediaProfile = SocialMediaProfile::loadByProfile($userProfile);
 
     $form = [];
 
     $form['to_simple'] = [
       '#type' => 'markup',
-      '#markup' => '<a href="#">' . $this->t('To the simple search') . '</a><br />',
+      '#markup' => '<a href="' . Url::fromRoute('ohano_search.search')->toString() . '">' . $this->t('To the simple search') . '</a><br />',
     ];
 
     $canSearchAll = \Drupal::currentUser()->hasPermission('ohano search user by all fields');
@@ -58,7 +68,8 @@ class ProfileSearchForm extends FormBase {
     $form['base']['profile_name'] = $this->buildTextField($this->t('User- / Profile name'));
 
     if ($baseProfile?->getRealName() || $canSearchAll) {
-      $form['base']['real_name'] = $this->buildTextField($this->t('Name'));;
+      $form['base']['real_name'] = $this->buildTextField($this->t('Name'));
+      ;
     }
     if ($baseProfile?->getGender() || $canSearchAll) {
       $form['base']['gender'] = $this->buildSelectField($this->t('Gender'), Gender::translatableFormOptions(), useChosen: TRUE, multi: TRUE);
@@ -88,7 +99,7 @@ class ProfileSearchForm extends FormBase {
         $form['coding']['programming_languages'] = $this->buildTermBasedSelect('programming_languages', $this->t('Programming languages'), TRUE);
       }
       if (empty($codingProfile?->getSystems()) || $canSearchAll) {
-        $form['coding']['systems'] =  $this->buildTermBasedSelect('systems', $this->t('Systems'), TRUE);
+        $form['coding']['systems'] = $this->buildTermBasedSelect('systems', $this->t('Systems'), TRUE);
       }
     }
 
@@ -209,6 +220,9 @@ class ProfileSearchForm extends FormBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_state->setRebuild(TRUE);
     $values = $form_state->getValues();

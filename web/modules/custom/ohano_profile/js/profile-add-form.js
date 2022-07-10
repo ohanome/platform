@@ -13,6 +13,7 @@
           $elem.parents('form').find('input[type="submit"]').attr('disabled', 'disabled');
         } else {
           $elem.removeClass('error');
+          // phpcs:ignore
           $elem.parents('form').find('input[type="submit"]').attr('disabled', null);
         }
 

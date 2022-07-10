@@ -9,22 +9,31 @@ use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_account\Option\ColorMode;
 use Drupal\ohano_account\Option\ColorShade;
 use Drupal\ohano_account\Option\FontSize;
-use Drupal\ohano_notification\Entity\Notification;
+use Drupal\ohano_core\Form\FormTrait;
 use Drupal\ohano_notification\Entity\NotificationSettings;
 use Drupal\ohano_notification\Option\NotificationChannel;
-use Drupal\ohano_core\Form\FormTrait;
-use Drupal\ohano_notification\Option\NotificationType;
 use Drupal\ohano_profile\Entity\UserProfile;
 
+/**
+ * Provides a form for account settings.
+ *
+ * @package Drupal\ohano_account\Form
+ */
 class SettingsForm extends FormBase {
 
   use FormTrait;
 
-  public function getFormId() {
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
     return 'ohano_account__settings';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $form = [];
 
     $currentUser = \Drupal::currentUser();
@@ -47,7 +56,7 @@ class SettingsForm extends FormBase {
     $form['account_info']['reset_password'] = [
       '#type' => 'password',
       '#title' => $this->t('Reset password'),
-      '#description' => $this->t('Only when both password fields are filled, the password will be reset.')
+      '#description' => $this->t('Only when both password fields are filled, the password will be reset.'),
     ];
     $form['account_info']['reset_password_confirm'] = [
       '#type' => 'password',
@@ -93,7 +102,6 @@ class SettingsForm extends FormBase {
     $form['appearance']['color_mode'] = $this->buildSelectField($this->t('Color mode'), ColorMode::translatableFormOptions(), $account->getColorMode());
     $form['appearance']['color_shade'] = $this->buildSelectField($this->t('Color shade'), ColorShade::translatableFormOptions(), $account->getColorShade());
 
-
     $notificationSettings = NotificationSettings::forAccount($account);
     $form['notifications'] = $this->buildDefaultContainer($this->t('Notifications'));
     $form['notifications']['#description'] = $this->t('Every notification will be available over the notification center, regardless of the settings you set here. If you set a certain setting to "none" you may not notice a new notification.');
@@ -136,10 +144,20 @@ class SettingsForm extends FormBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // TODO: Implement submitForm() method.
   }
 
+  /**
+   * Redeems a subscription code.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
   public function redeemSubscriptionCode(array &$form, FormStateInterface $form_state) {
 
   }

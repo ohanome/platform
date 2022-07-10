@@ -39,6 +39,15 @@ class OhanoCore {
       ->setDescription(t('The time the entity has been updated.'));
   }
 
+  /**
+   * Checks if the given URL can be called.
+   *
+   * @param string $url
+   *   The URL to check.
+   *
+   * @return bool
+   *   TRUE if the URL can be called, FALSE otherwise.
+   */
   public static function urlExists(string $url): bool {
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -48,7 +57,7 @@ class OhanoCore {
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    if ($httpcode >= 200 && $httpcode < 300){
+    if ($httpcode >= 200 && $httpcode < 300) {
       return TRUE;
     }
 

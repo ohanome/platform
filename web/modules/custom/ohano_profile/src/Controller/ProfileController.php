@@ -15,13 +15,25 @@ use Drupal\ohano_profile\Entity\UserProfile;
 use Drupal\ohano_profile\Form\SwitchActiveProfileForm;
 use Drupal\ohano_profile\Option\ProfileType;
 use Drupal\ohano_profile\Settings;
-use Drupal\user\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Provides a controller for everything about profiles.
+ *
+ * @package Drupal\ohano_profile\Controller
+ */
 class ProfileController extends ControllerBase {
 
-  public function createProfileBase() {
+  /**
+   * Creates a new profile for the current user.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect response to the front page.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function createProfileBase(): RedirectResponse {
     $destination = NULL;
     if (!empty(\Drupal::request()->query->get('destination'))) {
       $destination = \Drupal::request()->query->get('destination');
@@ -56,7 +68,18 @@ class ProfileController extends ControllerBase {
     return $redirect;
   }
 
-  public function profile($username = NULL) {
+  /**
+   * Renders a profile based on its username.
+   *
+   * @param string|null $username
+   *   The username of the profile to render.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse|array|\Symfony\Component\HttpFoundation\Response
+   *   A redirect response to the own profile page if no username is given,
+   *   an array of renderable elements if the profile exists, or a response
+   *   containing an 404 if the profile could not be found.
+   */
+  public function profile(string $username = NULL): RedirectResponse|array|Response {
     $activeAccount = Account::forActive();
     if (empty($username) && !empty($activeAccount)) {
       $username = $activeAccount->getActiveProfile()->getProfileName();
@@ -71,7 +94,7 @@ class ProfileController extends ControllerBase {
     $renderedUserProfile = $userProfile->render();
     $renderedUserProfile['icon'] = Settings::PROFILE_TYPE_ICONS[$userProfile->getType()];
 
-    /** @var BaseProfile $baseProfile */
+    /** @var \Drupal\ohano_profile\Entity\BaseProfile $baseProfile */
     $baseProfile = BaseProfile::loadByProfile($userProfile);
 
     $renderedBaseProfile = $baseProfile->render();
@@ -121,7 +144,7 @@ class ProfileController extends ControllerBase {
       }
     }
 
-    $build = [
+    return [
       '#theme' => 'profile_page',
       '#profile' => [
         '#theme' => 'profile_card_large',
@@ -144,13 +167,20 @@ class ProfileController extends ControllerBase {
         'max-age' => 0,
       ],
     ];
-
-    #dd($build);
-
-    return $build;
   }
 
-  public function redirectToProfile($username = NULL, $uid = NULL) {
+  /**
+   * Redirects to the profile page of the given username or user id.
+   *
+   * @param string|null $username
+   *   The username of the profile to redirect to.
+   * @param int|null $uid
+   *   The user id of the profile to redirect to.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect response to the profile page of the given username or user id.
+   */
+  public function redirectToProfile(string $username = NULL, int $uid = NULL): RedirectResponse {
     if ($username) {
       return new RedirectResponse("/user/$username");
     }
@@ -161,7 +191,13 @@ class ProfileController extends ControllerBase {
     return new RedirectResponse("/user");
   }
 
-  public function listProfiles() {
+  /**
+   * Lists all profiles for the current user.
+   *
+   * @return array
+   *   A renderable array.
+   */
+  public function listProfiles(): array {
     $currentUser = \Drupal::currentUser();
     $account = Account::getByUser($currentUser);
 
@@ -171,7 +207,7 @@ class ProfileController extends ControllerBase {
     $renderableProfiles = [];
     foreach ($profiles as $profileId) {
       $userProfile = UserProfile::load($profileId);
-      /** @var BaseProfile $baseProfile */
+      /** @var \Drupal\ohano_profile\Entity\BaseProfile $baseProfile */
       $baseProfile = BaseProfile::loadByProfile($userProfile);
       $imageUrl = NULL;
       if ($profilePicture = $baseProfile->getProfilePicture()) {
@@ -206,7 +242,7 @@ class ProfileController extends ControllerBase {
       $renderableProfiles[] = $renderable;
     }
 
-    #dd($renderableProfiles);
+    // dd($renderableProfiles);
     return [
       '#theme' => 'profile_list',
       '#profiles' => $renderableProfiles,
@@ -215,7 +251,16 @@ class ProfileController extends ControllerBase {
     ];
   }
 
-  public function switchActiveProfile($profileName): RedirectResponse {
+  /**
+   * Switches the active profile for the current user.
+   *
+   * @param string $profileName
+   *   The name of the profile to switch to.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect response to the previous page.
+   */
+  public function switchActiveProfile(string $profileName): RedirectResponse {
     $redirect = new RedirectResponse(\Drupal::request()->headers->get('referer'));
     $account = Account::forActive();
     $profile = UserProfile::loadByName($profileName);
@@ -233,7 +278,8 @@ class ProfileController extends ControllerBase {
     $account->setActiveProfile($profile);
     try {
       $account->save();
-    } catch (EntityStorageException $e) {
+    }
+    catch (EntityStorageException $e) {
       $this->messenger()->addError($this->t("Something went wrong."));
       $this->getLogger('ohano_profile')->critical($e->getMessage());
       return $redirect;

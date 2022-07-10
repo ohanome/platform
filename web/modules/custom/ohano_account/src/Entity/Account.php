@@ -2,7 +2,6 @@
 
 namespace Drupal\ohano_account\Entity;
 
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Session\AccountInterface;
@@ -82,6 +81,12 @@ class Account extends EntityBase implements EntityInterface {
     return $fields;
   }
 
+  /**
+   * Determines if the account is in developer mode.
+   *
+   * @return bool
+   *   TRUE if the account is in developer mode, FALSE otherwise.
+   */
   public static function isInDeveloperMode(): bool {
     $account = Account::forActive();
     if (empty($account)) {
@@ -110,6 +115,12 @@ class Account extends EntityBase implements EntityInterface {
     return $this->get('bits')->value;
   }
 
+  /**
+   * Gets the active profile entity.
+   *
+   * @return \Drupal\ohano_profile\Entity\UserProfile
+   *   The active profile entity.
+   */
   public function getActiveProfile(): UserProfile {
     return $this->get('active_profile')->entity;
   }
@@ -131,6 +142,14 @@ class Account extends EntityBase implements EntityInterface {
     return FontSize::M->value;
   }
 
+  /**
+   * Returns the color mode.
+   *
+   * In case that the color mode is not supported, this will return the default.
+   *
+   * @return string
+   *   The color mode value.
+   */
   public function getColorMode(): string {
     $value = $this->get('color_mode')->value;
     if (ColorMode::tryFrom($value)) {
@@ -140,6 +159,15 @@ class Account extends EntityBase implements EntityInterface {
     return ColorMode::Light->value;
   }
 
+  /**
+   * Returns the color shade.
+   *
+   * In case that the color shade is not supported, this will return the
+   * default.
+   *
+   * @return string
+   *   The color shade value.
+   */
   public function getColorShade(): string {
     $value = $this->get('color_shade')->value;
     if (ColorShade::tryFrom($value)) {
@@ -177,23 +205,59 @@ class Account extends EntityBase implements EntityInterface {
     return $this;
   }
 
+  /**
+   * Sets the active profile.
+   *
+   * @param \Drupal\ohano_profile\Entity\UserProfile $userProfile
+   *   The active profile to set.
+   *
+   * @return \Drupal\ohano_account\Entity\Account
+   *   The active instance of this class.
+   */
   public function setActiveProfile(UserProfile $userProfile): Account {
     $this->set('active_profile', $userProfile);
     return $this;
   }
 
+  /**
+   * Sets the font size.
+   *
+   * @param \Drupal\ohano_account\Option\FontSize $fontSize
+   *   The font size to set.
+   *
+   * @return \Drupal\ohano_account\Entity\Account
+   *   The active instance of this class.
+   */
   public function setFontSize(FontSize $fontSize): Account {
     $this->set('font_size', $fontSize->value);
 
     return $this;
   }
 
+  /**
+   * Sets the color mode.
+   *
+   * @param \Drupal\ohano_account\Option\ColorMode $colorMode
+   *   The color mode to set.
+   *
+   * @return \Drupal\ohano_account\Entity\Account
+   *   The active instance of this class.
+   */
   public function setColorMode(ColorMode $colorMode): Account {
     $this->set('color_mode', $colorMode->value);
 
     return $this;
   }
 
+  /**
+   * Sets the color shade.
+   *
+   * @param \Drupal\ohano_account\Option\ColorShade $colorShade
+   *   The color shade to set.
+   *
+   * @return \Drupal\ohano_account\Entity\Account
+   *   The active instance of this class.
+   */
   public function setColorShade(ColorShade $colorShade): Account {
     $this->set('color_shade', $colorShade->value);
 

@@ -5,7 +5,6 @@ namespace Drupal\ohano_profile\Entity;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\taxonomy\Entity\Term;
-use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the CodingProfile entity.
@@ -77,6 +76,7 @@ class CodingProfile extends SubProfileBase {
    * Gets the GitHub username.
    *
    * @return string|null
+   *   The GitHub username.
    */
   public function getGithub(): ?string {
     return $this->get('github')->value;
@@ -86,6 +86,7 @@ class CodingProfile extends SubProfileBase {
    * Gets the GitLab username.
    *
    * @return string|null
+   *   The GitLab username.
    */
   public function getGitlab(): ?string {
     return $this->get('gitlab')->value;
@@ -95,6 +96,7 @@ class CodingProfile extends SubProfileBase {
    * Gets the BitBucket username.
    *
    * @return string|null
+   *   The BitBucket username.
    */
   public function getBitbucket(): ?string {
     return $this->get('bitbucket')->value;
@@ -104,6 +106,7 @@ class CodingProfile extends SubProfileBase {
    * Gets the codepen username.
    *
    * @return string|null
+   *   The codepen username.
    */
   public function getCodepen(): ?string {
     return $this->get('codepen')->value;
@@ -348,9 +351,20 @@ class CodingProfile extends SubProfileBase {
     ];
   }
 
+  /**
+   * Renders the coding profile form.
+   *
+   * @param \Drupal\ohano_profile\Entity\SubProfileBase $subProfile
+   *   The sub profile to render to form for.
+   *
+   * @return array
+   *   The render array.
+   *
+   * @throws \Exception
+   */
   public static function renderForm(SubProfileBase $subProfile): array {
     if (!$subProfile instanceof CodingProfile) {
-      throw new InvalidArgumentException('Parameter must be of type CodingProfile');
+      throw new \Exception('Parameter must be of type CodingProfile');
     }
     /** @var \Drupal\ohano_profile\Entity\CodingProfile $subProfile */
 

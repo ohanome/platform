@@ -16,7 +16,10 @@ use Drupal\ohano_account\Entity\Account;
  */
 class DeveloperModeBlock extends BlockBase {
 
-  public function build() {
+  /**
+   * {@inheritdoc}
+   */
+  public function build(): array {
     if (!Account::isInDeveloperMode()) {
       return [];
     }

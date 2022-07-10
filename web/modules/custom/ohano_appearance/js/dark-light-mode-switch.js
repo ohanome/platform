@@ -8,7 +8,9 @@
     resetColorMode();
     document.getElementsByTagName('html')[0].classList.add('color-mode-' + color_mode);
     window.localStorage.setItem('ohano.color_mode', color_mode);
+    /** @phpcs:disable */
     $.post(`${window.location.origin}/api/account/set/color-mode/${color_mode}`).then(res => {
+      /** @phpcs:enable */
       console.debug('changed color mode to ' + color_mode + ': ' + res);
     });
   }

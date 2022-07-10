@@ -11,7 +11,9 @@
     resetColorShade();
     document.getElementsByTagName('html')[0].classList.add('color-shade-' + shade);
     window.localStorage.setItem('ohano.color_shade', shade);
+    /** @phpcs:disable */
     $.post(`${window.location.origin}/api/account/set/color-shade/${shade}`).then(res => {
+      /** @phpcs:enable */
       console.debug('changed color shade to ' + shade + ': ' + res);
     });
   }

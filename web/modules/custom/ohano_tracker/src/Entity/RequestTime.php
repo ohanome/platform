@@ -4,7 +4,6 @@ namespace Drupal\ohano_tracker\Entity;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\ohano_core\Entity\EntityBase;
 
 /**
  * Defines the RequestTime entity.
@@ -56,6 +55,15 @@ class RequestTime extends TrackerEntityBase {
     return $fields;
   }
 
+  /**
+   * Loads a request time entity by its time.
+   *
+   * @param \DateTime $time
+   *   The time of the request.
+   *
+   * @return \Drupal\ohano_tracker\Entity\RequestTime|null
+   *   The request time entity or NULL if not found.
+   */
   public static function loadByTime(\DateTime $time): ?RequestTime {
     $time = $time->setTimezone(new \DateTimeZone('UTC'))->format('H:i');
     /** @var \Drupal\ohano_tracker\Entity\RequestTime $entity */
@@ -63,6 +71,15 @@ class RequestTime extends TrackerEntityBase {
     return $entity;
   }
 
+  /**
+   * Loads or creates a request time entity by its time.
+   *
+   * @param \DateTime $time
+   *   The time of the request.
+   *
+   * @return \Drupal\ohano_tracker\Entity\RequestTime
+   *   The request time entity.
+   */
   public static function loadOrCreateByTime(\DateTime $time): RequestTime {
     $time = $time->setTimezone(new \DateTimeZone('UTC'))->format('H:i');
     /** @var \Drupal\ohano_tracker\Entity\RequestTime $entity */

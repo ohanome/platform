@@ -51,7 +51,7 @@ class VerificationForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $form = [];
 
     $verificationQuery = \Drupal::entityQuery('account_verification')

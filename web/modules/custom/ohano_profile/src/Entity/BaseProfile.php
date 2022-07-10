@@ -8,7 +8,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\file\Entity\File;
 use Drupal\ohano_profile\Option\Gender;
-use http\Exception\InvalidArgumentException;
 
 /**
  * Defines the BaseProfile entity.
@@ -356,16 +355,29 @@ class BaseProfile extends SubProfileBase {
       'birthday' => $this->getBirthday(),
       'birthday_formatted' => $this->getBirthday() ? DrupalDateTime::createFromFormat('U', $this->getBirthday())->format('d. F Y') : NULL,
       'gender' => $this->getGender()?->value,
+        // phpcs:disable
       'gender_value' => $this->getGender() ? t($this->getGender()->value) : NULL,
+        // phpcs:enable
       'city' => $this->getCity(),
       'province' => $this->getProvince(),
       'country' => $this->getCountry(),
     ];
   }
 
+  /**
+   * Renders the base profile form.
+   *
+   * @param \Drupal\ohano_profile\Entity\SubProfileBase $subProfile
+   *   The sub profile to add.
+   *
+   * @return array
+   *   The form render array.
+   *
+   * @throws \Exception
+   */
   public static function renderForm(SubProfileBase $subProfile): array {
     if (!$subProfile instanceof BaseProfile) {
-      throw new InvalidArgumentException('Parameter must be of type BaseProfile');
+      throw new \Exception('Parameter must be of type BaseProfile');
     }
     /** @var \Drupal\ohano_profile\Entity\BaseProfile $subProfile */
 
@@ -390,10 +402,11 @@ class BaseProfile extends SubProfileBase {
       '#upload_location' => 'public://userprofile/' . $subProfile->getUsername(),
       '#upload_validators' => [
         'file_validate_extensions' => [
-          'jpeg jpg png gif'
+          'jpeg jpg png gif',
         ],
         'file_validate_size' => [
-          '10000000' // 10MB
+          // 10MB
+          '10000000',
         ],
       ],
       '#default_value' => $subProfile->getProfilePicture() ? ['target_id' => $subProfile->getProfilePicture()->id()] : NULL,
@@ -412,10 +425,11 @@ class BaseProfile extends SubProfileBase {
       '#upload_location' => 'public://userprofile/' . $subProfile->getUsername(),
       '#upload_validators' => [
         'file_validate_extensions' => [
-          'jpeg jpg png gif'
+          'jpeg jpg png gif',
         ],
         'file_validate_size' => [
-          '10000000' // 10MB
+          // 10MB
+          '10000000',
         ],
       ],
       '#default_value' => $subProfile->getProfileBanner() ? ['target_id' => $subProfile->getProfileBanner()->id()] : NULL,

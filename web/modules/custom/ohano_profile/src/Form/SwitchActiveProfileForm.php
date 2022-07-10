@@ -7,12 +7,23 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\ohano_account\Entity\Account;
 use Drupal\ohano_profile\Entity\UserProfile;
 
+/**
+ * Form for switching the active profile.
+ *
+ * @package Drupal\ohano_profile\Form
+ */
 class SwitchActiveProfileForm extends FormBase {
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormId() {
     return 'ohano_profile_switch_active_profile';
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = [];
 
@@ -39,6 +50,9 @@ class SwitchActiveProfileForm extends FormBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $account = Account::forActive();
     $activeProfileId = $form_state->getValue('active_profile');
@@ -48,6 +62,9 @@ class SwitchActiveProfileForm extends FormBase {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $account = Account::forActive();
     $activeProfileId = $form_state->getValue('active_profile');

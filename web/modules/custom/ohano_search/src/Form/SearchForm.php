@@ -6,14 +6,25 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ohano_core\Form\FormTrait;
 
+/**
+ * Provides a basic search form.
+ *
+ * @package Drupal\ohano_search\Form
+ */
 class SearchForm extends FormBase {
   use FormTrait;
 
-  public function getFormId() {
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
     return 'ohano_search__search';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $form = [];
 
     $searchQuery = \Drupal::request()->query->get('q');
@@ -27,6 +38,9 @@ class SearchForm extends FormBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_state->setRedirect('ohano_search.search', ['q' => $form_state->getValue('q')]);
   }
