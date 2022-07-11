@@ -389,35 +389,41 @@ html.color-mode-light {
   --background-primary: var(--neutral200);
   --background-secondary: var(--neutral50);
   --text-color-primary: var(--neutral800);
+  --text-color-lighter: var(--neutral600);
 
   &.color-shade-slate {
     --background-primary: var(--slate200);
     --background-secondary: var(--slate50);
     --text-color-primary: var(--slate800);
+    --text-color-lighter: var(--slate600);
   }
 
   &.color-shade-gray {
     --background-primary: var(--gray200);
     --background-secondary: var(--gray50);
     --text-color-primary: var(--gray800);
+    --text-color-lighter: var(--gray600);
   }
 
   &.color-shade-zinc {
     --background-primary: var(--zinc200);
     --background-secondary: var(--zinc50);
     --text-color-primary: var(--zinc800);
+    --text-color-lighter: var(--zinc600);
   }
 
   &.color-shade-neutral {
     --background-primary: var(--neutral200);
     --background-secondary: var(--neutral50);
     --text-color-primary: var(--neutral800);
+    --text-color-lighter: var(--neutral600);
   }
 
   &.color-shade-stone {
     --background-primary: var(--stone200);
     --background-secondary: var(--stone50);
     --text-color-primary: var(--stone800);
+    --text-color-lighter: var(--stone600);
   }
 }
 
@@ -427,35 +433,41 @@ html.color-mode-dark {
   --background-primary: var(--neutral900);
   --background-secondary: var(--neutral800);
   --text-color-primary: var(--neutral50);
+  --text-color-lighter: var(--neutral400);
 
   &.color-shade-slate {
     --background-primary: var(--slate900);
     --background-secondary: var(--slate800);
     --text-color-primary: var(--slate50);
+    --text-color-lighter: var(--slate400);
   }
 
   &.color-shade-gray {
     --background-primary: var(--gray900);
     --background-secondary: var(--gray800);
     --text-color-primary: var(--gray50);
+    --text-color-lighter: var(--gray400);
   }
 
   &.color-shade-zinc {
     --background-primary: var(--zinc900);
     --background-secondary: var(--zinc800);
     --text-color-primary: var(--zinc50);
+    --text-color-lighter: var(--zinc400);
   }
 
   &.color-shade-neutral {
     --background-primary: var(--neutral900);
     --background-secondary: var(--neutral800);
     --text-color-primary: var(--neutral50);
+    --text-color-lighter: var(--neutral400);
   }
 
   &.color-shade-stone {
     --background-primary: var(--stone900);
     --background-secondary: var(--stone800);
     --text-color-primary: var(--stone50);
+    --text-color-lighter: var(--stone400);
   }
 }
 
