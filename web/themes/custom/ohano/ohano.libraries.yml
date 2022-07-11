@@ -3,10 +3,11 @@ global-styling:
   css:
     theme:
       css/main.css: {}
+      fontawesome/css/all.min.css: {}
   js:
     js/main.js: {}
     js/dropdown.js: {}
-    js/fontawesome.js: {}
+    fontawesome/js/all.min.js: {}
   dependencies:
     - core/jquery
     - core/drupal
