@@ -216,6 +216,24 @@ nav.pager {
   }
 }
 
+.font-lighter {
+  color: var(--text-color-lighter);
+}
+
+* {
+  a.profile-control {
+    display: none;
+    transition: all ease-in-out 200ms;
+  }
+
+  &:hover {
+    a.profile-control {
+      display: inline;
+      transition: all ease-in-out 200ms;
+    }
+  }
+}
+
 @media screen and (max-width: 1440px) {
   .desktop-only, .desktop-only * {
     display: none;
