@@ -86,6 +86,25 @@ class ProfileController extends ControllerBase {
       return new RedirectResponse("/user/$username");
     }
 
+    $isOwnProfile = FALSE;
+    if (!empty($activeAccount)) {
+      $profilesForAccount = UserProfile::loadMultipleByAccount($activeAccount);
+      foreach ($profilesForAccount as $profile) {
+        if ($profile->getProfileName() === $username) {
+          $isOwnProfile = TRUE;
+          break;
+        }
+      }
+    }
+
+    $isActiveProfile = FALSE;
+    if (!empty($activeAccount)) {
+      $activeProfile = $activeAccount->getActiveProfile();
+      if ($activeProfile->getProfileName() === $username) {
+        $isActiveProfile = TRUE;
+      }
+    }
+
     $userProfile = UserProfile::loadByName($username);
     if (empty($userProfile)) {
       return new Response('', 404);
@@ -133,22 +152,12 @@ class ProfileController extends ControllerBase {
       $renderedCodingProfile = $codingProfile->render();
     }
 
-    $isOwnProfile = FALSE;
-    if (!empty($activeAccount)) {
-      $profilesForAccount = UserProfile::loadMultipleByAccount($activeAccount);
-      foreach ($profilesForAccount as $profile) {
-        if ($profile->getProfileName() === $username) {
-          $isOwnProfile = TRUE;
-          break;
-        }
-      }
-    }
-
     return [
       '#theme' => 'profile_page',
       '#profile' => [
         '#theme' => 'profile_card_large',
         '#profile' => [
+          'is_own' => $isOwnProfile,
           'user' => $renderedUserProfile,
           'base' => $renderedBaseProfile,
           'social' => $renderedSocialProfile,
@@ -161,6 +170,7 @@ class ProfileController extends ControllerBase {
       '#options' => [
         '#theme' => 'profile_options',
         '#own' => $isOwnProfile,
+        '#is_active' => $isActiveProfile,
         '#name' => $userProfile->getProfileName(),
       ],
       '#cache' => [

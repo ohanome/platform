@@ -31,7 +31,7 @@ abstract class SkillBase extends EntityBase {
       ->setSetting('min', 0)
       ->setDefaultValue(0);
 
-    $fields['experience_time'] = BaseFieldDefinition::create('date')
+    $fields['experience_time'] = BaseFieldDefinition::create('datetime')
       ->setSetting('datetime_type', 'date')
       ->setSetting('datetime_format', 'Y-m-d')
       ->setDefaultValue((new DrupalDateTime())->format('Y-m-d'));

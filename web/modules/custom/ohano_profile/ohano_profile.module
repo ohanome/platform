@@ -22,6 +22,7 @@ function ohano_profile_theme($existing, $type, $theme, $path): array {
       'variables' => [
         'name' => NULL,
         'own' => NULL,
+        'is_active' => NULL,
         'is_follower' => NULL,
         'following' => NULL,
         'can_be_followed' => NULL,
