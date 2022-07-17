@@ -1,0 +1,15 @@
+type: theme
+base theme: ohano
+core_version_requirement: ^9 || ^10
+
+name: 'ohano Landingpage'
+description: 'Landingpage theme for ohano'
+package: 'ohano'
+
+libraries:
+  - ohano_landingpage/global-styling
+
+regions:
+  header: Header
+  breadcrumb: Breadcrumbs
+  content: 'Main content'
