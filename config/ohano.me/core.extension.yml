@@ -61,6 +61,7 @@ module:
   ohano_core: 0
   ohano_mail: 0
   ohano_notification: 0
+  ohano_paragraphs: 0
   ohano_profile: 0
   ohano_search: 0
   ohano_stats: 0
