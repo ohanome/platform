@@ -1,3 +1,8 @@
 services:
   ohano_core.render:
     class: Drupal\ohano_core\Service\RenderService
+  ohano_core.theme_negotiator:
+    class: Drupal\ohano_core\Service\ThemeNegotiator
+    tags:
+      - { name: theme_negotiator, priority: 0 }
+
