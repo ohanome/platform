@@ -1,0 +1,29 @@
+uuid: 2d1b54dd-ba9f-4c46-b0b6-f96f2fd7a4bb
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_image
+    - media.type.image
+    - paragraphs.paragraphs_type.hero
+id: paragraph.hero.field_image
+field_name: field_image
+entity_type: paragraph
+bundle: hero
+label: Image
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

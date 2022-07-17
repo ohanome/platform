@@ -1,0 +1,10 @@
+uuid: 78ffd46c-bf1f-4f19-aec9-a63d74e3ca24
+langcode: de
+status: true
+dependencies: {  }
+id: wrapper
+label: Wrapper
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

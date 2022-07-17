@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function ohano_paragraphs_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__text' => [
+      'base hook' => 'paragraph',
+    ],
+    'paragraph__media' => [
+      'base hook' => 'paragraph',
+    ],
+    'paragraph__wrapper' => [
+      'base hook' => 'paragraph',
+    ],
+    'paragraph__hero' => [
+      'base hook' => 'paragraph',
+    ],
+  ];
+}
