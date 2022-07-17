@@ -409,7 +409,8 @@
     "scripts": {
         "post-drupal-scaffold-cmd": [
             "patch -d ./web < ./patches/redirect_before_launch.patch",
-            "cd web/themes/custom/ohano && npm install && npm run scss"
+            "cd web/themes/custom/ohano && npm install && npm run scss",
+            "cd web/themes/custom/ohano_landingpage && npm install && npm run scss"
         ]
     },
     "require-dev": {
