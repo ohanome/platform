@@ -1,0 +1,20 @@
+uuid: 18de9fcb-cfdc-4219-aae5-6639d70244ca
+langcode: de
+status: false
+dependencies:
+  module:
+    - ohano_account
+  theme:
+    - ohano_landingpage
+id: ohano_landingpage_developermodeblock
+theme: ohano_landingpage
+region: content
+weight: 0
+provider: null
+plugin: ohano_account__devmode_block
+settings:
+  id: ohano_account__devmode_block
+  label: 'Developer mode'
+  label_display: visible
+  provider: ohano_account
+visibility: {  }

@@ -1,0 +1,25 @@
+uuid: 90662de8-7bb7-4a05-b342-5afea70d0a26
+langcode: de
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ohano_landingpage
+_core:
+  default_config_hash: n_nlgjggHVfQt2H__zvLOKB2YtjPDbQ5tHijF9LE1aM
+id: ohano_landingpage_site_branding
+theme: ohano_landingpage
+region: header
+weight: -9
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: false
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

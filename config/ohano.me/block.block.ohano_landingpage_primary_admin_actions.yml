@@ -1,0 +1,20 @@
+uuid: db12b68a-7d75-48a5-bca4-467b63e6fa34
+langcode: de
+status: true
+dependencies:
+  theme:
+    - ohano_landingpage
+_core:
+  default_config_hash: sDmKoL9ejxB_fvD_qmgOHa8HN3X9AIsbud2xK8brMiI
+id: ohano_landingpage_primary_admin_actions
+theme: ohano_landingpage
+region: breadcrumb
+weight: -8
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

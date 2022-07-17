@@ -1,0 +1,22 @@
+uuid: d6c2e1cb-02a0-41e6-b68d-85bc741b5d74
+langcode: de
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - ohano_landingpage
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: ohano_landingpage_breadcrumbs
+theme: ohano_landingpage
+region: breadcrumb
+weight: -7
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

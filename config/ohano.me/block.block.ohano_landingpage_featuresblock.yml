@@ -1,0 +1,28 @@
+uuid: e90e1a56-e7f2-4981-aefc-dd14638a58cb
+langcode: de
+status: false
+dependencies:
+  module:
+    - ohano_core
+    - user
+  theme:
+    - ohano_landingpage
+id: ohano_landingpage_featuresblock
+theme: ohano_landingpage
+region: header
+weight: -6
+provider: null
+plugin: ohano_core__features_block
+settings:
+  id: ohano_core__features_block
+  label: 'Features Block'
+  label_display: '0'
+  provider: ohano_core
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated

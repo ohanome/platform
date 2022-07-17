@@ -1,0 +1,22 @@
+uuid: 09b01c8f-a7e2-4bca-acd2-e3d2ee0b282f
+langcode: de
+status: true
+dependencies:
+  theme:
+    - ohano_landingpage
+_core:
+  default_config_hash: ydSxdq7R66I8UMC460rOzlfzvlUL4VRbdwc6z9DWaUI
+id: ohano_landingpage_secondary_local_tasks
+theme: ohano_landingpage
+region: content
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  label_display: '0'
+  provider: core
+  primary: false
+  secondary: true
+visibility: {  }

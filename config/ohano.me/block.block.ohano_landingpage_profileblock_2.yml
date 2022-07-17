@@ -1,0 +1,20 @@
+uuid: afd77baf-90eb-4930-b087-181a1d6f223d
+langcode: de
+status: false
+dependencies:
+  module:
+    - ohano_profile
+  theme:
+    - ohano_landingpage
+id: ohano_landingpage_profileblock_2
+theme: ohano_landingpage
+region: header
+weight: -7
+provider: null
+plugin: ohano_profile__profile_block
+settings:
+  id: ohano_profile__profile_block
+  label: 'Profile Block'
+  label_display: '0'
+  provider: ohano_profile
+visibility: {  }

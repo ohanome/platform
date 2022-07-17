@@ -1,0 +1,20 @@
+uuid: 9ae5a8e8-0a69-4bc3-961e-14e5f2509094
+langcode: de
+status: false
+dependencies:
+  module:
+    - ohano_appearance
+  theme:
+    - ohano_landingpage
+id: ohano_landingpage_colorshadeblock
+theme: ohano_landingpage
+region: header
+weight: -2
+provider: null
+plugin: ohano_appearance__color_shade_block
+settings:
+  id: ohano_appearance__color_shade_block
+  label: Farbtemperatur
+  label_display: '0'
+  provider: ohano_appearance
+visibility: {  }

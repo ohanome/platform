@@ -1,0 +1,20 @@
+uuid: 90eb48a7-b6e7-4b0e-8814-56a4ad6725ea
+langcode: de
+status: false
+dependencies:
+  module:
+    - ohano_appearance
+  theme:
+    - ohano_landingpage
+id: ohano_landingpage_brightnessblock
+theme: ohano_landingpage
+region: header
+weight: -4
+provider: null
+plugin: ohano_appearance__brightness_block
+settings:
+  id: ohano_appearance__brightness_block
+  label: Helligkeit
+  label_display: '0'
+  provider: ohano_appearance
+visibility: {  }
